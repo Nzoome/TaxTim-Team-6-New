@@ -21,19 +21,12 @@ const ErrorDisplay = ({ error, errors }) => {
         <div className="error-details">
           <h4>Issues Found:</h4>
           <ul className="error-list">
-            {Object.entries(errors).map(([key, messages]) => (
-              <li key={key} className="error-item">
-                <strong>{key.replace(/_/g, ' ').toUpperCase()}</strong>
-                <ul className="error-sublist">
-                  {Array.isArray(messages) ? (
-                    messages.map((msg, idx) => (
-                      <li key={idx}>{msg}</li>
-                    ))
-                  ) : (
-                    <li>{messages}</li>
-                  )}
-                </ul>
-              </li>
+            {[...new Set(
+              Object.entries(errors).flatMap(([key, messages]) => 
+                Array.isArray(messages) ? messages : [messages]
+              )
+            )].map((msg, idx) => (
+              <li key={idx}>{msg}</li>
             ))}
           </ul>
         </div>
