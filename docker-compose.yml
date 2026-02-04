@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  backend:
+    image: php:8.1-apache
+    container_name: crypto-tax-backend
+    ports:
+      - "8000:80"
+    volumes:
+      - ./backend:/var/www/html
+      - ./backend/public:/var/www/html/public
+    environment:
+      - APACHE_DOCUMENT_ROOT=/var/www/html/public
+    command: >
+      bash -c "
+      docker-php-ext-install pdo pdo_mysql &&
+      a2enmod rewrite &&
+      apache2-foreground
+      "
+    networks:
+      - crypto-tax-network
+
+  frontend:
+    image: node:18-alpine
+    container_name: crypto-tax-frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    working_dir: /app
+    command: npm start
+    environment:
+      - REACT_APP_API_URL=http://localhost:8000
+    depends_on:
+      - backend
+    networks:
+      - crypto-tax-network
+
+networks:
+  crypto-tax-network:
+    driver: bridge

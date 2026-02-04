@@ -1,0 +1,173 @@
+.processing-page {
+  min-height: 100vh;
+  padding: 20px 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.back-btn {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 20px;
+}
+
+.back-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateX(-5px);
+}
+
+.app-header {
+  text-align: center;
+  margin-bottom: 40px;
+  color: white;
+}
+
+.header-content h1 {
+  font-size: 42px;
+  margin-bottom: 12px;
+  font-weight: 800;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.header-subtitle {
+  font-size: 18px;
+  opacity: 0.95;
+  margin-bottom: 8px;
+}
+
+.header-partner {
+  font-size: 16px;
+  opacity: 0.9;
+}
+
+.header-partner strong {
+  font-weight: 700;
+}
+
+.success-message {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #d1fae5;
+  border-left: 4px solid #10b981;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+}
+
+.success-icon {
+  font-size: 32px;
+}
+
+.success-message h3 {
+  color: #065f46;
+  margin: 0 0 4px 0;
+  font-size: 18px;
+}
+
+.success-message p {
+  color: #047857;
+  margin: 0;
+  font-size: 14px;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin: 30px 0;
+}
+
+.btn-secondary {
+  background: #6b7280;
+}
+
+.btn-secondary:hover {
+  background: #4b5563;
+}
+
+.sprint-note {
+  background: #ede9fe;
+  border-left: 4px solid #8b5cf6;
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 30px;
+}
+
+.sprint-note h4 {
+  color: #5b21b6;
+  margin: 0 0 12px 0;
+  font-size: 16px;
+}
+
+.sprint-note p {
+  color: #6b21a8;
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.app-footer {
+  text-align: center;
+  color: white;
+  margin-top: 60px;
+  padding: 20px 0;
+}
+
+.app-footer p {
+  margin: 8px 0;
+  opacity: 0.9;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.footer-links a {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  transition: opacity 0.3s ease;
+}
+
+.footer-links a:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
+.footer-links span {
+  opacity: 0.7;
+}
+
+@media (max-width: 768px) {
+  .header-content h1 {
+    font-size: 32px;
+  }
+
+  .header-subtitle {
+    font-size: 16px;
+  }
+
+  .success-message {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+  }
+
+  .action-buttons .btn {
+    width: 100%;
+  }
+}

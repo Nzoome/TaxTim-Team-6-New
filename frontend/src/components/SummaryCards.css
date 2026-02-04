@@ -1,0 +1,259 @@
+.summary-cards {
+  margin-bottom: 2rem;
+}
+
+.summary-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.summary-header h2 {
+  margin: 0;
+  color: #1a1a1a;
+  font-size: 1.75rem;
+}
+
+.tax-year-selector {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.tax-year-selector label {
+  font-weight: 600;
+  color: #4a5568;
+}
+
+.tax-year-select {
+  padding: 0.5rem 1rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #2d3748;
+  background-color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tax-year-select:hover {
+  border-color: #4299e1;
+}
+
+.tax-year-select:focus {
+  outline: none;
+  border-color: #3182ce;
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.summary-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border-left: 4px solid transparent;
+}
+
+.summary-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.card-icon {
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.card-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.card-content h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #718096;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.card-value {
+  margin: 0 0 0.25rem 0;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #2d3748;
+  line-height: 1.2;
+}
+
+.card-detail {
+  margin: 0;
+  font-size: 0.875rem;
+  color: #a0aec0;
+}
+
+/* Card Type Styles */
+.card-primary {
+  border-left-color: #4299e1;
+}
+
+.card-primary .card-icon {
+  color: #4299e1;
+}
+
+.card-secondary {
+  border-left-color: #ed8936;
+}
+
+.card-secondary .card-icon {
+  color: #ed8936;
+}
+
+.card-success {
+  border-left-color: #48bb78;
+}
+
+.card-success .card-icon {
+  color: #48bb78;
+}
+
+.card-warning {
+  border-left-color: #f6ad55;
+}
+
+.card-warning .card-icon {
+  color: #f6ad55;
+}
+
+.card-highlight {
+  border-left-color: #9f7aea;
+  background: linear-gradient(135deg, #faf5ff 0%, #ffffff 100%);
+}
+
+.card-highlight .card-icon {
+  color: #9f7aea;
+}
+
+.card-info {
+  border-left-color: #4299e1;
+}
+
+.card-info .card-icon {
+  color: #4299e1;
+}
+
+.card-neutral {
+  border-left-color: #a0aec0;
+}
+
+.card-neutral .card-icon {
+  color: #a0aec0;
+}
+
+.card-tax {
+  border-left-color: #38b2ac;
+}
+
+.card-tax .card-icon {
+  color: #38b2ac;
+}
+
+/* Value Color Styles */
+.card-value.positive {
+  color: #48bb78;
+}
+
+.card-value.negative {
+  color: #f56565;
+}
+
+.card-value.highlight {
+  color: #9f7aea;
+  font-size: 2rem;
+}
+
+/* SARS Information Box */
+.sars-info-box {
+  background: linear-gradient(135deg, #ebf8ff 0%, #e6fffa 100%);
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 2px solid #bee3f8;
+  margin-top: 2rem;
+}
+
+.sars-info-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.info-icon {
+  font-size: 1.5rem;
+}
+
+.sars-info-header h4 {
+  margin: 0;
+  color: #2c5282;
+  font-size: 1.125rem;
+}
+
+.sars-info-content p {
+  margin: 0.5rem 0;
+  color: #2d3748;
+  line-height: 1.6;
+}
+
+.sars-info-content strong {
+  color: #2c5282;
+  font-weight: 600;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .summary-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .card-value {
+    font-size: 1.5rem;
+  }
+
+  .card-value.highlight {
+    font-size: 1.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .summary-card {
+    padding: 1rem;
+  }
+
+  .card-icon {
+    font-size: 1.5rem;
+  }
+
+  .card-value {
+    font-size: 1.25rem;
+  }
+}

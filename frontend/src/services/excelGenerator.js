@@ -1,0 +1,137 @@
+/**
+ * Excel Generator for Transaction Data Export
+ * 
+ * This module generates an Excel file with transaction data, summary, and FIFO lot details.
+ * Uses a simple CSV format that Excel can open.
+ */
+
+export const generateExcel = async (transactions, summary, filters) => {
+  const csvContent = generateCSVContent(transactions, summary, filters);
+  
+  // Create a blob and download
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+  const link = document.createElement('a');
+  const url = URL.createObjectURL(blob);
+  
+  const timestamp = new Date().toISOString().split('T')[0];
+  const filterSuffix = filters.taxYear !== 'all' ? `_${filters.taxYear.replace('/', '-')}` : '';
+  
+  link.setAttribute('href', url);
+  link.setAttribute('download', `crypto-tax-report${filterSuffix}_${timestamp}.csv`);
+  link.style.visibility = 'hidden';
+  
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
+
+const generateCSVContent = (transactions, summary, filters) => {
+  const formatCurrency = (amount) => {
+    if (amount === null || amount === undefined) return '';
+    return amount.toFixed(2);
+  };
+
+  const formatCrypto = (amount, decimals = 8) => {
+    if (amount === null || amount === undefined) return '';
+    return parseFloat(amount).toFixed(decimals).replace(/\.?0+$/, '');
+  };
+
+  const escapeCSV = (value) => {
+    if (value === null || value === undefined) return '';
+    const stringValue = String(value);
+    if (stringValue.includes(',') || stringValue.includes('"') || stringValue.includes('\n')) {
+      return `"${stringValue.replace(/"/g, '""')}"`;
+    }
+    return stringValue;
+  };
+
+  let csv = [];
+
+  // Header Section
+  csv.push('Cryptocurrency Capital Gains Tax Report - SARS');
+  csv.push(`Generated: ${new Date().toLocaleDateString('en-ZA')}`);
+  csv.push('');
+
+  // Applied Filters
+  const filterText = [];
+  if (filters.asset !== 'all') filterText.push(`Asset: ${filters.asset}`);
+  if (filters.type !== 'all') filterText.push(`Type: ${filters.type}`);
+  if (filters.taxYear !== 'all') filterText.push(`Tax Year: ${filters.taxYear}`);
+  csv.push(`Applied Filters: ${filterText.length > 0 ? filterText.join(', ') : 'None'}`);
+  csv.push('');
+
+  // Summary Section
+  csv.push('EXECUTIVE SUMMARY');
+  csv.push('Metric,Amount (ZAR)');
+  csv.push(`Total Capital Gains,${formatCurrency(summary.totalCapitalGain)}`);
+  csv.push(`Total Capital Losses,${formatCurrency(summary.totalCapitalLoss)}`);
+  csv.push(`Net Capital Gain,${formatCurrency(summary.netCapitalGain)}`);
+  csv.push(`Taxable Capital Gain (40% inclusion),${formatCurrency(summary.taxableCapitalGain)}`);
+  csv.push(`Total Proceeds,${formatCurrency(summary.totalProceeds)}`);
+  csv.push(`Total Cost Base (FIFO),${formatCurrency(summary.totalCostBase)}`);
+  csv.push(`Transactions Processed,${summary.transactionsProcessed}`);
+  csv.push('');
+  csv.push('');
+
+  // Transaction Details Section
+  csv.push('TRANSACTION DETAILS');
+  csv.push('Date,Type,Currency,Amount,Proceeds (ZAR),Cost Base (ZAR),Capital Gain/Loss (ZAR),Fee (ZAR),Tax Year,Wallet,Line Number');
+  
+  transactions.forEach(tx => {
+    const row = [
+      escapeCSV(tx.date),
+      escapeCSV(tx.type),
+      escapeCSV(tx.currency),
+      formatCrypto(tx.amount),
+      formatCurrency(tx.proceeds),
+      formatCurrency(tx.costBase),
+      formatCurrency(tx.capitalGain),
+      formatCurrency(tx.fee),
+      escapeCSV(tx.taxYear),
+      escapeCSV(tx.wallet),
+      escapeCSV(tx.lineNumber)
+    ];
+    csv.push(row.join(','));
+
+    // Add FIFO lots consumed if available
+    if (tx.lotsConsumed && tx.lotsConsumed.length > 0) {
+      csv.push('');
+      csv.push('  FIFO Lots Consumed:');
+      csv.push('  Acquired Date,Amount Consumed,Cost Per Unit (ZAR),Cost Base (ZAR),Age (Days),Wallet');
+      
+      tx.lotsConsumed.forEach(lot => {
+        const lotRow = [
+          '  ' + escapeCSV(lot.purchaseDate),
+          formatCrypto(lot.amountConsumed),
+          formatCurrency(lot.costPerUnit),
+          formatCurrency(lot.costBase),
+          escapeCSV(lot.ageInDays),
+          escapeCSV(lot.wallet)
+        ];
+        csv.push(lotRow.join(','));
+      });
+      csv.push('');
+    }
+  });
+
+  csv.push('');
+  csv.push('');
+
+  // SARS Compliance Information
+  csv.push('SARS COMPLIANCE INFORMATION');
+  csv.push('Item,Value');
+  csv.push('Method,First-In-First-Out (FIFO)');
+  csv.push('CGT Inclusion Rate,40% for individuals');
+  csv.push('Tax Year Period,March 1 to February 28/29');
+  csv.push('Annual Exclusion,"R40,000 (not applied in calculations)"');
+  csv.push('');
+
+  // Disclaimer
+  csv.push('');
+  csv.push('DISCLAIMER');
+  csv.push('"This report is provided for informational purposes only and should not be considered as professional tax advice. Please consult with a registered tax professional or chartered accountant before submitting your tax return to SARS."');
+  csv.push('');
+  csv.push('Generated by Crypto Tax Calculator - Powered by TaxTim');
+
+  return csv.join('\n');
+};

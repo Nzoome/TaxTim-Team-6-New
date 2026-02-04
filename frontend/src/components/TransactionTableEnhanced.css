@@ -1,0 +1,396 @@
+.transaction-table-enhanced {
+  margin: 2rem 0;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  padding: 1.5rem;
+}
+
+.table-header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.table-header-section h2 {
+  margin: 0;
+  color: #1a1a1a;
+  font-size: 1.5rem;
+}
+
+.table-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.transaction-count {
+  font-size: 0.875rem;
+  color: #718096;
+  font-weight: 600;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+.transaction-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.transaction-table thead {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.transaction-table th {
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.transaction-table th.sortable {
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s ease;
+}
+
+.transaction-table th.sortable:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.expand-header {
+  width: 40px;
+}
+
+.transaction-table tbody tr.transaction-row {
+  border-bottom: 1px solid #e2e8f0;
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+}
+
+.transaction-table tbody tr.transaction-row:hover {
+  background-color: #f7fafc;
+}
+
+.transaction-table tbody tr.transaction-row.expanded {
+  background-color: #edf2f7;
+}
+
+.transaction-table td {
+  padding: 1rem;
+  color: #2d3748;
+}
+
+.expand-cell {
+  width: 40px;
+  text-align: center;
+}
+
+.expand-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.875rem;
+  color: #4a5568;
+  padding: 0.25rem 0.5rem;
+  transition: color 0.2s ease;
+}
+
+.expand-btn:hover {
+  color: #2d3748;
+}
+
+.date-cell {
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.badge-buy {
+  background-color: #c6f6d5;
+  color: #22543d;
+}
+
+.badge-sell {
+  background-color: #fed7d7;
+  color: #742a2a;
+}
+
+.badge-trade {
+  background-color: #bee3f8;
+  color: #2c5282;
+}
+
+.currency-cell {
+  font-weight: 600;
+  color: #4a5568;
+}
+
+.amount-cell {
+  font-family: 'Courier New', monospace;
+  font-weight: 600;
+}
+
+.proceeds-cell,
+.cost-cell {
+  font-weight: 600;
+}
+
+.gain-cell {
+  font-weight: 700;
+}
+
+.gain-cell.positive {
+  color: #38a169;
+}
+
+.gain-cell.negative {
+  color: #e53e3e;
+}
+
+.tax-year-cell {
+  font-weight: 600;
+  color: #4a5568;
+}
+
+.no-transactions {
+  padding: 3rem;
+  text-align: center;
+  color: #a0aec0;
+  font-size: 1rem;
+}
+
+/* Expanded Row Styles */
+.expanded-detail-row {
+  background-color: #f7fafc;
+}
+
+.expanded-detail-row td {
+  padding: 0;
+}
+
+.expanded-content {
+  padding: 1.5rem;
+  border-top: 2px solid #cbd5e0;
+}
+
+.detail-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.detail-section {
+  background: white;
+  border-radius: 8px;
+  padding: 1.25rem;
+  border: 1px solid #e2e8f0;
+}
+
+.detail-section h4 {
+  margin: 0 0 1rem 0;
+  color: #2d3748;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.detail-label {
+  font-size: 0.75rem;
+  color: #718096;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.detail-value {
+  font-size: 0.875rem;
+  color: #2d3748;
+  font-weight: 600;
+}
+
+/* FIFO Section */
+.fifo-section {
+  background: linear-gradient(135deg, #fff5f5 0%, #fffaf0 100%);
+  border-color: #fc8181;
+}
+
+.fifo-table-wrapper {
+  overflow-x: auto;
+  margin-top: 1rem;
+}
+
+.fifo-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  background: white;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.fifo-table thead {
+  background-color: #2d3748;
+  color: white;
+}
+
+.fifo-table th {
+  padding: 0.75rem;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+}
+
+.fifo-table tbody tr {
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.fifo-table tbody tr:hover {
+  background-color: #f7fafc;
+}
+
+.fifo-table td {
+  padding: 0.75rem;
+  color: #4a5568;
+}
+
+.fifo-table tfoot {
+  background-color: #edf2f7;
+  font-weight: 600;
+}
+
+.fifo-table tfoot td {
+  padding: 0.75rem;
+  color: #2d3748;
+}
+
+.fifo-explanation {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 6px;
+  border-left: 3px solid #fc8181;
+}
+
+.fifo-explanation p {
+  margin: 0;
+  font-size: 0.875rem;
+  color: #4a5568;
+  line-height: 1.5;
+}
+
+/* Calculation Section */
+.calculation-section {
+  background: linear-gradient(135deg, #faf5ff 0%, #f0fff4 100%);
+  border-color: #9f7aea;
+}
+
+.calculation-breakdown {
+  margin-top: 1rem;
+}
+
+.calc-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.calc-row:last-child {
+  border-bottom: none;
+}
+
+.calc-label {
+  color: #4a5568;
+  font-size: 0.875rem;
+}
+
+.calc-value {
+  font-family: 'Courier New', monospace;
+  font-weight: 600;
+  color: #2d3748;
+}
+
+.calc-row.calc-total {
+  background-color: rgba(159, 122, 234, 0.1);
+  border-radius: 6px;
+  margin-top: 0.5rem;
+  padding: 1rem;
+  border: 2px solid #9f7aea;
+}
+
+.calc-row.calc-taxable {
+  background-color: rgba(72, 187, 120, 0.1);
+  border-radius: 6px;
+  margin-top: 0.5rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid #48bb78;
+}
+
+.calc-value.positive {
+  color: #38a169;
+}
+
+.calc-value.negative {
+  color: #e53e3e;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .transaction-table {
+    font-size: 0.8rem;
+  }
+
+  .transaction-table th,
+  .transaction-table td {
+    padding: 0.75rem 0.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .table-header-section {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .fifo-table {
+    font-size: 0.75rem;
+  }
+}
