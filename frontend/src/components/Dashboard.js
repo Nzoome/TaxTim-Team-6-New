@@ -10,6 +10,8 @@ import ExportButtons from './ExportButtons';
 import SuspiciousTransactionSummary from './SuspiciousTransactionSummary';
 import TaxStatusSummary from './TaxStatusSummary';
 
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
+
 function Dashboard() {
   const navigate = useNavigate();
   const [data, setData] = useState(null);
@@ -28,15 +30,15 @@ function Dashboard() {
 
   const loadTransactionData = async () => {
     try {
-      const response = await fetch('http://localhost:8000/transactions.php');
+      const response = await fetch(`${API_BASE_URL}/transactions.php`);
       const result = await response.json();
-      
+  
       if (result.success) {
         // Enrich transactions with FIFO breakdown data
         if (result.data.transactions && result.data.analytics && result.data.analytics.fifo_breakdowns) {
           const enrichedTransactions = result.data.transactions.map((tx, index) => {
             const breakdown = result.data.analytics.fifo_breakdowns[index];
-            
+  
             // Determine the primary currency based on transaction type
             let primaryCurrency;
             const txType = (tx.type || '').toUpperCase();
@@ -48,13 +50,11 @@ function Dashboard() {
               primaryCurrency = breakdown?.currency || tx.fromCurrency;
             } else if (txType === 'TRADE') {
               // For TRADE: primary currency is what you're trading away (fromCurrency)
-              // This is the asset with the capital gain/loss event
               primaryCurrency = breakdown?.fromCurrency || tx.fromCurrency;
             } else {
-              // Fallback
               primaryCurrency = breakdown?.currency || tx.toCurrency || tx.fromCurrency;
             }
-            
+  
             return {
               ...tx,
               currency: primaryCurrency,
@@ -67,15 +67,14 @@ function Dashboard() {
           });
           result.data.transactions = enrichedTransactions;
         }
-        
+  
         setData(result.data);
-        setIsLoading(false);
       } else {
-        console.error('Failed to load data');
-        setIsLoading(false);
+        console.error('Failed to load transaction data:', result.error);
       }
     } catch (error) {
-      console.error('Error loading data:', error);
+      console.error('Error loading transaction data:', error);
+    } finally {
       setIsLoading(false);
     }
   };

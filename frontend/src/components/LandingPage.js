@@ -14,6 +14,8 @@ import ExportButtons from './ExportButtons';
 import SuspiciousTransactionSummary from './SuspiciousTransactionSummary';
 import TaxStatusSummary from './TaxStatusSummary';
 
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
+
 const LandingPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -40,7 +42,7 @@ const LandingPage = () => {
     const clearCacheAndFetch = async () => {
       if (!location.state?.fromProcessing) {
         try {
-          await fetch('http://localhost:8000/clear_cache.php', { method: 'POST' });
+          await fetch(`${API_BASE_URL}/clear_cache.php`, { method: 'POST' });
         } catch (err) {
           console.error('Error clearing cache:', err);
         }
@@ -54,15 +56,15 @@ const LandingPage = () => {
   const fetchData = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:8000/transactions.php');
+      const response = await fetch(`${API_BASE_URL}/transactions.php`);
       const result = await response.json();
-      
+  
       if (result.success) {
         // Enrich transactions with FIFO breakdown data
         if (result.data.transactions && result.data.analytics && result.data.analytics.fifo_breakdowns) {
           const enrichedTransactions = result.data.transactions.map((tx, index) => {
             const breakdown = result.data.analytics.fifo_breakdowns[index];
-            
+  
             // Determine the primary currency based on transaction type
             let primaryCurrency;
             const txType = (tx.type || '').toUpperCase();
@@ -75,7 +77,7 @@ const LandingPage = () => {
             } else {
               primaryCurrency = breakdown?.currency || tx.toCurrency || tx.fromCurrency;
             }
-            
+  
             return {
               ...tx,
               currency: primaryCurrency,
@@ -91,11 +93,15 @@ const LandingPage = () => {
           });
           result.data.transactions = enrichedTransactions;
         }
-        
+  
         setData(result.data);
+      } else {
+        console.error('Failed to load transaction data:', result.error);
+        setData(null);
       }
-    } catch (err) {
-      console.error('Error fetching data:', err);
+    } catch (error) {
+      console.error('Error fetching transaction data:', error);
+      setData(null);
     } finally {
       setLoading(false);
     }
