@@ -229,8 +229,7 @@ const TransactionTableEnhanced = ({ transactions }) => {
                             <div className="detail-section fifo-section">
                               <h4>📦 FIFO Lots Consumed</h4>
                               <p className="fifo-intro">
-                                This sale consumed {tx.lotsConsumed.length} lot{tx.lotsConsumed.length !== 1 ? 's' : ''} 
-                                from your purchase history (oldest first):
+                                This sale consumed {tx.lotsConsumed.length} lot{tx.lotsConsumed.length !== 1 ? 's' : ''} from your purchase history (oldest first):
                               </p>
                               <div className="fifo-table-wrapper">
                                 <table className="fifo-table">
