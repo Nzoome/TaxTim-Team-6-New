@@ -13,6 +13,7 @@ import FilterPanel from './FilterPanel';
 import ExportButtons from './ExportButtons';
 import SuspiciousTransactionSummary from './SuspiciousTransactionSummary';
 import TaxStatusSummary from './TaxStatusSummary';
+
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
 
 const LandingPage = () => {
