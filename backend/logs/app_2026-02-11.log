@@ -1,0 +1,793 @@
+[2026-02-11 07:59:02] [INFO] Processing file: error-test-transactions.csv
+[2026-02-11 07:59:02] [INFO] Parsing CSV file
+[2026-02-11 07:59:02] [INFO] Parsed 18 raw rows
+[2026-02-11 07:59:02] [INFO] Validating transactions
+[2026-02-11 07:59:02] [ERROR] Processing failed: Validation failed
+[2026-02-11 07:59:32] [INFO] Processing file: test-transactions.csv
+[2026-02-11 07:59:32] [INFO] Parsing CSV file
+[2026-02-11 07:59:32] [INFO] Parsed 20 raw rows
+[2026-02-11 07:59:32] [INFO] Validating transactions
+[2026-02-11 07:59:32] [INFO] Validation successful
+[2026-02-11 07:59:32] [INFO] Normalizing transactions
+[2026-02-11 07:59:32] [INFO] Normalized 20 transactions
+[2026-02-11 07:59:32] [INFO] Sorting transactions chronologically
+[2026-02-11 07:59:32] [INFO] Sorting complete
+[2026-02-11 07:59:32] [INFO] Processing complete
+[2026-02-11 08:06:17] [INFO] Processing file: test-transactions.csv
+[2026-02-11 08:06:17] [INFO] Parsing CSV file
+[2026-02-11 08:06:17] [INFO] Parsed 20 raw rows
+[2026-02-11 08:06:17] [INFO] Validating transactions
+[2026-02-11 08:06:17] [INFO] Validation successful
+[2026-02-11 08:06:17] [INFO] Normalizing transactions
+[2026-02-11 08:06:17] [INFO] Normalized 20 transactions
+[2026-02-11 08:06:17] [INFO] Sorting transactions chronologically
+[2026-02-11 08:06:17] [INFO] Sorting complete
+[2026-02-11 08:06:17] [INFO] Processing complete
+[2026-02-11 08:18:38] [INFO] Processing file: test-transactions.csv
+[2026-02-11 08:18:38] [INFO] Parsing CSV file
+[2026-02-11 08:18:38] [INFO] Parsed 20 raw rows
+[2026-02-11 08:18:38] [INFO] Validating transactions
+[2026-02-11 08:18:38] [INFO] Validation successful
+[2026-02-11 08:18:38] [INFO] Normalizing transactions
+[2026-02-11 08:18:38] [INFO] Normalized 20 transactions
+[2026-02-11 08:18:38] [INFO] Sorting transactions chronologically
+[2026-02-11 08:18:38] [INFO] Sorting complete
+[2026-02-11 08:18:38] [INFO] Processing complete
+[2026-02-11 08:37:52] [INFO] Processing file: test-transactions.csv
+[2026-02-11 08:37:52] [INFO] Parsing CSV file
+[2026-02-11 08:37:52] [INFO] Parsed 20 raw rows
+[2026-02-11 08:37:52] [INFO] Validating transactions
+[2026-02-11 08:37:52] [INFO] Validation successful
+[2026-02-11 08:37:52] [INFO] Normalizing transactions
+[2026-02-11 08:37:52] [INFO] Normalized 20 transactions
+[2026-02-11 08:37:52] [INFO] Sorting transactions chronologically
+[2026-02-11 08:37:52] [INFO] Sorting complete
+[2026-02-11 08:37:52] [INFO] Processing complete
+[2026-02-11 08:39:24] [INFO] Processing file: test-transactions.csv
+[2026-02-11 08:39:24] [INFO] Parsing CSV file
+[2026-02-11 08:39:24] [INFO] Parsed 20 raw rows
+[2026-02-11 08:39:24] [INFO] Validating transactions
+[2026-02-11 08:39:24] [INFO] Validation successful
+[2026-02-11 08:39:24] [INFO] Normalizing transactions
+[2026-02-11 08:39:24] [INFO] Normalized 20 transactions
+[2026-02-11 08:39:24] [INFO] Sorting transactions chronologically
+[2026-02-11 08:39:24] [INFO] Sorting complete
+[2026-02-11 08:39:24] [INFO] Processing complete
+[2026-02-11 09:07:09] [INFO] Processing file: test-transactions.csv
+[2026-02-11 09:07:09] [INFO] Parsing CSV file
+[2026-02-11 09:07:09] [INFO] Parsed 20 raw rows
+[2026-02-11 09:07:09] [INFO] Validating transactions
+[2026-02-11 09:07:09] [INFO] Validation successful
+[2026-02-11 09:07:09] [INFO] Normalizing transactions
+[2026-02-11 09:07:09] [INFO] Normalized 20 transactions
+[2026-02-11 09:07:09] [INFO] Sorting transactions chronologically
+[2026-02-11 09:07:09] [INFO] Sorting complete
+[2026-02-11 09:07:09] [INFO] Processing complete
+[2026-02-11 09:08:01] [INFO] Processing file: sample-transactions.csv
+[2026-02-11 09:08:01] [INFO] Parsing CSV file
+[2026-02-11 09:08:01] [INFO] Parsed 10 raw rows
+[2026-02-11 09:08:01] [INFO] Validating transactions
+[2026-02-11 09:08:01] [INFO] Validation successful
+[2026-02-11 09:08:01] [INFO] Normalizing transactions
+[2026-02-11 09:08:01] [INFO] Normalized 10 transactions
+[2026-02-11 09:08:01] [INFO] Sorting transactions chronologically
+[2026-02-11 09:08:01] [INFO] Sorting complete
+[2026-02-11 09:08:01] [INFO] Processing complete
+[2026-02-11 09:11:47] [INFO] Processing file: test-transactions.csv
+[2026-02-11 09:11:47] [INFO] Parsing CSV file
+[2026-02-11 09:11:47] [INFO] Parsed 20 raw rows
+[2026-02-11 09:11:47] [INFO] Validating transactions
+[2026-02-11 09:11:47] [INFO] Validation successful
+[2026-02-11 09:11:47] [INFO] Normalizing transactions
+[2026-02-11 09:11:47] [INFO] Normalized 20 transactions
+[2026-02-11 09:11:47] [INFO] Sorting transactions chronologically
+[2026-02-11 09:11:47] [INFO] Sorting complete
+[2026-02-11 09:11:47] [INFO] Processing complete
+[2026-02-11 09:12:05] [INFO] Processing file: sample-transactions.csv
+[2026-02-11 09:12:05] [INFO] Parsing CSV file
+[2026-02-11 09:12:05] [INFO] Parsed 10 raw rows
+[2026-02-11 09:12:05] [INFO] Validating transactions
+[2026-02-11 09:12:05] [INFO] Validation successful
+[2026-02-11 09:12:05] [INFO] Normalizing transactions
+[2026-02-11 09:12:05] [INFO] Normalized 10 transactions
+[2026-02-11 09:12:05] [INFO] Sorting transactions chronologically
+[2026-02-11 09:12:05] [INFO] Sorting complete
+[2026-02-11 09:12:05] [INFO] Processing complete
+[2026-02-11 09:16:09] [INFO] Processing file: test-transactions.csv
+[2026-02-11 09:16:09] [INFO] Parsing CSV file
+[2026-02-11 09:16:09] [INFO] Parsed 20 raw rows
+[2026-02-11 09:16:09] [INFO] Validating transactions
+[2026-02-11 09:16:09] [INFO] Validation successful
+[2026-02-11 09:16:09] [INFO] Normalizing transactions
+[2026-02-11 09:16:09] [INFO] Normalized 20 transactions
+[2026-02-11 09:16:09] [INFO] Sorting transactions chronologically
+[2026-02-11 09:16:09] [INFO] Sorting complete
+[2026-02-11 09:16:09] [INFO] Processing complete
+[2026-02-11 09:17:11] [INFO] Processing file: sample-transactions.csv
+[2026-02-11 09:17:11] [INFO] Parsing CSV file
+[2026-02-11 09:17:11] [INFO] Parsed 10 raw rows
+[2026-02-11 09:17:11] [INFO] Validating transactions
+[2026-02-11 09:17:11] [INFO] Validation successful
+[2026-02-11 09:17:11] [INFO] Normalizing transactions
+[2026-02-11 09:17:11] [INFO] Normalized 10 transactions
+[2026-02-11 09:17:11] [INFO] Sorting transactions chronologically
+[2026-02-11 09:17:11] [INFO] Sorting complete
+[2026-02-11 09:17:11] [INFO] Processing complete
+[2026-02-11 10:30:11] [INFO] Processing file: test-exchange-format.csv
+[2026-02-11 10:30:11] [INFO] Parsing CSV file
+[2026-02-11 10:30:11] [INFO] Parsed 5 raw rows
+[2026-02-11 10:30:11] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-11 10:30:11] [INFO] Validating transactions for Shape A
+[2026-02-11 10:30:11] [ERROR] Processing failed: Validation failed
+[2026-02-11 10:30:26] [INFO] Processing file: test-south-african-format.csv
+[2026-02-11 10:30:26] [INFO] Parsing CSV file
+[2026-02-11 10:30:26] [INFO] Parsed 4 raw rows
+[2026-02-11 10:30:26] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-11 10:30:26] [INFO] Validating transactions for Shape A
+[2026-02-11 10:30:26] [INFO] Validation successful
+[2026-02-11 10:30:26] [INFO] Normalizing transactions
+[2026-02-11 10:30:26] [INFO] Normalized 4 transactions
+[2026-02-11 10:30:26] [INFO] Sorting transactions chronologically
+[2026-02-11 10:30:26] [INFO] Sorting complete
+[2026-02-11 10:30:26] [INFO] Processing complete
+[2026-02-11 10:31:57] [INFO] Processing file: test-transactions.csv
+[2026-02-11 10:31:57] [INFO] Parsing CSV file
+[2026-02-11 10:31:57] [INFO] Parsed 20 raw rows
+[2026-02-11 10:31:57] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-11 10:31:57] [INFO] Validating transactions for Shape A
+[2026-02-11 10:31:57] [INFO] Validation successful
+[2026-02-11 10:31:57] [INFO] Normalizing transactions
+[2026-02-11 10:31:57] [INFO] Normalized 20 transactions
+[2026-02-11 10:31:57] [INFO] Sorting transactions chronologically
+[2026-02-11 10:31:57] [INFO] Sorting complete
+[2026-02-11 10:31:57] [INFO] Processing complete
+[2026-02-11 10:32:59] [INFO] Processing file: sample-transactions.csv
+[2026-02-11 10:32:59] [INFO] Parsing CSV file
+[2026-02-11 10:32:59] [INFO] Parsed 10 raw rows
+[2026-02-11 10:32:59] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-11 10:32:59] [INFO] Validating transactions for Shape A
+[2026-02-11 10:32:59] [INFO] Validation successful
+[2026-02-11 10:32:59] [INFO] Normalizing transactions
+[2026-02-11 10:32:59] [INFO] Normalized 10 transactions
+[2026-02-11 10:32:59] [INFO] Sorting transactions chronologically
+[2026-02-11 10:32:59] [INFO] Sorting complete
+[2026-02-11 10:32:59] [INFO] Processing complete
+[2026-02-11 10:33:30] [INFO] Processing file: test-transactions.csv
+[2026-02-11 10:33:30] [INFO] Parsing CSV file
+[2026-02-11 10:33:30] [INFO] Parsed 20 raw rows
+[2026-02-11 10:33:30] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-11 10:33:30] [INFO] Validating transactions for Shape A
+[2026-02-11 10:33:30] [INFO] Validation successful
+[2026-02-11 10:33:30] [INFO] Normalizing transactions
+[2026-02-11 10:33:30] [INFO] Normalized 20 transactions
+[2026-02-11 10:33:30] [INFO] Sorting transactions chronologically
+[2026-02-11 10:33:30] [INFO] Sorting complete
+[2026-02-11 10:33:30] [INFO] Processing complete
+[2026-02-11 10:34:31] [INFO] Processing file: test-exchange-format.csv
+[2026-02-11 10:34:31] [INFO] Parsing CSV file
+[2026-02-11 10:34:31] [INFO] Parsed 5 raw rows
+[2026-02-11 10:34:31] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-11 10:34:31] [INFO] Validating transactions for Shape A
+[2026-02-11 10:34:31] [ERROR] Processing failed: Validation failed
+[2026-02-11 10:34:54] [INFO] Processing file: error-test-transactions.csv
+[2026-02-11 10:34:54] [INFO] Parsing CSV file
+[2026-02-11 10:34:54] [INFO] Parsed 18 raw rows
+[2026-02-11 10:34:54] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-11 10:34:54] [INFO] Validating transactions for Shape A
+[2026-02-11 10:34:54] [ERROR] Processing failed: Validation failed
+[2026-02-11 10:35:06] [INFO] Processing file: test-transactions.csv
+[2026-02-11 10:35:06] [INFO] Parsing CSV file
+[2026-02-11 10:35:06] [INFO] Parsed 20 raw rows
+[2026-02-11 10:35:06] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-11 10:35:06] [INFO] Validating transactions for Shape A
+[2026-02-11 10:35:06] [INFO] Validation successful
+[2026-02-11 10:35:06] [INFO] Normalizing transactions
+[2026-02-11 10:35:06] [INFO] Normalized 20 transactions
+[2026-02-11 10:35:06] [INFO] Sorting transactions chronologically
+[2026-02-11 10:35:06] [INFO] Sorting complete
+[2026-02-11 10:35:06] [INFO] Processing complete
+[2026-02-11 10:37:57] [INFO] Processing file: test-transactions.csv
+[2026-02-11 10:37:57] [INFO] Parsing CSV file
+[2026-02-11 10:37:57] [INFO] Parsed 20 raw rows
+[2026-02-11 10:37:57] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-11 10:37:57] [INFO] Validating transactions for Shape A
+[2026-02-11 10:37:57] [INFO] Validation successful
+[2026-02-11 10:37:57] [INFO] Normalizing transactions
+[2026-02-11 10:37:57] [INFO] Normalized 20 transactions
+[2026-02-11 10:37:57] [INFO] Sorting transactions chronologically
+[2026-02-11 10:37:57] [INFO] Sorting complete
+[2026-02-11 10:37:57] [INFO] Processing complete
+[2026-02-11 10:38:31] [INFO] Processing file: sample-transactions.csv
+[2026-02-11 10:38:31] [INFO] Parsing CSV file
+[2026-02-11 10:38:31] [INFO] Parsed 10 raw rows
+[2026-02-11 10:38:31] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-11 10:38:31] [INFO] Validating transactions for Shape A
+[2026-02-11 10:38:31] [INFO] Validation successful
+[2026-02-11 10:38:31] [INFO] Normalizing transactions
+[2026-02-11 10:38:31] [INFO] Normalized 10 transactions
+[2026-02-11 10:38:31] [INFO] Sorting transactions chronologically
+[2026-02-11 10:38:31] [INFO] Sorting complete
+[2026-02-11 10:38:31] [INFO] Processing complete
+[2026-02-11 10:38:51] [INFO] Processing file: test-south-african-format.csv
+[2026-02-11 10:38:51] [INFO] Parsing CSV file
+[2026-02-11 10:38:51] [INFO] Parsed 4 raw rows
+[2026-02-11 10:38:51] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-11 10:38:51] [INFO] Validating transactions for Shape A
+[2026-02-11 10:38:51] [INFO] Validation successful
+[2026-02-11 10:38:51] [INFO] Normalizing transactions
+[2026-02-11 10:38:51] [INFO] Normalized 4 transactions
+[2026-02-11 10:38:51] [INFO] Sorting transactions chronologically
+[2026-02-11 10:38:51] [INFO] Sorting complete
+[2026-02-11 10:38:51] [INFO] Processing complete
+[2026-02-11 10:39:18] [INFO] Processing file: test-exchange-format.csv
+[2026-02-11 10:39:18] [INFO] Parsing CSV file
+[2026-02-11 10:39:18] [INFO] Parsed 5 raw rows
+[2026-02-11 10:39:18] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-11 10:39:18] [INFO] Validating transactions for Shape A
+[2026-02-11 10:39:18] [ERROR] Processing failed: Validation failed
+[2026-02-11 10:39:24] [INFO] Processing file: test-transactions.csv
+[2026-02-11 10:39:24] [INFO] Parsing CSV file
+[2026-02-11 10:39:24] [INFO] Parsed 20 raw rows
+[2026-02-11 10:39:24] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-11 10:39:24] [INFO] Validating transactions for Shape A
+[2026-02-11 10:39:24] [INFO] Validation successful
+[2026-02-11 10:39:24] [INFO] Normalizing transactions
+[2026-02-11 10:39:24] [INFO] Normalized 20 transactions
+[2026-02-11 10:39:24] [INFO] Sorting transactions chronologically
+[2026-02-11 10:39:24] [INFO] Sorting complete
+[2026-02-11 10:39:24] [INFO] Processing complete
+[2026-02-11 10:41:23] [INFO] Processing file: test-exchange-format.csv
+[2026-02-11 10:41:23] [INFO] Parsing CSV file
+[2026-02-11 10:41:23] [INFO] Parsed 5 raw rows
+[2026-02-11 10:41:23] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-11 10:41:23] [INFO] Validating transactions for Shape A
+[2026-02-11 10:41:23] [ERROR] Processing failed: Validation failed
+[2026-02-11 10:47:19] [INFO] Processing file: test-exchange-format.csv
+[2026-02-11 10:47:19] [INFO] Parsing CSV file
+[2026-02-11 10:47:19] [INFO] Parsed 5 raw rows
+[2026-02-11 10:47:19] [INFO] Detected format: Shape B - Exchange format with trading pair and both amounts
+[2026-02-11 10:47:19] [INFO] Validating transactions for Shape B
+[2026-02-11 10:47:19] [INFO] Validation successful
+[2026-02-11 10:47:19] [INFO] Normalizing transactions
+[2026-02-11 10:47:19] [INFO] Normalized 5 transactions
+[2026-02-11 10:47:19] [INFO] Sorting transactions chronologically
+[2026-02-11 10:47:19] [INFO] Sorting complete
+[2026-02-11 10:47:19] [INFO] Processing complete
+[2026-02-11 10:53:28] [INFO] Processing file: test-south-african-format.csv
+[2026-02-11 10:53:28] [INFO] Parsing CSV file
+[2026-02-11 10:53:28] [INFO] Parsed 4 raw rows
+[2026-02-11 10:53:28] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-11 10:53:28] [INFO] Validating transactions for Shape A
+[2026-02-11 10:53:28] [INFO] Validation successful
+[2026-02-11 10:53:28] [INFO] Normalizing transactions
+[2026-02-11 10:53:28] [INFO] Normalized 4 transactions
+[2026-02-11 10:53:28] [INFO] Sorting transactions chronologically
+[2026-02-11 10:53:28] [INFO] Sorting complete
+[2026-02-11 10:53:28] [INFO] Processing complete
+[2026-02-11 10:53:57] [INFO] Processing file: test-exchange-format.csv
+[2026-02-11 10:53:57] [INFO] Parsing CSV file
+[2026-02-11 10:53:57] [INFO] Parsed 5 raw rows
+[2026-02-11 10:53:57] [INFO] Detected format: Shape B - Exchange format with trading pair and both amounts
+[2026-02-11 10:53:57] [INFO] Validating transactions for Shape B
+[2026-02-11 10:53:57] [INFO] Validation successful
+[2026-02-11 10:53:57] [INFO] Normalizing transactions
+[2026-02-11 10:53:57] [INFO] Normalized 5 transactions
+[2026-02-11 10:53:57] [INFO] Sorting transactions chronologically
+[2026-02-11 10:53:57] [INFO] Sorting complete
+[2026-02-11 10:53:57] [INFO] Processing complete
+[2026-02-11 10:59:02] [INFO] Processing file: test-with-exclusion.csv
+[2026-02-11 10:59:02] [INFO] Parsing CSV file
+[2026-02-11 10:59:02] [INFO] Parsed 6 raw rows
+[2026-02-11 10:59:02] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-11 10:59:02] [INFO] Validating transactions for Shape A
+[2026-02-11 10:59:02] [INFO] Validation successful
+[2026-02-11 10:59:02] [INFO] Normalizing transactions
+[2026-02-11 10:59:02] [INFO] Normalized 6 transactions
+[2026-02-11 10:59:02] [INFO] Sorting transactions chronologically
+[2026-02-11 10:59:02] [INFO] Sorting complete
+[2026-02-11 10:59:02] [INFO] Processing complete
+[2026-02-11 12:17:37] [INFO] Processing file: test-with-exclusion.csv
+[2026-02-11 12:17:37] [INFO] Parsing CSV file
+[2026-02-11 12:17:37] [INFO] Parsed 6 raw rows
+[2026-02-11 12:17:37] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-11 12:17:37] [INFO] Validating transactions for Shape A
+[2026-02-11 12:17:37] [INFO] Validation successful
+[2026-02-11 12:17:37] [INFO] Normalizing transactions
+[2026-02-11 12:17:37] [INFO] Normalized 6 transactions
+[2026-02-11 12:17:37] [INFO] Sorting transactions chronologically
+[2026-02-11 12:17:37] [INFO] Sorting complete
+[2026-02-11 12:17:37] [INFO] Processing complete
+[2026-02-11 12:19:14] [INFO] Processing file: test-south-african-format.csv
+[2026-02-11 12:19:14] [INFO] Parsing CSV file
+[2026-02-11 12:19:14] [INFO] Parsed 4 raw rows
+[2026-02-11 12:19:14] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-11 12:19:14] [INFO] Validating transactions for Shape A
+[2026-02-11 12:19:14] [INFO] Validation successful
+[2026-02-11 12:19:14] [INFO] Normalizing transactions
+[2026-02-11 12:19:14] [INFO] Normalized 4 transactions
+[2026-02-11 12:19:14] [INFO] Sorting transactions chronologically
+[2026-02-11 12:19:14] [INFO] Sorting complete
+[2026-02-11 12:19:14] [INFO] Processing complete
+[2026-02-11 12:19:51] [INFO] Processing file: test-exchange-format.csv
+[2026-02-11 12:19:51] [INFO] Parsing CSV file
+[2026-02-11 12:19:51] [INFO] Parsed 5 raw rows
+[2026-02-11 12:19:51] [INFO] Detected format: Shape B - Exchange format with trading pair and both amounts
+[2026-02-11 12:19:51] [INFO] Validating transactions for Shape B
+[2026-02-11 12:19:51] [INFO] Validation successful
+[2026-02-11 12:19:51] [INFO] Normalizing transactions
+[2026-02-11 12:19:51] [INFO] Normalized 5 transactions
+[2026-02-11 12:19:51] [INFO] Sorting transactions chronologically
+[2026-02-11 12:19:51] [INFO] Sorting complete
+[2026-02-11 12:19:51] [INFO] Processing complete
+[2026-02-11 12:20:19] [INFO] Processing file: test-transactions.csv
+[2026-02-11 12:20:19] [INFO] Parsing CSV file
+[2026-02-11 12:20:19] [INFO] Parsed 20 raw rows
+[2026-02-11 12:20:19] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-11 12:20:19] [INFO] Validating transactions for Shape A
+[2026-02-11 12:20:19] [INFO] Validation successful
+[2026-02-11 12:20:19] [INFO] Normalizing transactions
+[2026-02-11 12:20:19] [INFO] Normalized 20 transactions
+[2026-02-11 12:20:19] [INFO] Sorting transactions chronologically
+[2026-02-11 12:20:19] [INFO] Sorting complete
+[2026-02-11 12:20:19] [INFO] Processing complete
+[2026-02-11 12:20:32] [INFO] Processing file: test-with-exclusion.csv
+[2026-02-11 12:20:32] [INFO] Parsing CSV file
+[2026-02-11 12:20:32] [INFO] Parsed 6 raw rows
+[2026-02-11 12:20:32] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-11 12:20:32] [INFO] Validating transactions for Shape A
+[2026-02-11 12:20:32] [INFO] Validation successful
+[2026-02-11 12:20:32] [INFO] Normalizing transactions
+[2026-02-11 12:20:32] [INFO] Normalized 6 transactions
+[2026-02-11 12:20:32] [INFO] Sorting transactions chronologically
+[2026-02-11 12:20:32] [INFO] Sorting complete
+[2026-02-11 12:20:32] [INFO] Processing complete
+[2026-02-11 12:23:02] [INFO] Processing file: test-transactions.csv
+[2026-02-11 12:23:02] [INFO] Parsing CSV file
+[2026-02-11 12:23:02] [INFO] Parsed 20 raw rows
+[2026-02-11 12:23:02] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-11 12:23:02] [INFO] Validating transactions for Shape A
+[2026-02-11 12:23:02] [INFO] Validation successful
+[2026-02-11 12:23:02] [INFO] Normalizing transactions
+[2026-02-11 12:23:02] [INFO] Normalized 20 transactions
+[2026-02-11 12:23:02] [INFO] Sorting transactions chronologically
+[2026-02-11 12:23:02] [INFO] Sorting complete
+[2026-02-11 12:23:02] [INFO] Processing complete
+[2026-02-11 12:25:04] [INFO] Processing file: sample-transactions.csv
+[2026-02-11 12:25:04] [INFO] Parsing CSV file
+[2026-02-11 12:25:04] [INFO] Parsed 10 raw rows
+[2026-02-11 12:25:04] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-11 12:25:04] [INFO] Validating transactions for Shape A
+[2026-02-11 12:25:04] [INFO] Validation successful
+[2026-02-11 12:25:04] [INFO] Normalizing transactions
+[2026-02-11 12:25:04] [INFO] Normalized 10 transactions
+[2026-02-11 12:25:04] [INFO] Sorting transactions chronologically
+[2026-02-11 12:25:04] [INFO] Sorting complete
+[2026-02-11 12:25:04] [INFO] Processing complete
+[2026-02-11 12:25:17] [INFO] Processing file: test-exchange-format.csv
+[2026-02-11 12:25:17] [INFO] Parsing CSV file
+[2026-02-11 12:25:17] [INFO] Parsed 5 raw rows
+[2026-02-11 12:25:17] [INFO] Detected format: Shape B - Exchange format with trading pair and both amounts
+[2026-02-11 12:25:17] [INFO] Validating transactions for Shape B
+[2026-02-11 12:25:17] [INFO] Validation successful
+[2026-02-11 12:25:17] [INFO] Normalizing transactions
+[2026-02-11 12:25:17] [INFO] Normalized 5 transactions
+[2026-02-11 12:25:17] [INFO] Sorting transactions chronologically
+[2026-02-11 12:25:17] [INFO] Sorting complete
+[2026-02-11 12:25:17] [INFO] Processing complete
+[2026-02-11 12:27:01] [INFO] Processing file: test-million-gain.csv
+[2026-02-11 12:27:01] [INFO] Parsing CSV file
+[2026-02-11 12:27:01] [INFO] Parsed 10 raw rows
+[2026-02-11 12:27:01] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-11 12:27:01] [INFO] Validating transactions for Shape A
+[2026-02-11 12:27:01] [INFO] Validation successful
+[2026-02-11 12:27:01] [INFO] Normalizing transactions
+[2026-02-11 12:27:01] [INFO] Normalized 10 transactions
+[2026-02-11 12:27:01] [INFO] Sorting transactions chronologically
+[2026-02-11 12:27:01] [INFO] Sorting complete
+[2026-02-11 12:27:01] [INFO] Processing complete
+[2026-02-11 12:42:49] [INFO] Processing file: test-transactions.csv
+[2026-02-11 12:42:49] [INFO] Parsing CSV file
+[2026-02-11 12:42:49] [INFO] Parsed 20 raw rows
+[2026-02-11 12:42:49] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-11 12:42:49] [INFO] Validating transactions for Shape A
+[2026-02-11 12:42:49] [INFO] Validation successful
+[2026-02-11 12:42:49] [INFO] Normalizing transactions
+[2026-02-11 12:42:49] [INFO] Normalized 20 transactions
+[2026-02-11 12:42:49] [INFO] Sorting transactions chronologically
+[2026-02-11 12:42:49] [INFO] Sorting complete
+[2026-02-11 12:42:49] [INFO] Analyzing transactions for special conditions
+[2026-02-11 12:42:49] [INFO] Analysis complete
+[2026-02-11 12:42:49] [INFO] Processing complete
+[2026-02-11 12:43:07] [INFO] Processing file: test-transfers-and-flags.csv
+[2026-02-11 12:43:07] [INFO] Parsing CSV file
+[2026-02-11 12:43:07] [INFO] Parsed 8 raw rows
+[2026-02-11 12:43:07] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-11 12:43:07] [INFO] Validating transactions for Shape A
+[2026-02-11 12:43:07] [INFO] Validation successful
+[2026-02-11 12:43:07] [INFO] Normalizing transactions
+[2026-02-11 12:43:07] [INFO] Normalized 8 transactions
+[2026-02-11 12:43:07] [INFO] Sorting transactions chronologically
+[2026-02-11 12:43:07] [INFO] Sorting complete
+[2026-02-11 12:43:07] [INFO] Analyzing transactions for special conditions
+[2026-02-11 12:43:07] [INFO] Analysis complete
+[2026-02-11 12:43:07] [INFO] Processing complete
+[2026-02-11 12:44:27] [INFO] Processing file: test-transfers-and-flags.csv
+[2026-02-11 12:44:27] [INFO] Parsing CSV file
+[2026-02-11 12:44:27] [INFO] Parsed 8 raw rows
+[2026-02-11 12:44:27] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-11 12:44:27] [INFO] Validating transactions for Shape A
+[2026-02-11 12:44:27] [INFO] Validation successful
+[2026-02-11 12:44:27] [INFO] Normalizing transactions
+[2026-02-11 12:44:27] [INFO] Normalized 8 transactions
+[2026-02-11 12:44:27] [INFO] Sorting transactions chronologically
+[2026-02-11 12:44:27] [INFO] Sorting complete
+[2026-02-11 12:44:27] [INFO] Analyzing transactions for special conditions
+[2026-02-11 12:44:27] [INFO] Analysis complete
+[2026-02-11 12:44:27] [INFO] Processing complete
+[2026-02-11 12:44:40] [INFO] Processing file: test-with-exclusion.csv
+[2026-02-11 12:44:40] [INFO] Parsing CSV file
+[2026-02-11 12:44:40] [INFO] Parsed 6 raw rows
+[2026-02-11 12:44:40] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-11 12:44:40] [INFO] Validating transactions for Shape A
+[2026-02-11 12:44:40] [INFO] Validation successful
+[2026-02-11 12:44:40] [INFO] Normalizing transactions
+[2026-02-11 12:44:40] [INFO] Normalized 6 transactions
+[2026-02-11 12:44:40] [INFO] Sorting transactions chronologically
+[2026-02-11 12:44:40] [INFO] Sorting complete
+[2026-02-11 12:44:40] [INFO] Analyzing transactions for special conditions
+[2026-02-11 12:44:40] [INFO] Analysis complete
+[2026-02-11 12:44:40] [INFO] Processing complete
+[2026-02-11 12:45:34] [INFO] Processing file: test-transfers-and-flags.csv
+[2026-02-11 12:45:34] [INFO] Parsing CSV file
+[2026-02-11 12:45:34] [INFO] Parsed 8 raw rows
+[2026-02-11 12:45:34] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-11 12:45:34] [INFO] Validating transactions for Shape A
+[2026-02-11 12:45:34] [INFO] Validation successful
+[2026-02-11 12:45:34] [INFO] Normalizing transactions
+[2026-02-11 12:45:34] [INFO] Normalized 8 transactions
+[2026-02-11 12:45:34] [INFO] Sorting transactions chronologically
+[2026-02-11 12:45:34] [INFO] Sorting complete
+[2026-02-11 12:45:34] [INFO] Analyzing transactions for special conditions
+[2026-02-11 12:45:34] [INFO] Analysis complete
+[2026-02-11 12:45:34] [INFO] Processing complete
+[2026-02-11 12:45:54] [INFO] Processing file: test-transfers-and-flags.csv
+[2026-02-11 12:45:54] [INFO] Parsing CSV file
+[2026-02-11 12:45:54] [INFO] Parsed 8 raw rows
+[2026-02-11 12:45:54] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-11 12:45:54] [INFO] Validating transactions for Shape A
+[2026-02-11 12:45:54] [INFO] Validation successful
+[2026-02-11 12:45:54] [INFO] Normalizing transactions
+[2026-02-11 12:45:54] [INFO] Normalized 8 transactions
+[2026-02-11 12:45:54] [INFO] Sorting transactions chronologically
+[2026-02-11 12:45:54] [INFO] Sorting complete
+[2026-02-11 12:45:54] [INFO] Analyzing transactions for special conditions
+[2026-02-11 12:45:54] [INFO] Analysis complete
+[2026-02-11 12:45:54] [INFO] Processing complete
+[2026-02-11 12:46:11] [INFO] Processing file: test-transfers-and-flags.csv
+[2026-02-11 12:46:11] [INFO] Parsing CSV file
+[2026-02-11 12:46:11] [INFO] Parsed 8 raw rows
+[2026-02-11 12:46:11] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-11 12:46:11] [INFO] Validating transactions for Shape A
+[2026-02-11 12:46:11] [INFO] Validation successful
+[2026-02-11 12:46:11] [INFO] Normalizing transactions
+[2026-02-11 12:46:11] [INFO] Normalized 8 transactions
+[2026-02-11 12:46:11] [INFO] Sorting transactions chronologically
+[2026-02-11 12:46:11] [INFO] Sorting complete
+[2026-02-11 12:46:11] [INFO] Analyzing transactions for special conditions
+[2026-02-11 12:46:11] [INFO] Analysis complete
+[2026-02-11 12:46:11] [INFO] Processing complete
+[2026-02-11 12:50:22] [INFO] Processing file: test-transfers-and-flags.csv
+[2026-02-11 12:50:22] [INFO] Parsing CSV file
+[2026-02-11 12:50:22] [INFO] Parsed 10 raw rows
+[2026-02-11 12:50:22] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-11 12:50:22] [INFO] Validating transactions for Shape A
+[2026-02-11 12:50:22] [INFO] Validation successful
+[2026-02-11 12:50:22] [INFO] Normalizing transactions
+[2026-02-11 12:50:22] [INFO] Normalized 10 transactions
+[2026-02-11 12:50:22] [INFO] Sorting transactions chronologically
+[2026-02-11 12:50:22] [INFO] Sorting complete
+[2026-02-11 12:50:22] [INFO] Analyzing transactions for special conditions
+[2026-02-11 12:50:22] [INFO] Analysis complete
+[2026-02-11 12:50:22] [INFO] Processing complete
+[2026-02-11 12:53:30] [INFO] Processing file: test-with-exclusion.csv
+[2026-02-11 12:53:30] [INFO] Parsing CSV file
+[2026-02-11 12:53:30] [INFO] Parsed 6 raw rows
+[2026-02-11 12:53:30] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-11 12:53:30] [INFO] Validating transactions for Shape A
+[2026-02-11 12:53:30] [INFO] Validation successful
+[2026-02-11 12:53:30] [INFO] Normalizing transactions
+[2026-02-11 12:53:30] [INFO] Normalized 6 transactions
+[2026-02-11 12:53:30] [INFO] Sorting transactions chronologically
+[2026-02-11 12:53:30] [INFO] Sorting complete
+[2026-02-11 12:53:30] [INFO] Analyzing transactions for special conditions
+[2026-02-11 12:53:30] [INFO] Analysis complete
+[2026-02-11 12:53:30] [INFO] Processing complete
+[2026-02-11 12:54:04] [INFO] Processing file: test-transfers-and-flags.csv
+[2026-02-11 12:54:04] [INFO] Parsing CSV file
+[2026-02-11 12:54:04] [INFO] Parsed 10 raw rows
+[2026-02-11 12:54:04] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-11 12:54:04] [INFO] Validating transactions for Shape A
+[2026-02-11 12:54:04] [INFO] Validation successful
+[2026-02-11 12:54:04] [INFO] Normalizing transactions
+[2026-02-11 12:54:04] [INFO] Normalized 10 transactions
+[2026-02-11 12:54:04] [INFO] Sorting transactions chronologically
+[2026-02-11 12:54:04] [INFO] Sorting complete
+[2026-02-11 12:54:04] [INFO] Analyzing transactions for special conditions
+[2026-02-11 12:54:04] [INFO] Analysis complete
+[2026-02-11 12:54:04] [INFO] Processing complete
+[2026-02-11 13:06:46] [INFO] Processing file: sample-transactions.csv
+[2026-02-11 13:06:46] [INFO] Parsing CSV file
+[2026-02-11 13:06:46] [INFO] Parsed 10 raw rows
+[2026-02-11 13:06:46] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-11 13:06:46] [INFO] Validating transactions for Shape A
+[2026-02-11 13:06:46] [INFO] Validation successful
+[2026-02-11 13:06:46] [INFO] Normalizing transactions
+[2026-02-11 13:06:46] [INFO] Normalized 10 transactions
+[2026-02-11 13:06:46] [INFO] Sorting transactions chronologically
+[2026-02-11 13:06:46] [INFO] Sorting complete
+[2026-02-11 13:06:46] [INFO] Analyzing transactions for special conditions
+[2026-02-11 13:06:46] [INFO] Analysis complete
+[2026-02-11 13:06:46] [INFO] Processing complete
+[2026-02-11 14:05:54] [INFO] Processing file: test-transfers-and-flags.csv
+[2026-02-11 14:05:54] [INFO] Parsing CSV file
+[2026-02-11 14:05:54] [INFO] Parsed 10 raw rows
+[2026-02-11 14:05:54] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-11 14:05:54] [INFO] Validating transactions for Shape A
+[2026-02-11 14:05:54] [INFO] Validation successful
+[2026-02-11 14:05:54] [INFO] Normalizing transactions
+[2026-02-11 14:05:54] [INFO] Normalized 10 transactions
+[2026-02-11 14:05:54] [INFO] Sorting transactions chronologically
+[2026-02-11 14:05:54] [INFO] Sorting complete
+[2026-02-11 14:05:54] [INFO] Analyzing transactions for special conditions
+[2026-02-11 14:05:54] [INFO] Analysis complete
+[2026-02-11 14:05:54] [INFO] Processing complete
+[2026-02-11 14:12:06] [INFO] Processing file: test-with-exclusion.csv
+[2026-02-11 14:12:06] [INFO] Parsing CSV file
+[2026-02-11 14:12:06] [INFO] Parsed 6 raw rows
+[2026-02-11 14:12:06] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-11 14:12:06] [INFO] Validating transactions for Shape A
+[2026-02-11 14:12:06] [INFO] Validation successful
+[2026-02-11 14:12:06] [INFO] Normalizing transactions
+[2026-02-11 14:12:06] [INFO] Normalized 6 transactions
+[2026-02-11 14:12:06] [INFO] Sorting transactions chronologically
+[2026-02-11 14:12:06] [INFO] Sorting complete
+[2026-02-11 14:12:06] [INFO] Analyzing transactions for special conditions
+[2026-02-11 14:12:06] [INFO] Analysis complete
+[2026-02-11 14:12:06] [INFO] Processing complete
+[2026-02-11 14:12:44] [INFO] Processing file: test-transactions.csv
+[2026-02-11 14:12:44] [INFO] Parsing CSV file
+[2026-02-11 14:12:44] [INFO] Parsed 20 raw rows
+[2026-02-11 14:12:44] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-11 14:12:44] [INFO] Validating transactions for Shape A
+[2026-02-11 14:12:44] [INFO] Validation successful
+[2026-02-11 14:12:44] [INFO] Normalizing transactions
+[2026-02-11 14:12:44] [INFO] Normalized 20 transactions
+[2026-02-11 14:12:44] [INFO] Sorting transactions chronologically
+[2026-02-11 14:12:44] [INFO] Sorting complete
+[2026-02-11 14:12:44] [INFO] Analyzing transactions for special conditions
+[2026-02-11 14:12:44] [INFO] Analysis complete
+[2026-02-11 14:12:44] [INFO] Processing complete
+[2026-02-11 14:13:23] [INFO] Processing file: sample-transactions.csv
+[2026-02-11 14:13:23] [INFO] Parsing CSV file
+[2026-02-11 14:13:23] [INFO] Parsed 10 raw rows
+[2026-02-11 14:13:23] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-11 14:13:23] [INFO] Validating transactions for Shape A
+[2026-02-11 14:13:23] [INFO] Validation successful
+[2026-02-11 14:13:23] [INFO] Normalizing transactions
+[2026-02-11 14:13:23] [INFO] Normalized 10 transactions
+[2026-02-11 14:13:23] [INFO] Sorting transactions chronologically
+[2026-02-11 14:13:23] [INFO] Sorting complete
+[2026-02-11 14:13:23] [INFO] Analyzing transactions for special conditions
+[2026-02-11 14:13:23] [INFO] Analysis complete
+[2026-02-11 14:13:23] [INFO] Processing complete
+[2026-02-11 14:13:40] [INFO] Processing file: test-south-african-format.csv
+[2026-02-11 14:13:40] [INFO] Parsing CSV file
+[2026-02-11 14:13:40] [INFO] Parsed 4 raw rows
+[2026-02-11 14:13:40] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-11 14:13:40] [INFO] Validating transactions for Shape A
+[2026-02-11 14:13:40] [INFO] Validation successful
+[2026-02-11 14:13:40] [INFO] Normalizing transactions
+[2026-02-11 14:13:40] [INFO] Normalized 4 transactions
+[2026-02-11 14:13:40] [INFO] Sorting transactions chronologically
+[2026-02-11 14:13:40] [INFO] Sorting complete
+[2026-02-11 14:13:40] [INFO] Analyzing transactions for special conditions
+[2026-02-11 14:13:40] [INFO] Analysis complete
+[2026-02-11 14:13:40] [INFO] Processing complete
+[2026-02-11 14:15:20] [INFO] Processing file: test-with-exclusion.csv
+[2026-02-11 14:15:20] [INFO] Parsing CSV file
+[2026-02-11 14:15:20] [INFO] Parsed 6 raw rows
+[2026-02-11 14:15:20] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-11 14:15:20] [INFO] Validating transactions for Shape A
+[2026-02-11 14:15:20] [INFO] Validation successful
+[2026-02-11 14:15:20] [INFO] Normalizing transactions
+[2026-02-11 14:15:20] [INFO] Normalized 6 transactions
+[2026-02-11 14:15:20] [INFO] Sorting transactions chronologically
+[2026-02-11 14:15:20] [INFO] Sorting complete
+[2026-02-11 14:15:20] [INFO] Analyzing transactions for special conditions
+[2026-02-11 14:15:20] [INFO] Analysis complete
+[2026-02-11 14:15:20] [INFO] Processing complete
+[2026-02-11 14:22:11] [INFO] Processing file: test-transfers-and-flags.csv
+[2026-02-11 14:22:11] [INFO] Parsing CSV file
+[2026-02-11 14:22:11] [INFO] Parsed 10 raw rows
+[2026-02-11 14:22:11] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-11 14:22:11] [INFO] Validating transactions for Shape A
+[2026-02-11 14:22:11] [INFO] Validation successful
+[2026-02-11 14:22:11] [INFO] Normalizing transactions
+[2026-02-11 14:22:11] [INFO] Normalized 10 transactions
+[2026-02-11 14:22:11] [INFO] Sorting transactions chronologically
+[2026-02-11 14:22:11] [INFO] Sorting complete
+[2026-02-11 14:22:11] [INFO] Analyzing transactions for special conditions
+[2026-02-11 14:22:11] [INFO] Analysis complete
+[2026-02-11 14:22:11] [INFO] Processing complete
+[2026-02-11 15:28:50] [INFO] Processing file: test-transfers-and-flags.csv
+[2026-02-11 15:28:50] [INFO] Parsing CSV file
+[2026-02-11 15:28:50] [INFO] Parsed 20 raw rows
+[2026-02-11 15:28:50] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-11 15:28:50] [INFO] Validating transactions for Shape A
+[2026-02-11 15:28:50] [ERROR] Processing failed: Validation failed
+[2026-02-11 15:30:37] [INFO] Processing file: test-transfers-and-flags.csv
+[2026-02-11 15:30:37] [INFO] Parsing CSV file
+[2026-02-11 15:30:37] [INFO] Parsed 20 raw rows
+[2026-02-11 15:30:37] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-11 15:30:37] [INFO] Validating transactions for Shape A
+[2026-02-11 15:30:37] [ERROR] Processing failed: Validation failed
+[2026-02-11 15:36:13] [INFO] Processing file: test-transfers-and-flags.csv
+[2026-02-11 15:36:13] [INFO] Parsing CSV file
+[2026-02-11 15:36:13] [INFO] Parsed 20 raw rows
+[2026-02-11 15:36:13] [INFO] Detected format: Shape D - Simple format (type, asset, amount) - common for wallets and transfers
+[2026-02-11 15:36:13] [INFO] Validating transactions for Shape D
+[2026-02-11 15:36:13] [ERROR] Processing failed: Validation failed
+[2026-02-11 15:36:36] [INFO] Processing file: test-transfers-and-flags.csv
+[2026-02-11 15:36:36] [INFO] Parsing CSV file
+[2026-02-11 15:36:36] [INFO] Parsed 20 raw rows
+[2026-02-11 15:36:36] [INFO] Detected format: Shape D - Simple format (type, asset, amount) - common for wallets and transfers
+[2026-02-11 15:36:36] [INFO] Validating transactions for Shape D
+[2026-02-11 15:36:36] [ERROR] Processing failed: Validation failed
+[2026-02-11 15:36:41] [INFO] Processing file: test-with-exclusion.csv
+[2026-02-11 15:36:41] [INFO] Parsing CSV file
+[2026-02-11 15:36:41] [INFO] Parsed 6 raw rows
+[2026-02-11 15:36:41] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-11 15:36:41] [INFO] Validating transactions for Shape A
+[2026-02-11 15:36:41] [INFO] Validation successful
+[2026-02-11 15:36:41] [INFO] Normalizing transactions
+[2026-02-11 15:36:41] [INFO] Normalized 6 transactions
+[2026-02-11 15:36:41] [INFO] Sorting transactions chronologically
+[2026-02-11 15:36:41] [INFO] Sorting complete
+[2026-02-11 15:36:41] [INFO] Detecting non-taxable transfers
+[2026-02-11 15:36:41] [INFO] Transfer detection complete
+[2026-02-11 15:36:41] [INFO] Analyzing for suspicious transactions
+[2026-02-11 15:36:41] [INFO] Found 12 flagged transactions
+[2026-02-11 15:36:41] [INFO] Processing complete
+[2026-02-11 15:36:48] [INFO] Processing file: sample-transactions.csv
+[2026-02-11 15:36:48] [INFO] Parsing CSV file
+[2026-02-11 15:36:48] [INFO] Parsed 10 raw rows
+[2026-02-11 15:36:48] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-11 15:36:48] [INFO] Validating transactions for Shape A
+[2026-02-11 15:36:48] [INFO] Validation successful
+[2026-02-11 15:36:48] [INFO] Normalizing transactions
+[2026-02-11 15:36:48] [INFO] Normalized 10 transactions
+[2026-02-11 15:36:48] [INFO] Sorting transactions chronologically
+[2026-02-11 15:36:48] [INFO] Sorting complete
+[2026-02-11 15:36:48] [INFO] Detecting non-taxable transfers
+[2026-02-11 15:36:48] [INFO] Transfer detection complete
+[2026-02-11 15:36:48] [INFO] Analyzing for suspicious transactions
+[2026-02-11 15:36:48] [INFO] Found 20 flagged transactions
+[2026-02-11 15:36:48] [INFO] Processing complete
+[2026-02-11 15:37:06] [INFO] Processing file: test-transfers-and-flags.csv
+[2026-02-11 15:37:06] [INFO] Parsing CSV file
+[2026-02-11 15:37:06] [INFO] Parsed 20 raw rows
+[2026-02-11 15:37:06] [INFO] Detected format: Shape D - Simple format (type, asset, amount) - common for wallets and transfers
+[2026-02-11 15:37:06] [INFO] Validating transactions for Shape D
+[2026-02-11 15:37:06] [ERROR] Processing failed: Validation failed
+[2026-02-11 15:39:10] [INFO] Processing file: test-transfers-and-flags.csv
+[2026-02-11 15:39:10] [INFO] Parsing CSV file
+[2026-02-11 15:39:10] [INFO] Parsed 20 raw rows
+[2026-02-11 15:39:10] [INFO] Detected format: Shape D - Simple format (type, asset, amount) - common for wallets and transfers
+[2026-02-11 15:39:10] [INFO] Validating transactions for Shape D
+[2026-02-11 15:39:10] [ERROR] Processing failed: Validation failed
+[2026-02-11 15:39:30] [INFO] Processing file: sample-transactions.csv
+[2026-02-11 15:39:30] [INFO] Parsing CSV file
+[2026-02-11 15:39:30] [INFO] Parsed 10 raw rows
+[2026-02-11 15:39:30] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-11 15:39:30] [INFO] Validating transactions for Shape A
+[2026-02-11 15:39:30] [INFO] Validation successful
+[2026-02-11 15:39:30] [INFO] Normalizing transactions
+[2026-02-11 15:39:30] [INFO] Normalized 10 transactions
+[2026-02-11 15:39:30] [INFO] Sorting transactions chronologically
+[2026-02-11 15:39:30] [INFO] Sorting complete
+[2026-02-11 15:39:30] [INFO] Detecting non-taxable transfers
+[2026-02-11 15:39:30] [INFO] Transfer detection complete
+[2026-02-11 15:39:30] [INFO] Analyzing for suspicious transactions
+[2026-02-11 15:39:30] [INFO] Found 20 flagged transactions
+[2026-02-11 15:39:30] [INFO] Processing complete
+[2026-02-11 15:39:43] [INFO] Processing file: test-transfers-and-flags.csv
+[2026-02-11 15:39:43] [INFO] Parsing CSV file
+[2026-02-11 15:39:43] [INFO] Parsed 20 raw rows
+[2026-02-11 15:39:43] [INFO] Detected format: Shape D - Simple format (type, asset, amount) - common for wallets and transfers
+[2026-02-11 15:39:43] [INFO] Validating transactions for Shape D
+[2026-02-11 15:39:43] [ERROR] Processing failed: Validation failed
+[2026-02-11 15:39:53] [INFO] Processing file: test-exchange-format.csv
+[2026-02-11 15:39:53] [INFO] Parsing CSV file
+[2026-02-11 15:39:53] [INFO] Parsed 5 raw rows
+[2026-02-11 15:39:53] [INFO] Detected format: Shape B - Exchange format with trading pair and both amounts
+[2026-02-11 15:39:53] [INFO] Validating transactions for Shape B
+[2026-02-11 15:39:53] [INFO] Validation successful
+[2026-02-11 15:39:53] [INFO] Normalizing transactions
+[2026-02-11 15:39:53] [INFO] Normalized 5 transactions
+[2026-02-11 15:39:53] [INFO] Sorting transactions chronologically
+[2026-02-11 15:39:53] [INFO] Sorting complete
+[2026-02-11 15:39:53] [INFO] Detecting non-taxable transfers
+[2026-02-11 15:39:53] [INFO] Transfer detection complete
+[2026-02-11 15:39:53] [INFO] Analyzing for suspicious transactions
+[2026-02-11 15:39:53] [INFO] Found 10 flagged transactions
+[2026-02-11 15:39:53] [INFO] Processing complete
+[2026-02-11 15:41:44] [INFO] Processing file: test-transfers-and-flags.csv
+[2026-02-11 15:41:44] [INFO] Parsing CSV file
+[2026-02-11 15:41:44] [INFO] Parsed 20 raw rows
+[2026-02-11 15:41:44] [INFO] Detected format: Shape D - Simple format (type, asset, amount) - common for wallets and transfers
+[2026-02-11 15:41:44] [INFO] Validating transactions for Shape D
+[2026-02-11 15:41:44] [INFO] Validation successful
+[2026-02-11 15:41:44] [INFO] Normalizing transactions
+[2026-02-11 15:41:44] [INFO] Normalized 20 transactions
+[2026-02-11 15:41:44] [INFO] Sorting transactions chronologically
+[2026-02-11 15:41:44] [INFO] Sorting complete
+[2026-02-11 15:41:44] [INFO] Detecting non-taxable transfers
+[2026-02-11 15:41:44] [INFO] Transfer detection complete
+[2026-02-11 15:41:44] [INFO] Analyzing for suspicious transactions
+[2026-02-11 15:42:00] [INFO] Processing file: test-transfers-and-flags.csv
+[2026-02-11 15:42:00] [INFO] Parsing CSV file
+[2026-02-11 15:42:00] [INFO] Parsed 20 raw rows
+[2026-02-11 15:42:00] [INFO] Detected format: Shape D - Simple format (type, asset, amount) - common for wallets and transfers
+[2026-02-11 15:42:00] [INFO] Validating transactions for Shape D
+[2026-02-11 15:42:00] [INFO] Validation successful
+[2026-02-11 15:42:00] [INFO] Normalizing transactions
+[2026-02-11 15:42:00] [INFO] Normalized 20 transactions
+[2026-02-11 15:42:00] [INFO] Sorting transactions chronologically
+[2026-02-11 15:42:00] [INFO] Sorting complete
+[2026-02-11 15:42:00] [INFO] Detecting non-taxable transfers
+[2026-02-11 15:42:00] [INFO] Transfer detection complete
+[2026-02-11 15:42:00] [INFO] Analyzing for suspicious transactions
+[2026-02-11 15:42:32] [INFO] Processing file: sample-transactions.csv
+[2026-02-11 15:42:32] [INFO] Parsing CSV file
+[2026-02-11 15:42:32] [INFO] Parsed 10 raw rows
+[2026-02-11 15:42:32] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-11 15:42:32] [INFO] Validating transactions for Shape A
+[2026-02-11 15:42:32] [INFO] Validation successful
+[2026-02-11 15:42:32] [INFO] Normalizing transactions
+[2026-02-11 15:42:32] [INFO] Normalized 10 transactions
+[2026-02-11 15:42:32] [INFO] Sorting transactions chronologically
+[2026-02-11 15:42:32] [INFO] Sorting complete
+[2026-02-11 15:42:32] [INFO] Detecting non-taxable transfers
+[2026-02-11 15:42:32] [INFO] Transfer detection complete
+[2026-02-11 15:42:32] [INFO] Analyzing for suspicious transactions
+[2026-02-11 15:42:32] [INFO] Found 20 flagged transactions
+[2026-02-11 15:42:32] [INFO] Processing complete
+[2026-02-11 15:44:44] [INFO] Processing file: test-transfers-and-flags.csv
+[2026-02-11 15:44:44] [INFO] Parsing CSV file
+[2026-02-11 15:44:44] [INFO] Parsed 20 raw rows
+[2026-02-11 15:44:44] [INFO] Detected format: Shape D - Simple format (type, asset, amount) - common for wallets and transfers
+[2026-02-11 15:44:44] [INFO] Validating transactions for Shape D
+[2026-02-11 15:44:44] [INFO] Validation successful
+[2026-02-11 15:44:44] [INFO] Normalizing transactions
+[2026-02-11 15:44:44] [INFO] Normalized 20 transactions
+[2026-02-11 15:44:44] [INFO] Sorting transactions chronologically
+[2026-02-11 15:44:44] [INFO] Sorting complete
+[2026-02-11 15:44:44] [INFO] Detecting non-taxable transfers
+[2026-02-11 15:44:44] [INFO] Transfer detection complete
+[2026-02-11 15:44:44] [INFO] Analyzing for suspicious transactions
+[2026-02-11 15:44:44] [INFO] Found 27 flagged transactions
+[2026-02-11 15:44:44] [INFO] Processing complete
+[2026-02-11 15:45:28] [INFO] Processing file: test-transfers-and-flags.csv
+[2026-02-11 15:45:28] [INFO] Parsing CSV file
+[2026-02-11 15:45:28] [ERROR] Processing failed: CSV parsing failed: Unable to read header row
+[2026-02-11 15:45:32] [INFO] Processing file: sample-transactions.csv
+[2026-02-11 15:45:32] [INFO] Parsing CSV file
+[2026-02-11 15:45:32] [INFO] Parsed 10 raw rows
+[2026-02-11 15:45:32] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-11 15:45:32] [INFO] Validating transactions for Shape A
+[2026-02-11 15:45:32] [INFO] Validation successful
+[2026-02-11 15:45:32] [INFO] Normalizing transactions
+[2026-02-11 15:45:32] [INFO] Normalized 10 transactions
+[2026-02-11 15:45:32] [INFO] Sorting transactions chronologically
+[2026-02-11 15:45:32] [INFO] Sorting complete
+[2026-02-11 15:45:32] [INFO] Processing complete

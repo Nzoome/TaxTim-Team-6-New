@@ -3,22 +3,26 @@
 namespace CryptoTax\Parsers;
 
 use CryptoTax\Exceptions\ParseException;
+use CryptoTax\Services\ColumnAliasMapper;
+use CryptoTax\Services\ShapeDetector;
 
 /**
  * CSV Parser
- * Parses CSV files into raw transaction rows
+ * Parses CSV files into raw transaction rows with intelligent header mapping
  */
 class CSVParser
 {
-    private array $requiredColumns = [
-        'date',
-        'type',
-        'from_currency',
-        'from_amount',
-        'to_currency',
-        'to_amount',
-        'price'
-    ];
+    private ColumnAliasMapper $aliasMapper;
+    private ShapeDetector $shapeDetector;
+    private string $detectedShape = 'A';
+
+    public function __construct(
+        ColumnAliasMapper $aliasMapper = null,
+        ShapeDetector $shapeDetector = null
+    ) {
+        $this->aliasMapper = $aliasMapper ?? new ColumnAliasMapper();
+        $this->shapeDetector = $shapeDetector ?? new ShapeDetector($this->aliasMapper);
+    }
 
     /**
      * Parse CSV file into raw rows
@@ -45,8 +49,11 @@ class CSVParser
                 throw new ParseException("Unable to read header row");
             }
 
-            // Normalize headers
-            $headers = $this->normalizeHeaders($headerRow);
+            // Map headers using alias mapper
+            $headers = $this->mapHeaders($headerRow);
+            
+            // Detect data shape
+            $this->detectedShape = $this->shapeDetector->detectShape($headers);
             
             // Parse data rows
             $rows = [];
@@ -76,38 +83,21 @@ class CSVParser
     }
 
     /**
-     * Normalize header names
+     * Get the detected shape of the data
+     * 
+     * @return string Shape identifier ('A', 'B', or 'C')
      */
-    private function normalizeHeaders(array $headers): array
+    public function getDetectedShape(): string
     {
-        return array_map(function($header) {
-            // Convert to lowercase and replace spaces/dashes with underscores
-            $normalized = strtolower(trim($header));
-            $normalized = preg_replace('/[\s\-]+/', '_', $normalized);
-            
-            // Handle common variations
-            $mappings = [
-                'transaction_type' => 'type',
-                'transaction_date' => 'date',
-                'datetime' => 'date',
-                'timestamp' => 'date',
-                'from_coin' => 'from_currency',
-                'from_crypto' => 'from_currency',
-                'to_coin' => 'to_currency',
-                'to_crypto' => 'to_currency',
-                'from_qty' => 'from_amount',
-                'from_quantity' => 'from_amount',
-                'to_qty' => 'to_amount',
-                'to_quantity' => 'to_amount',
-                'price_zar' => 'price',
-                'price_per_unit' => 'price',
-                'unit_price' => 'price',
-                'fees' => 'fee',
-                'transaction_fee' => 'fee'
-            ];
-            
-            return $mappings[$normalized] ?? $normalized;
-        }, $headers);
+        return $this->detectedShape;
+    }
+
+    /**
+     * Map headers using alias mapper
+     */
+    private function mapHeaders(array $headers): array
+    {
+        return $this->aliasMapper->mapHeaders($headers);
     }
 
     /**

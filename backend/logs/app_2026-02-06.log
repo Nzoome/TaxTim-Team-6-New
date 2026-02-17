@@ -1,0 +1,55 @@
+[2026-02-06 09:05:48] [INFO] Processing file: error-test-transactions.csv
+[2026-02-06 09:05:48] [INFO] Parsing CSV file
+[2026-02-06 09:05:48] [INFO] Parsed 18 raw rows
+[2026-02-06 09:05:48] [INFO] Validating transactions
+[2026-02-06 09:05:48] [ERROR] Processing failed: Validation failed
+[2026-02-06 09:05:58] [INFO] Processing file: test-transactions.csv
+[2026-02-06 09:05:58] [INFO] Parsing CSV file
+[2026-02-06 09:05:58] [INFO] Parsed 20 raw rows
+[2026-02-06 09:05:58] [INFO] Validating transactions
+[2026-02-06 09:05:58] [INFO] Validation successful
+[2026-02-06 09:05:58] [INFO] Normalizing transactions
+[2026-02-06 09:05:58] [INFO] Normalized 20 transactions
+[2026-02-06 09:05:58] [INFO] Sorting transactions chronologically
+[2026-02-06 09:05:58] [INFO] Sorting complete
+[2026-02-06 09:05:58] [INFO] Processing complete
+[2026-02-06 10:38:11] [INFO] Processing file: error-test-transactions.csv
+[2026-02-06 10:38:11] [INFO] Parsing CSV file
+[2026-02-06 10:38:11] [INFO] Parsed 18 raw rows
+[2026-02-06 10:38:11] [INFO] Validating transactions
+[2026-02-06 10:38:11] [ERROR] Processing failed: Validation failed
+[2026-02-06 10:38:30] [INFO] Processing file: test-transactions.csv
+[2026-02-06 10:38:30] [INFO] Parsing CSV file
+[2026-02-06 10:38:30] [INFO] Parsed 20 raw rows
+[2026-02-06 10:38:30] [INFO] Validating transactions
+[2026-02-06 10:38:30] [INFO] Validation successful
+[2026-02-06 10:38:30] [INFO] Normalizing transactions
+[2026-02-06 10:38:30] [INFO] Normalized 20 transactions
+[2026-02-06 10:38:30] [INFO] Sorting transactions chronologically
+[2026-02-06 10:38:30] [INFO] Sorting complete
+[2026-02-06 10:38:30] [INFO] Processing complete
+[2026-02-06 11:45:42] [INFO] Processing file: error-test-transactions.csv
+[2026-02-06 11:45:42] [INFO] Parsing CSV file
+[2026-02-06 11:45:42] [INFO] Parsed 18 raw rows
+[2026-02-06 11:45:42] [INFO] Validating transactions
+[2026-02-06 11:45:42] [ERROR] Processing failed: Validation failed
+[2026-02-06 11:46:25] [INFO] Processing file: test-transactions.csv
+[2026-02-06 11:46:25] [INFO] Parsing CSV file
+[2026-02-06 11:46:25] [INFO] Parsed 20 raw rows
+[2026-02-06 11:46:25] [INFO] Validating transactions
+[2026-02-06 11:46:25] [INFO] Validation successful
+[2026-02-06 11:46:25] [INFO] Normalizing transactions
+[2026-02-06 11:46:25] [INFO] Normalized 20 transactions
+[2026-02-06 11:46:25] [INFO] Sorting transactions chronologically
+[2026-02-06 11:46:25] [INFO] Sorting complete
+[2026-02-06 11:46:25] [INFO] Processing complete
+[2026-02-06 11:51:29] [INFO] Processing file: test-transactions.csv
+[2026-02-06 11:51:29] [INFO] Parsing CSV file
+[2026-02-06 11:51:29] [INFO] Parsed 20 raw rows
+[2026-02-06 11:51:29] [INFO] Validating transactions
+[2026-02-06 11:51:29] [INFO] Validation successful
+[2026-02-06 11:51:29] [INFO] Normalizing transactions
+[2026-02-06 11:51:29] [INFO] Normalized 20 transactions
+[2026-02-06 11:51:29] [INFO] Sorting transactions chronologically
+[2026-02-06 11:51:29] [INFO] Sorting complete
+[2026-02-06 11:51:29] [INFO] Processing complete

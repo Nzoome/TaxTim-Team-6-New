@@ -48,15 +48,25 @@ try {
     file_put_contents($dataFile, json_encode([
         'transactions' => $result['transactions'],
         'summary' => $result['summary'],
+        'red_flags' => $result['red_flags'] ?? [],
+        'red_flag_summary' => $result['red_flag_summary'] ?? null,
+        'has_critical_issues' => $result['has_critical_issues'] ?? false,
+        'audit_risk_level' => $result['audit_risk_level'] ?? 'MINIMAL',
+        'detected_format' => $result['detected_format'] ?? null,
         'timestamp' => time()
     ]));
 
-    // Return success response
+    // Return success response with red flag data
     echo json_encode([
         'success' => true,
         'data' => [
             'transactions' => $result['transactions'],
-            'summary' => $result['summary']
+            'summary' => $result['summary'],
+            'red_flags' => $result['red_flags'] ?? [],
+            'red_flag_summary' => $result['red_flag_summary'] ?? null,
+            'has_critical_issues' => $result['has_critical_issues'] ?? false,
+            'audit_risk_level' => $result['audit_risk_level'] ?? 'MINIMAL',
+            'detected_format' => $result['detected_format'] ?? null
         ]
     ]);
 

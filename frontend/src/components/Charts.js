@@ -17,11 +17,16 @@ const Charts = ({ transactions, summary }) => {
     const assetMap = new Map();
 
     transactions.forEach(tx => {
-      if (tx.type === 'SELL' || tx.type === 'TRADE_SELL') {
-        const currency = tx.currency;
+      const txType = (tx.type || '').toUpperCase();
+      
+      // Include SELL and TRADE transactions (both generate capital gains/losses)
+      if (txType === 'SELL' || txType === 'TRADE') {
+        // For SELL: use currency field or fromCurrency
+        // For TRADE: use currency field or fromCurrency (the asset being disposed)
+        const currency = tx.currency || tx.fromCurrency;
         const gain = tx.capitalGain || 0;
 
-        if (!assetMap.has(currency)) {
+        if (currency && !assetMap.has(currency)) {
           assetMap.set(currency, {
             asset: currency,
             gains: 0,
@@ -30,13 +35,15 @@ const Charts = ({ transactions, summary }) => {
           });
         }
 
-        const data = assetMap.get(currency);
-        if (gain >= 0) {
-          data.gains += gain;
-        } else {
-          data.losses += Math.abs(gain);
+        if (currency) {
+          const data = assetMap.get(currency);
+          if (gain >= 0) {
+            data.gains += gain;
+          } else {
+            data.losses += Math.abs(gain);
+          }
+          data.netGain += gain;
         }
-        data.netGain += gain;
       }
     });
 
@@ -48,7 +55,10 @@ const Charts = ({ transactions, summary }) => {
     const yearMap = new Map();
 
     transactions.forEach(tx => {
-      if (tx.type === 'SELL' || tx.type === 'TRADE_SELL') {
+      const txType = (tx.type || '').toUpperCase();
+      
+      // Include SELL and TRADE transactions (both generate capital gains/losses)
+      if (txType === 'SELL' || txType === 'TRADE') {
         const year = tx.taxYear || 'Unknown';
         const gain = tx.capitalGain || 0;
 
@@ -136,14 +146,59 @@ const Charts = ({ transactions, summary }) => {
   }
 
   return (
-    <div className="charts-section">
-      <h2>📊 Visual Analytics</h2>
+    <>
+      <h2 className="charts-header">Visual Analytics</h2>
+      
+      <div className="charts-section">
+        {/* Legend and Info Box */}
+        <div className="charts-legend-box">
+          <div className="legend-header">
+            <h4>Chart Legend & Insights</h4>
+          </div>
+          <div className="legend-content">
+            <div className="legend-category">
+              <h5>Capital Gains/Losses</h5>
+              <div className="legend-item">
+                <span className="legend-dot" style={{ backgroundColor: '#48bb78' }}></span>
+                <span>Gains: {formatCurrency(summary.totalCapitalGain)}</span>
+              </div>
+              <div className="legend-item">
+                <span className="legend-dot" style={{ backgroundColor: '#f56565' }}></span>
+                <span>Losses: {formatCurrency(summary.totalCapitalLoss)}</span>
+              </div>
+            </div>
+            
+            <div className="legend-category">
+              <h5>Tax Year Analysis</h5>
+              <div className="legend-item">
+                <span className="legend-dot" style={{ backgroundColor: '#4299e1' }}></span>
+                <span>Year Gains</span>
+              </div>
+              <div className="legend-item">
+                <span className="legend-dot" style={{ backgroundColor: '#ed8936' }}></span>
+                <span>Year Losses</span>
+              </div>
+            </div>
 
-      <div className="charts-grid">
+            <div className="legend-category">
+              <h5>Summary</h5>
+              <div className="legend-item">
+                <span className="legend-dot" style={{ backgroundColor: '#9f7aea' }}></span>
+                <span>Taxable (40%): {formatCurrency(summary.taxableCapitalGain)}</span>
+              </div>
+              <div className="legend-item">
+                <span className="legend-dot" style={{ backgroundColor: '#38b2ac' }}></span>
+                <span>Total Transactions: {transactions.length}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="charts-grid">
         {/* Gains/Losses by Asset */}
         {assetData.length > 0 && (
           <div className="chart-card">
-            <h3>💰 Gains/Losses by Asset</h3>
+            <h3>Gains/Losses by Asset</h3>
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={assetData}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
@@ -161,7 +216,7 @@ const Charts = ({ transactions, summary }) => {
         {/* Gains/Losses by Tax Year */}
         {taxYearData.length > 0 && (
           <div className="chart-card">
-            <h3>📅 Gains/Losses by Tax Year</h3>
+            <h3>Gains/Losses by Tax Year</h3>
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={taxYearData}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
@@ -179,7 +234,7 @@ const Charts = ({ transactions, summary }) => {
         {/* Overall Gains vs Losses Donut */}
         {distributionData.length > 0 && (
           <div className="chart-card">
-            <h3>🎯 Overall Gains vs Losses</h3>
+            <h3>Overall Gains vs Losses</h3>
             <ResponsiveContainer width="100%" height={300}>
               <PieChart>
                 <Pie
@@ -200,23 +255,13 @@ const Charts = ({ transactions, summary }) => {
                 <Tooltip content={<CustomPieTooltip />} />
               </PieChart>
             </ResponsiveContainer>
-            <div className="chart-summary">
-              <div className="summary-item">
-                <span className="summary-dot" style={{ backgroundColor: '#48bb78' }}></span>
-                <span>Net Gain: {formatCurrency(summary.netCapitalGain)}</span>
-              </div>
-              <div className="summary-item">
-                <span className="summary-dot" style={{ backgroundColor: '#9f7aea' }}></span>
-                <span>Taxable (40%): {formatCurrency(summary.taxableCapitalGain)}</span>
-              </div>
-            </div>
           </div>
         )}
 
         {/* Transaction Type Distribution */}
         {typeData.length > 0 && (
           <div className="chart-card">
-            <h3>🔄 Transaction Type Distribution</h3>
+            <h3>Transaction Type Distribution</h3>
             <ResponsiveContainer width="100%" height={300}>
               <PieChart>
                 <Pie
@@ -239,7 +284,8 @@ const Charts = ({ transactions, summary }) => {
           </div>
         )}
       </div>
-    </div>
+      </div>
+    </>
   );
 };
 

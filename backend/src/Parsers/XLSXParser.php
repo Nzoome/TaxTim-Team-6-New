@@ -3,15 +3,29 @@
 namespace CryptoTax\Parsers;
 
 use CryptoTax\Exceptions\ParseException;
+use CryptoTax\Services\ColumnAliasMapper;
+use CryptoTax\Services\ShapeDetector;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 /**
  * XLSX Parser
- * Parses Excel files into raw transaction rows (same format as CSV)
+ * Parses Excel files into raw transaction rows with intelligent header mapping
  */
 class XLSXParser
 {
+    private ColumnAliasMapper $aliasMapper;
+    private ShapeDetector $shapeDetector;
+    private string $detectedShape = 'A';
+
+    public function __construct(
+        ColumnAliasMapper $aliasMapper = null,
+        ShapeDetector $shapeDetector = null
+    ) {
+        $this->aliasMapper = $aliasMapper ?? new ColumnAliasMapper();
+        $this->shapeDetector = $shapeDetector ?? new ShapeDetector($this->aliasMapper);
+    }
+
     /**
      * Parse XLSX file into raw rows
      * 
@@ -37,9 +51,12 @@ class XLSXParser
                 throw new ParseException("Worksheet is empty");
             }
 
-            // Extract and normalize headers
+            // Extract and map headers
             $headerRow = array_shift($allRows);
-            $headers = $this->normalizeHeaders($headerRow);
+            $headers = $this->mapHeaders($headerRow);
+            
+            // Detect data shape
+            $this->detectedShape = $this->shapeDetector->detectShape($headers);
             
             // Parse data rows
             $rows = [];
@@ -67,42 +84,21 @@ class XLSXParser
     }
 
     /**
-     * Normalize header names (same logic as CSV parser)
+     * Get the detected shape of the data
+     * 
+     * @return string Shape identifier ('A', 'B', or 'C')
      */
-    private function normalizeHeaders(array $headers): array
+    public function getDetectedShape(): string
     {
-        return array_map(function($header) {
-            if ($header === null) {
-                return '';
-            }
-            
-            // Convert to lowercase and replace spaces/dashes with underscores
-            $normalized = strtolower(trim($header));
-            $normalized = preg_replace('/[\s\-]+/', '_', $normalized);
-            
-            // Handle common variations
-            $mappings = [
-                'transaction_type' => 'type',
-                'transaction_date' => 'date',
-                'datetime' => 'date',
-                'timestamp' => 'date',
-                'from_coin' => 'from_currency',
-                'from_crypto' => 'from_currency',
-                'to_coin' => 'to_currency',
-                'to_crypto' => 'to_currency',
-                'from_qty' => 'from_amount',
-                'from_quantity' => 'from_amount',
-                'to_qty' => 'to_amount',
-                'to_quantity' => 'to_amount',
-                'price_zar' => 'price',
-                'price_per_unit' => 'price',
-                'unit_price' => 'price',
-                'fees' => 'fee',
-                'transaction_fee' => 'fee'
-            ];
-            
-            return $mappings[$normalized] ?? $normalized;
-        }, $headers);
+        return $this->detectedShape;
+    }
+
+    /**
+     * Map headers using alias mapper
+     */
+    private function mapHeaders(array $headers): array
+    {
+        return $this->aliasMapper->mapHeaders($headers);
     }
 
     /**

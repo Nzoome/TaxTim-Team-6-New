@@ -3,34 +3,37 @@
 namespace CryptoTax\Validators;
 
 use CryptoTax\Exceptions\ValidationException;
+use CryptoTax\Services\ShapeDetector;
+use CryptoTax\Services\FormatNormalizer;
 use DateTime;
 
 /**
  * Transaction Validator
- * Validates file structure and transaction data
+ * Validates file structure and transaction data for different shapes
  */
 class TransactionValidator
 {
-    private array $requiredColumns = [
-        'date',
-        'type',
-        'from_currency',
-        'from_amount',
-        'to_currency',
-        'to_amount',
-        'price'
-    ];
-
-    private array $validTypes = ['BUY', 'SELL', 'TRADE'];
+    private ShapeDetector $shapeDetector;
+    private FormatNormalizer $formatNormalizer;
+    private array $validTypes = ['BUY', 'SELL', 'TRADE', 'TRANSFER'];
     private array $errors = [];
+
+    public function __construct(
+        ShapeDetector $shapeDetector = null,
+        FormatNormalizer $formatNormalizer = null
+    ) {
+        $this->shapeDetector = $shapeDetector;
+        $this->formatNormalizer = $formatNormalizer ?? new FormatNormalizer();
+    }
 
     /**
      * Validate raw transaction rows
      * 
      * @param array $rows Raw transaction rows
+     * @param string $shape Detected shape ('A', 'B', or 'C')
      * @throws ValidationException if validation fails
      */
-    public function validate(array $rows): void
+    public function validate(array $rows, string $shape = 'A'): void
     {
         $this->errors = [];
 
@@ -40,24 +43,25 @@ class TransactionValidator
         }
 
         // Validate structure of first row to ensure required columns exist
-        $this->validateRequiredColumns($rows[0]);
+        $this->validateRequiredColumns($rows[0], $shape);
         
         // Validate each row
         foreach ($rows as $index => $row) {
-            $this->validateRow($row);
+            $this->validateRow($row, $shape);
         }
 
         $this->throwIfErrors();
     }
 
     /**
-     * Validate required columns exist
+     * Validate required columns exist for the detected shape
      */
-    private function validateRequiredColumns(array $row): void
+    private function validateRequiredColumns(array $row, string $shape): void
     {
+        $requiredColumns = $this->getRequiredColumnsForShape($shape);
         $missingColumns = [];
         
-        foreach ($this->requiredColumns as $column) {
+        foreach ($requiredColumns as $column) {
             if (!array_key_exists($column, $row)) {
                 $missingColumns[] = $column;
             }
@@ -65,15 +69,35 @@ class TransactionValidator
 
         if (!empty($missingColumns)) {
             $this->addError('structure', 
-                'Missing required columns: ' . implode(', ', $missingColumns)
+                "Missing required columns for Shape {$shape}: " . implode(', ', $missingColumns)
             );
         }
     }
 
     /**
+     * Get required columns for a specific shape
+     */
+    private function getRequiredColumnsForShape(string $shape): array
+    {
+        if ($this->shapeDetector) {
+            return $this->shapeDetector->getRequiredColumns($shape);
+        }
+
+        // Fallback to Shape A requirements
+        return [
+            'date',
+            'type',
+            'from_currency',
+            'from_amount',
+            'to_currency',
+            'to_amount'
+        ];
+    }
+
+    /**
      * Validate a single row
      */
-    private function validateRow(array $row): void
+    private function validateRow(array $row, string $shape): void
     {
         $lineNumber = $row['line_number'] ?? 'unknown';
 
@@ -87,53 +111,82 @@ class TransactionValidator
         // Validate type
         if (empty($row['type'])) {
             $this->addError("row_{$lineNumber}", "Transaction type is required");
-        } elseif (!in_array(strtoupper($row['type']), $this->validTypes)) {
-            $this->addError("row_{$lineNumber}", 
-                "Invalid transaction type: {$row['type']}. Must be BUY, SELL, or TRADE"
-            );
+        } else {
+            // Normalize type for validation
+            $normalizedType = $this->formatNormalizer->normalizeType($row['type']);
+            if (!in_array($normalizedType, $this->validTypes)) {
+                $this->addError("row_{$lineNumber}", 
+                    "Invalid transaction type: {$row['type']}. Must be BUY, SELL, or TRADE"
+                );
+            }
         }
 
-        // Validate from_currency
-        if (empty($row['from_currency'])) {
-            $this->addError("row_{$lineNumber}", "From currency is required");
+        // Validate based on shape
+        switch ($shape) {
+            case 'A':
+                $this->validateShapeA($row, $lineNumber);
+                break;
+            case 'B':
+                $this->validateShapeB($row, $lineNumber);
+                break;
+            case 'C':
+                $this->validateShapeC($row, $lineNumber);
+                break;
         }
 
-        // Validate from_amount
-        if (!isset($row['from_amount']) || $row['from_amount'] === '') {
-            $this->addError("row_{$lineNumber}", "From amount is required");
-        } elseif (!is_numeric($row['from_amount']) || $row['from_amount'] < 0) {
-            $this->addError("row_{$lineNumber}", 
-                "From amount must be a positive number: {$row['from_amount']}"
-            );
-        }
+        // Allow negative or excessive fees - Red Flag system will catch these
+        // with better context and recommendations
+    }
 
-        // Validate to_currency
-        if (empty($row['to_currency'])) {
-            $this->addError("row_{$lineNumber}", "To currency is required");
-        }
+    /**
+     * Validate Shape A specific fields
+     * 
+     * Note: We allow some data quality issues to pass validation so they can be
+     * caught and reported by the Red Flag Detection system with more context.
+     */
+    private function validateShapeA(array $row, $lineNumber): void
+    {
+        // Validate from_currency - only check if present (Red Flag will catch quality issues)
+        // Empty values are allowed - Red Flag system will detect and report them
 
-        // Validate to_amount
-        if (!isset($row['to_amount']) || $row['to_amount'] === '') {
-            $this->addError("row_{$lineNumber}", "To amount is required");
-        } elseif (!is_numeric($row['to_amount']) || $row['to_amount'] < 0) {
-            $this->addError("row_{$lineNumber}", 
-                "To amount must be a positive number: {$row['to_amount']}"
-            );
-        }
+        // Validate from_amount - allow negative or missing values for Red Flag detection
+        // The Red Flag system will catch these with better context and recommendations
 
-        // Validate price
-        if (!isset($row['price']) || $row['price'] === '') {
-            $this->addError("row_{$lineNumber}", "Price is required");
-        } elseif (!is_numeric($row['price']) || $row['price'] < 0) {
-            $this->addError("row_{$lineNumber}", 
-                "Price must be a positive number: {$row['price']}"
-            );
-        }
+        // Validate to_currency - only check if present
+        // Empty values are allowed - Red Flag system will detect and report them
 
-        // Validate fee (optional but must be numeric if present)
-        if (isset($row['fee']) && $row['fee'] !== '' && !is_numeric($row['fee'])) {
-            $this->addError("row_{$lineNumber}", "Fee must be a number: {$row['fee']}");
-        }
+        // Validate to_amount - allow negative or missing values for Red Flag detection
+        // The Red Flag system will catch these with better context and recommendations
+
+        // Validate price - allow negative values for Red Flag detection
+        // The Red Flag system will catch these with better context
+
+        // Only fail on truly catastrophic structural issues that would prevent processing
+        // All data quality issues are handled by the Red Flag Detection system
+    }
+
+    /**
+     * Validate Shape B specific fields
+     * 
+     * Note: We allow some data quality issues to pass validation so they can be
+     * caught and reported by the Red Flag Detection system with more context.
+     */
+    private function validateShapeB(array $row, $lineNumber): void
+    {
+        // Allow missing or invalid values - Red Flag system will detect and report them
+        // with better context and recommendations
+    }
+
+    /**
+     * Validate Shape C specific fields
+     * 
+     * Note: We allow some data quality issues to pass validation so they can be
+     * caught and reported by the Red Flag Detection system with more context.
+     */
+    private function validateShapeC(array $row, $lineNumber): void
+    {
+        // Allow missing or invalid values - Red Flag system will detect and report them
+        // with better context and recommendations
     }
 
     /**

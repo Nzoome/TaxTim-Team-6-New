@@ -108,10 +108,12 @@ class FIFOEngine
             $this->taxYearSnapshots[$label] = $this->getBalancesArray();
         }
 
+        $balances = $this->getBalancesArray();
+
         return [
             'breakdowns' => $this->transactionBreakdowns,
             'summary' => $this->summary,
-            'balances' => $this->getBalancesArray()
+            'balances' => $balances
         ];
     }
 
@@ -214,6 +216,8 @@ class FIFOEngine
      * 5. Calculate capital gain/loss (proceeds - cost base)
      * 6. Update summary statistics
      * 
+     * Note: Now handles insufficient balance gracefully for Red Flag detection
+     * 
      * @param Transaction $transaction
      */
     private function handleSell(Transaction $transaction): void
@@ -222,21 +226,22 @@ class FIFOEngine
         $amount = $transaction->getFromAmount();
         $proceeds = $transaction->getPrice() * $amount - $transaction->getFee();
 
-        // Get balance
+        // Get balance - create empty one if it doesn't exist (for Red Flag detection)
         $balance = $this->getBalance($currency, $transaction->getWallet());
         if (!$balance) {
-            throw new \RuntimeException(
-                "Cannot sell {$amount} {$currency}: no balance found for wallet '{$transaction->getWallet()}'"
-            );
+            // Create empty balance to allow processing to continue
+            $balance = $this->getOrCreateBalance($currency, $transaction->getWallet());
         }
 
-        // Consume FIFO lots
+        // Consume FIFO lots - this now handles insufficient balance gracefully
         $consumptionRecords = $balance->consumeLots($amount);
 
-        // Calculate cost base from consumed lots
+        // Calculate cost base from consumed lots (skip metadata keys starting with _)
         $costBase = 0.0;
-        foreach ($consumptionRecords as $record) {
-            $costBase += $record['costBase'];
+        foreach ($consumptionRecords as $key => $record) {
+            if (strpos($key, '_') !== 0 && is_array($record)) {
+                $costBase += $record['costBase'];
+            }
         }
 
         // Calculate capital gain/loss
@@ -281,6 +286,8 @@ class FIFOEngine
      * 
      * The SELL and BUY happen at the same timestamp and are linked in the breakdown.
      * 
+     * Note: Now handles insufficient balance gracefully for Red Flag detection
+     * 
      * @param Transaction $transaction
      */
     private function handleTrade(Transaction $transaction): void
@@ -292,20 +299,21 @@ class FIFOEngine
         // For TRADE, proceeds = value of what we're getting
         $proceeds = $transaction->getPrice() * $transaction->getToAmount();
         
-        // Get balance and consume lots
+        // Get balance - create empty one if it doesn't exist (for Red Flag detection)
         $balance = $this->getBalance($fromCurrency, $transaction->getWallet());
         if (!$balance) {
-            throw new \RuntimeException(
-                "Cannot trade {$fromAmount} {$fromCurrency}: no balance found"
-            );
+            // Create empty balance to allow processing to continue
+            $balance = $this->getOrCreateBalance($fromCurrency, $transaction->getWallet());
         }
 
         $consumptionRecords = $balance->consumeLots($fromAmount);
 
-        // Calculate cost base from consumed lots
+        // Calculate cost base from consumed lots (skip metadata keys starting with _)
         $costBase = 0.0;
-        foreach ($consumptionRecords as $record) {
-            $costBase += $record['costBase'];
+        foreach ($consumptionRecords as $key => $record) {
+            if (strpos($key, '_') !== 0 && is_array($record)) {
+                $costBase += $record['costBase'];
+            }
         }
 
         // Calculate capital gain/loss on the SELL portion
@@ -433,7 +441,12 @@ class FIFOEngine
     private function formatConsumptionRecords(array $consumptionRecords, ?\DateTime $disposalDate = null): array
     {
         $formatted = [];
-        foreach ($consumptionRecords as $record) {
+        foreach ($consumptionRecords as $key => $record) {
+            // Skip metadata keys (starting with _)
+            if (strpos($key, '_') === 0) {
+                continue;
+            }
+            
             $formatted[] = [
                 'amountConsumed' => $record['amountConsumed'],
                 'costBase' => $record['costBase'],

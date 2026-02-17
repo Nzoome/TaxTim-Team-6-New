@@ -103,9 +103,11 @@ class CoinBalance
      * Returns an array of consumption records showing which lots were used
      * Each record contains: [lot, amountConsumed, costBase]
      * 
+     * Note: Now handles insufficient balance gracefully for Red Flag detection.
+     * Will consume what's available and note the deficit.
+     * 
      * @param float $amountToConsume Amount to consume
-     * @return array Array of consumption records
-     * @throws \RuntimeException If insufficient balance
+     * @return array Array of consumption records (may include 'insufficient_balance' flag)
      */
     public function consumeLots(float $amountToConsume): array
     {
@@ -113,12 +115,8 @@ class CoinBalance
         $epsilon = 0.00000001;
         
         // Check if we have sufficient balance (with floating-point tolerance)
-        if ($amountToConsume > ($this->totalBalance + $epsilon)) {
-            throw new \RuntimeException(
-                "Insufficient balance: trying to consume {$amountToConsume} {$this->currency}, " .
-                "but only {$this->totalBalance} available"
-            );
-        }
+        $hasInsufficientBalance = $amountToConsume > ($this->totalBalance + $epsilon);
+        $actualAvailable = $this->totalBalance;
 
         $consumptionRecords = [];
         $remainingToConsume = $amountToConsume;
@@ -156,8 +154,18 @@ class CoinBalance
             array_splice($this->lots, $index, 1);
         }
 
-        // Update total balance
-        $this->totalBalance -= $amountToConsume;
+        // Update total balance - use actual consumed amount
+        $actualConsumed = $amountToConsume - $remainingToConsume;
+        $this->totalBalance -= $actualConsumed;
+
+        // If insufficient balance, add metadata to the records
+        if ($hasInsufficientBalance) {
+            $consumptionRecords['_insufficient_balance'] = [
+                'requested' => $amountToConsume,
+                'available' => $actualAvailable,
+                'deficit' => $amountToConsume - $actualAvailable
+            ];
+        }
 
         return $consumptionRecords;
     }

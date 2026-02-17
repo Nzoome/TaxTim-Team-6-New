@@ -1,0 +1,5 @@
+Date,Type,SellCoin,SellAmount,BuyCoin,BuyAmount,BuyPricePerCoin,Fee,Wallet
+2024-01-15,BUY,ZAR,"R 100 000,00",BTC,"0,5","R 200 000,00",R 100,Luno
+2024-01-16,SELL,BTC,"0,3",ZAR,"R 63 000,00","R 210 000,00","R 63",Luno
+2024-01-17,BUY,ZAR,"R 50 000,00",ETH,"2,5","R 20 000,00",R 50,Luno
+2024-01-18,SELL,ETH,"1,0",ZAR,"R 21 000,00","R 21 000,00",R 21,Luno

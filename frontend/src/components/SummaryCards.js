@@ -16,9 +16,9 @@ const SummaryCards = ({ summary, taxYears, selectedTaxYear, onTaxYearChange }) =
   };
 
   return (
-    <div className="summary-cards">
+    <>
       <div className="summary-header">
-        <h2>📈 Tax Summary</h2>
+        <h2>Tax Summary</h2>
         <div className="tax-year-selector">
           <label htmlFor="taxYear">Tax Year:</label>
           <select 
@@ -35,10 +35,30 @@ const SummaryCards = ({ summary, taxYears, selectedTaxYear, onTaxYearChange }) =
         </div>
       </div>
 
-      <div className="cards-grid">
+      <div className="summary-cards">
+        {/* SARS Information Box */}
+        <div className="sars-info-box">
+          <div className="sars-info-header">
+            <h4>SARS Capital Gains Tax Information</h4>
+          </div>
+          <div className="sars-info-content">
+            <p>
+              <strong>Inclusion Rate:</strong> 40% of net capital gain is included in taxable income for individuals.
+            </p>
+            <p>
+              <strong>Annual Exclusion:</strong> R40,000 per year {summary.annualExclusionUsed ? 
+                `(R${summary.annualExclusionApplied?.toLocaleString('en-ZA', {minimumFractionDigits: 2, maximumFractionDigits: 2})} applied in this calculation)` : 
+                '(not applied in this calculation)'}.
+            </p>
+            <p>
+              <strong>Tax Year:</strong> March 1 to February 28/29 of the following year.
+            </p>
+          </div>
+        </div>
+
+        <div className="cards-grid">
         {/* Total Capital Gains */}
         <div className="summary-card card-primary">
-          <div className="card-icon">💰</div>
           <div className="card-content">
             <h3>Total Capital Gains</h3>
             <p className="card-value positive">{formatCurrency(summary.totalCapitalGain)}</p>
@@ -48,7 +68,6 @@ const SummaryCards = ({ summary, taxYears, selectedTaxYear, onTaxYearChange }) =
 
         {/* Total Capital Losses */}
         <div className="summary-card card-secondary">
-          <div className="card-icon">📉</div>
           <div className="card-content">
             <h3>Total Capital Losses</h3>
             <p className="card-value negative">{formatCurrency(summary.totalCapitalLoss)}</p>
@@ -58,7 +77,6 @@ const SummaryCards = ({ summary, taxYears, selectedTaxYear, onTaxYearChange }) =
 
         {/* Net Capital Gain */}
         <div className={`summary-card ${summary.netCapitalGain >= 0 ? 'card-success' : 'card-warning'}`}>
-          <div className="card-icon">📊</div>
           <div className="card-content">
             <h3>Net Capital Gain</h3>
             <p className={`card-value ${summary.netCapitalGain >= 0 ? 'positive' : 'negative'}`}>
@@ -68,9 +86,23 @@ const SummaryCards = ({ summary, taxYears, selectedTaxYear, onTaxYearChange }) =
           </div>
         </div>
 
+        {/* After Annual Exclusion - Only show if exclusion was applied */}
+        {summary.annualExclusionUsed && summary.netCapitalGain > 0 && (
+          <div className="summary-card card-info">
+            <div className="card-content">
+              <h3>After Annual Exclusion</h3>
+              <p className="card-value">
+                {formatCurrency(Math.max(0, summary.netCapitalGain - (summary.annualExclusionApplied || 0)))}
+              </p>
+              <p className="card-detail">
+                Net gain minus R{(summary.annualExclusionApplied || 0).toLocaleString('en-ZA', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+              </p>
+            </div>
+          </div>
+        )}
+
         {/* Taxable Capital Gain */}
         <div className="summary-card card-highlight">
-          <div className="card-icon">🎯</div>
           <div className="card-content">
             <h3>Taxable Capital Gain</h3>
             <p className="card-value highlight">{formatCurrency(summary.taxableCapitalGain)}</p>
@@ -80,7 +112,6 @@ const SummaryCards = ({ summary, taxYears, selectedTaxYear, onTaxYearChange }) =
 
         {/* Total Proceeds */}
         <div className="summary-card card-info">
-          <div className="card-icon">💵</div>
           <div className="card-content">
             <h3>Total Proceeds</h3>
             <p className="card-value">{formatCurrency(summary.totalProceeds)}</p>
@@ -90,7 +121,6 @@ const SummaryCards = ({ summary, taxYears, selectedTaxYear, onTaxYearChange }) =
 
         {/* Total Cost Base */}
         <div className="summary-card card-info">
-          <div className="card-icon">💸</div>
           <div className="card-content">
             <h3>Total Cost Base</h3>
             <p className="card-value">{formatCurrency(summary.totalCostBase)}</p>
@@ -100,7 +130,6 @@ const SummaryCards = ({ summary, taxYears, selectedTaxYear, onTaxYearChange }) =
 
         {/* Transactions Processed */}
         <div className="summary-card card-neutral">
-          <div className="card-icon">📝</div>
           <div className="card-content">
             <h3>Transactions</h3>
             <p className="card-value">{summary.transactionsProcessed}</p>
@@ -111,7 +140,6 @@ const SummaryCards = ({ summary, taxYears, selectedTaxYear, onTaxYearChange }) =
         {/* Effective Tax Rate Indicator */}
         {summary.netCapitalGain > 0 && (
           <div className="summary-card card-tax">
-            <div className="card-icon">🧮</div>
             <div className="card-content">
               <h3>CGT Inclusion Rate</h3>
               <p className="card-value">40%</p>
@@ -119,27 +147,9 @@ const SummaryCards = ({ summary, taxYears, selectedTaxYear, onTaxYearChange }) =
             </div>
           </div>
         )}
-      </div>
-
-      {/* SARS Information Box */}
-      <div className="sars-info-box">
-        <div className="sars-info-header">
-          <span className="info-icon">ℹ️</span>
-          <h4>SARS Capital Gains Tax Information</h4>
-        </div>
-        <div className="sars-info-content">
-          <p>
-            <strong>Inclusion Rate:</strong> 40% of net capital gain is included in taxable income for individuals.
-          </p>
-          <p>
-            <strong>Annual Exclusion:</strong> R40,000 per year (not applied in this calculation).
-          </p>
-          <p>
-            <strong>Tax Year:</strong> March 1 to February 28/29 of the following year.
-          </p>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

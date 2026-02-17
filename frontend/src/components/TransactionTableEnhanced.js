@@ -99,10 +99,10 @@ const TransactionTableEnhanced = ({ transactions }) => {
   return (
     <div className="transaction-table-enhanced">
       <div className="table-header-section">
-        <h2>📋 Transaction Details</h2>
+        <h2>Transaction Details</h2>
         <div className="table-actions">
           <button className="btn btn-secondary btn-sm" onClick={toggleExpandAll}>
-            {expandedRows.size > 0 ? '⬆️ Collapse All' : '⬇️ Expand All'}
+            {expandedRows.size > 0 ? '⬆ Collapse All' : '⬇ Expand All'}
           </button>
           <span className="transaction-count">{transactions.length} transactions</span>
         </div>
@@ -183,7 +183,7 @@ const TransactionTableEnhanced = ({ transactions }) => {
                         <div className="detail-sections">
                           {/* Basic Details */}
                           <div className="detail-section">
-                            <h4>📄 Transaction Details</h4>
+                            <h4>Transaction Details</h4>
                             <div className="detail-grid">
                               <div className="detail-item">
                                 <span className="detail-label">Line Number:</span>
@@ -215,7 +215,7 @@ const TransactionTableEnhanced = ({ transactions }) => {
                           {/* FIFO Lots Consumed (for SELL/TRADE) */}
                           {tx.lotsConsumed && tx.lotsConsumed.length > 0 && (
                             <div className="detail-section fifo-section">
-                              <h4>🔍 FIFO Lots Consumed</h4>
+                              <h4>FIFO Lots Consumed</h4>
                               <div className="fifo-table-wrapper">
                                 <table className="fifo-table">
                                   <thead>
@@ -267,7 +267,7 @@ const TransactionTableEnhanced = ({ transactions }) => {
                           {/* Capital Gain Calculation (for SELL/TRADE) */}
                           {tx.capitalGain !== null && tx.capitalGain !== undefined && (
                             <div className="detail-section calculation-section">
-                              <h4>🧮 Capital Gain Calculation</h4>
+                              <h4>Capital Gain Calculation</h4>
                               <div className="calculation-breakdown">
                                 <div className="calc-row">
                                   <span className="calc-label">Proceeds (after fees):</span>

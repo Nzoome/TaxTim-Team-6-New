@@ -1,0 +1,480 @@
+[2026-02-16 08:24:02] [INFO] Processing file: test-suspicious-transactions.csv
+[2026-02-16 08:24:02] [INFO] Parsing CSV file
+[2026-02-16 08:24:02] [INFO] Parsed 11 raw rows
+[2026-02-16 08:24:02] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-16 08:24:02] [INFO] Validating transactions for Shape A
+[2026-02-16 08:24:02] [INFO] Validation successful
+[2026-02-16 08:24:02] [INFO] Normalizing transactions
+[2026-02-16 08:24:02] [INFO] Normalized 11 transactions
+[2026-02-16 08:24:02] [INFO] Sorting transactions chronologically
+[2026-02-16 08:24:02] [INFO] Sorting complete
+[2026-02-16 08:24:02] [INFO] Running suspicious transaction detection
+[2026-02-16 08:24:02] [INFO] Detection complete - Found 10 red flags (Risk Score: 100/100)
+[2026-02-16 08:24:02] [INFO] Processing complete
+[2026-02-16 08:24:16] [INFO] Processing file: sample-transactions.csv
+[2026-02-16 08:24:16] [INFO] Parsing CSV file
+[2026-02-16 08:24:16] [INFO] Parsed 10 raw rows
+[2026-02-16 08:24:16] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-16 08:24:16] [INFO] Validating transactions for Shape A
+[2026-02-16 08:24:16] [INFO] Validation successful
+[2026-02-16 08:24:16] [INFO] Normalizing transactions
+[2026-02-16 08:24:16] [INFO] Normalized 10 transactions
+[2026-02-16 08:24:16] [INFO] Sorting transactions chronologically
+[2026-02-16 08:24:16] [INFO] Sorting complete
+[2026-02-16 08:24:16] [INFO] Running suspicious transaction detection
+[2026-02-16 08:24:16] [INFO] Detection complete - Found 1 red flags (Risk Score: 15/100)
+[2026-02-16 08:24:16] [INFO] Processing complete
+[2026-02-16 08:25:47] [INFO] Processing file: test-complete-features.csv
+[2026-02-16 08:25:47] [INFO] Parsing CSV file
+[2026-02-16 08:25:47] [ERROR] Processing failed: CSV parsing failed: Unable to read header row
+[2026-02-16 08:25:53] [INFO] Processing file: test-exchange-format.csv
+[2026-02-16 08:25:53] [INFO] Parsing CSV file
+[2026-02-16 08:25:53] [INFO] Parsed 5 raw rows
+[2026-02-16 08:25:53] [INFO] Detected format: Shape B - Exchange format with trading pair and both amounts
+[2026-02-16 08:25:53] [INFO] Validating transactions for Shape B
+[2026-02-16 08:25:53] [INFO] Validation successful
+[2026-02-16 08:25:53] [INFO] Normalizing transactions
+[2026-02-16 08:25:53] [INFO] Normalized 5 transactions
+[2026-02-16 08:25:53] [INFO] Sorting transactions chronologically
+[2026-02-16 08:25:53] [INFO] Sorting complete
+[2026-02-16 08:25:53] [INFO] Running suspicious transaction detection
+[2026-02-16 08:25:53] [INFO] Detection complete - Found 3 red flags (Risk Score: 75/100)
+[2026-02-16 08:25:53] [INFO] Processing complete
+[2026-02-16 08:26:16] [INFO] Processing file: test-million-gain.csv
+[2026-02-16 08:26:16] [INFO] Parsing CSV file
+[2026-02-16 08:26:16] [INFO] Parsed 10 raw rows
+[2026-02-16 08:26:16] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-16 08:26:16] [INFO] Validating transactions for Shape A
+[2026-02-16 08:26:16] [INFO] Validation successful
+[2026-02-16 08:26:16] [INFO] Normalizing transactions
+[2026-02-16 08:26:16] [INFO] Normalized 10 transactions
+[2026-02-16 08:26:16] [INFO] Sorting transactions chronologically
+[2026-02-16 08:26:16] [INFO] Sorting complete
+[2026-02-16 08:26:16] [INFO] Running suspicious transaction detection
+[2026-02-16 08:26:16] [INFO] Detection complete - Found 2 red flags (Risk Score: 30/100)
+[2026-02-16 08:26:16] [INFO] Processing complete
+[2026-02-16 08:35:12] [INFO] Processing file: sample-transactions.csv
+[2026-02-16 08:35:12] [INFO] Parsing CSV file
+[2026-02-16 08:35:12] [INFO] Parsed 10 raw rows
+[2026-02-16 08:35:12] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-16 08:35:12] [INFO] Validating transactions for Shape A
+[2026-02-16 08:35:12] [INFO] Validation successful
+[2026-02-16 08:35:12] [INFO] Normalizing transactions
+[2026-02-16 08:35:12] [INFO] Normalized 10 transactions
+[2026-02-16 08:35:12] [INFO] Sorting transactions chronologically
+[2026-02-16 08:35:12] [INFO] Sorting complete
+[2026-02-16 08:35:12] [INFO] Running suspicious transaction detection
+[2026-02-16 08:35:12] [INFO] Detection complete - Found 1 red flags (Risk Score: 15/100)
+[2026-02-16 08:35:12] [INFO] Processing complete
+[2026-02-16 08:52:57] [INFO] Processing file: sample-transactions.csv
+[2026-02-16 08:52:57] [INFO] Parsing CSV file
+[2026-02-16 08:52:57] [INFO] Parsed 10 raw rows
+[2026-02-16 08:52:57] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-16 08:52:57] [INFO] Validating transactions for Shape A
+[2026-02-16 08:52:57] [INFO] Validation successful
+[2026-02-16 08:52:57] [INFO] Normalizing transactions
+[2026-02-16 08:52:57] [INFO] Normalized 10 transactions
+[2026-02-16 08:52:57] [INFO] Sorting transactions chronologically
+[2026-02-16 08:52:57] [INFO] Sorting complete
+[2026-02-16 08:52:57] [INFO] Running suspicious transaction detection
+[2026-02-16 08:52:57] [INFO] Detection complete - Found 1 red flags (Risk Score: 15/100)
+[2026-02-16 08:52:57] [INFO] Processing complete
+[2026-02-16 08:55:26] [INFO] Processing file: sample-transactions.csv
+[2026-02-16 08:55:26] [INFO] Parsing CSV file
+[2026-02-16 08:55:26] [INFO] Parsed 10 raw rows
+[2026-02-16 08:55:26] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-16 08:55:26] [INFO] Validating transactions for Shape A
+[2026-02-16 08:55:26] [INFO] Validation successful
+[2026-02-16 08:55:26] [INFO] Normalizing transactions
+[2026-02-16 08:55:26] [INFO] Normalized 10 transactions
+[2026-02-16 08:55:26] [INFO] Sorting transactions chronologically
+[2026-02-16 08:55:26] [INFO] Sorting complete
+[2026-02-16 08:55:26] [INFO] Running suspicious transaction detection
+[2026-02-16 08:55:26] [INFO] Detection complete - Found 1 red flags (Risk Score: 15/100)
+[2026-02-16 08:55:26] [INFO] Processing complete
+[2026-02-16 08:55:46] [INFO] Processing file: sample-transactions.csv
+[2026-02-16 08:55:46] [INFO] Parsing CSV file
+[2026-02-16 08:55:46] [INFO] Parsed 10 raw rows
+[2026-02-16 08:55:46] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-16 08:55:46] [INFO] Validating transactions for Shape A
+[2026-02-16 08:55:46] [INFO] Validation successful
+[2026-02-16 08:55:46] [INFO] Normalizing transactions
+[2026-02-16 08:55:46] [INFO] Normalized 10 transactions
+[2026-02-16 08:55:46] [INFO] Sorting transactions chronologically
+[2026-02-16 08:55:46] [INFO] Sorting complete
+[2026-02-16 08:55:46] [INFO] Running suspicious transaction detection
+[2026-02-16 08:55:46] [INFO] Detection complete - Found 1 red flags (Risk Score: 15/100)
+[2026-02-16 08:55:46] [INFO] Processing complete
+[2026-02-16 09:03:14] [INFO] Processing file: sample-transactions.csv
+[2026-02-16 09:03:14] [INFO] Parsing CSV file
+[2026-02-16 09:03:14] [INFO] Parsed 10 raw rows
+[2026-02-16 09:03:14] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-16 09:03:14] [INFO] Validating transactions for Shape A
+[2026-02-16 09:03:14] [INFO] Validation successful
+[2026-02-16 09:03:14] [INFO] Normalizing transactions
+[2026-02-16 09:03:14] [INFO] Normalized 10 transactions
+[2026-02-16 09:03:14] [INFO] Sorting transactions chronologically
+[2026-02-16 09:03:14] [INFO] Sorting complete
+[2026-02-16 09:03:14] [INFO] Running suspicious transaction detection
+[2026-02-16 09:03:14] [INFO] Detection complete - Found 0 red flags (Risk Score: 0/100)
+[2026-02-16 09:03:14] [INFO] Processing complete
+[2026-02-16 09:03:28] [INFO] Processing file: test-complete-features.csv
+[2026-02-16 09:03:28] [INFO] Parsing CSV file
+[2026-02-16 09:03:28] [ERROR] Processing failed: CSV parsing failed: Unable to read header row
+[2026-02-16 09:03:35] [INFO] Processing file: test-exchange-format.csv
+[2026-02-16 09:03:35] [INFO] Parsing CSV file
+[2026-02-16 09:03:35] [INFO] Parsed 5 raw rows
+[2026-02-16 09:03:35] [INFO] Detected format: Shape B - Exchange format with trading pair and both amounts
+[2026-02-16 09:03:35] [INFO] Validating transactions for Shape B
+[2026-02-16 09:03:35] [INFO] Validation successful
+[2026-02-16 09:03:35] [INFO] Normalizing transactions
+[2026-02-16 09:03:35] [INFO] Normalized 5 transactions
+[2026-02-16 09:03:35] [INFO] Sorting transactions chronologically
+[2026-02-16 09:03:35] [INFO] Sorting complete
+[2026-02-16 09:03:35] [INFO] Running suspicious transaction detection
+[2026-02-16 09:03:35] [INFO] Detection complete - Found 3 red flags (Risk Score: 75/100)
+[2026-02-16 09:03:35] [INFO] Processing complete
+[2026-02-16 09:03:46] [INFO] Processing file: test-million-gain.csv
+[2026-02-16 09:03:46] [INFO] Parsing CSV file
+[2026-02-16 09:03:46] [INFO] Parsed 10 raw rows
+[2026-02-16 09:03:46] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-16 09:03:46] [INFO] Validating transactions for Shape A
+[2026-02-16 09:03:46] [INFO] Validation successful
+[2026-02-16 09:03:46] [INFO] Normalizing transactions
+[2026-02-16 09:03:46] [INFO] Normalized 10 transactions
+[2026-02-16 09:03:46] [INFO] Sorting transactions chronologically
+[2026-02-16 09:03:46] [INFO] Sorting complete
+[2026-02-16 09:03:46] [INFO] Running suspicious transaction detection
+[2026-02-16 09:03:46] [INFO] Detection complete - Found 2 red flags (Risk Score: 30/100)
+[2026-02-16 09:03:46] [INFO] Processing complete
+[2026-02-16 09:33:50] [INFO] Processing file: sample-transactions.csv
+[2026-02-16 09:33:50] [INFO] Parsing CSV file
+[2026-02-16 09:33:50] [INFO] Parsed 10 raw rows
+[2026-02-16 09:33:50] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-16 09:33:50] [INFO] Validating transactions for Shape A
+[2026-02-16 09:33:50] [INFO] Validation successful
+[2026-02-16 09:33:50] [INFO] Normalizing transactions
+[2026-02-16 09:33:50] [INFO] Normalized 10 transactions
+[2026-02-16 09:33:50] [INFO] Sorting transactions chronologically
+[2026-02-16 09:33:50] [INFO] Sorting complete
+[2026-02-16 09:33:50] [INFO] Running suspicious transaction detection
+[2026-02-16 09:33:50] [INFO] Detection complete - Found 0 red flags (Risk Score: 0/100)
+[2026-02-16 09:33:50] [INFO] Analyzing tax status of transactions
+[2026-02-16 09:33:50] [INFO] Processing complete
+[2026-02-16 09:34:47] [INFO] Processing file: test-complete-features.csv
+[2026-02-16 09:34:47] [INFO] Parsing CSV file
+[2026-02-16 09:34:47] [ERROR] Processing failed: CSV parsing failed: Unable to read header row
+[2026-02-16 09:34:51] [INFO] Processing file: test-exchange-format.csv
+[2026-02-16 09:34:51] [INFO] Parsing CSV file
+[2026-02-16 09:34:51] [INFO] Parsed 5 raw rows
+[2026-02-16 09:34:51] [INFO] Detected format: Shape B - Exchange format with trading pair and both amounts
+[2026-02-16 09:34:51] [INFO] Validating transactions for Shape B
+[2026-02-16 09:34:51] [INFO] Validation successful
+[2026-02-16 09:34:51] [INFO] Normalizing transactions
+[2026-02-16 09:34:51] [INFO] Normalized 5 transactions
+[2026-02-16 09:34:51] [INFO] Sorting transactions chronologically
+[2026-02-16 09:34:51] [INFO] Sorting complete
+[2026-02-16 09:34:51] [INFO] Running suspicious transaction detection
+[2026-02-16 09:34:51] [INFO] Detection complete - Found 3 red flags (Risk Score: 75/100)
+[2026-02-16 09:34:51] [INFO] Analyzing tax status of transactions
+[2026-02-16 09:34:51] [INFO] Processing complete
+[2026-02-16 09:35:39] [INFO] Processing file: test-million-gain.csv
+[2026-02-16 09:35:39] [INFO] Parsing CSV file
+[2026-02-16 09:35:39] [INFO] Parsed 10 raw rows
+[2026-02-16 09:35:39] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-16 09:35:39] [INFO] Validating transactions for Shape A
+[2026-02-16 09:35:39] [INFO] Validation successful
+[2026-02-16 09:35:39] [INFO] Normalizing transactions
+[2026-02-16 09:35:39] [INFO] Normalized 10 transactions
+[2026-02-16 09:35:39] [INFO] Sorting transactions chronologically
+[2026-02-16 09:35:39] [INFO] Sorting complete
+[2026-02-16 09:35:39] [INFO] Running suspicious transaction detection
+[2026-02-16 09:35:39] [INFO] Detection complete - Found 2 red flags (Risk Score: 30/100)
+[2026-02-16 09:35:39] [INFO] Analyzing tax status of transactions
+[2026-02-16 09:35:39] [INFO] Processing complete
+[2026-02-16 09:36:28] [INFO] Processing file: test-south-african-format.csv
+[2026-02-16 09:36:28] [INFO] Parsing CSV file
+[2026-02-16 09:36:28] [INFO] Parsed 4 raw rows
+[2026-02-16 09:36:28] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-16 09:36:28] [INFO] Validating transactions for Shape A
+[2026-02-16 09:36:28] [INFO] Validation successful
+[2026-02-16 09:36:28] [INFO] Normalizing transactions
+[2026-02-16 09:36:28] [INFO] Normalized 4 transactions
+[2026-02-16 09:36:28] [INFO] Sorting transactions chronologically
+[2026-02-16 09:36:28] [INFO] Sorting complete
+[2026-02-16 09:36:28] [INFO] Running suspicious transaction detection
+[2026-02-16 09:36:28] [INFO] Detection complete - Found 0 red flags (Risk Score: 0/100)
+[2026-02-16 09:36:28] [INFO] Analyzing tax status of transactions
+[2026-02-16 09:36:28] [INFO] Processing complete
+[2026-02-16 09:38:27] [INFO] Processing file: test-suspicious-transactions.csv
+[2026-02-16 09:38:27] [INFO] Parsing CSV file
+[2026-02-16 09:38:27] [INFO] Parsed 11 raw rows
+[2026-02-16 09:38:27] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-16 09:38:27] [INFO] Validating transactions for Shape A
+[2026-02-16 09:38:27] [INFO] Validation successful
+[2026-02-16 09:38:27] [INFO] Normalizing transactions
+[2026-02-16 09:38:27] [INFO] Normalized 11 transactions
+[2026-02-16 09:38:27] [INFO] Sorting transactions chronologically
+[2026-02-16 09:38:27] [INFO] Sorting complete
+[2026-02-16 09:38:27] [INFO] Running suspicious transaction detection
+[2026-02-16 09:38:27] [INFO] Detection complete - Found 10 red flags (Risk Score: 100/100)
+[2026-02-16 09:38:27] [INFO] Analyzing tax status of transactions
+[2026-02-16 09:38:27] [INFO] Processing complete
+[2026-02-16 09:49:54] [INFO] Processing file: test-comprehensive-detection.csv
+[2026-02-16 09:49:54] [INFO] Parsing CSV file
+[2026-02-16 09:49:54] [INFO] Parsed 74 raw rows
+[2026-02-16 09:49:54] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-16 09:49:54] [INFO] Validating transactions for Shape A
+[2026-02-16 09:49:54] [ERROR] Processing failed: Validation failed
+[2026-02-16 09:52:32] [INFO] Processing file: test-comprehensive-detection.csv
+[2026-02-16 09:52:32] [INFO] Parsing CSV file
+[2026-02-16 09:52:32] [INFO] Parsed 74 raw rows
+[2026-02-16 09:52:32] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-16 09:52:32] [INFO] Validating transactions for Shape A
+[2026-02-16 09:52:32] [INFO] Validation successful
+[2026-02-16 09:52:32] [INFO] Normalizing transactions
+[2026-02-16 09:52:32] [INFO] Normalized 74 transactions
+[2026-02-16 09:52:32] [INFO] Sorting transactions chronologically
+[2026-02-16 09:52:32] [INFO] Sorting complete
+[2026-02-16 09:52:32] [INFO] Running suspicious transaction detection
+[2026-02-16 09:52:32] [INFO] Detection complete - Found 28 red flags (Risk Score: 100/100)
+[2026-02-16 09:52:32] [INFO] Analyzing tax status of transactions
+[2026-02-16 09:52:32] [INFO] Processing complete
+[2026-02-16 09:53:00] [INFO] Processing file: sample-transactions.csv
+[2026-02-16 09:53:00] [INFO] Parsing CSV file
+[2026-02-16 09:53:00] [INFO] Parsed 10 raw rows
+[2026-02-16 09:53:00] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-16 09:53:00] [INFO] Validating transactions for Shape A
+[2026-02-16 09:53:00] [INFO] Validation successful
+[2026-02-16 09:53:00] [INFO] Normalizing transactions
+[2026-02-16 09:53:00] [INFO] Normalized 10 transactions
+[2026-02-16 09:53:00] [INFO] Sorting transactions chronologically
+[2026-02-16 09:53:00] [INFO] Sorting complete
+[2026-02-16 09:53:00] [INFO] Running suspicious transaction detection
+[2026-02-16 09:53:00] [INFO] Detection complete - Found 0 red flags (Risk Score: 0/100)
+[2026-02-16 09:53:00] [INFO] Analyzing tax status of transactions
+[2026-02-16 09:53:00] [INFO] Processing complete
+[2026-02-16 09:53:11] [INFO] Processing file: test-comprehensive-detection.csv
+[2026-02-16 09:53:11] [INFO] Parsing CSV file
+[2026-02-16 09:53:11] [INFO] Parsed 74 raw rows
+[2026-02-16 09:53:11] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-16 09:53:11] [INFO] Validating transactions for Shape A
+[2026-02-16 09:53:11] [INFO] Validation successful
+[2026-02-16 09:53:11] [INFO] Normalizing transactions
+[2026-02-16 09:53:11] [INFO] Normalized 74 transactions
+[2026-02-16 09:53:11] [INFO] Sorting transactions chronologically
+[2026-02-16 09:53:11] [INFO] Sorting complete
+[2026-02-16 09:53:11] [INFO] Running suspicious transaction detection
+[2026-02-16 09:53:11] [INFO] Detection complete - Found 28 red flags (Risk Score: 100/100)
+[2026-02-16 09:53:11] [INFO] Analyzing tax status of transactions
+[2026-02-16 09:53:11] [INFO] Processing complete
+[2026-02-16 09:53:20] [INFO] Processing file: test-exchange-format.csv
+[2026-02-16 09:53:20] [INFO] Parsing CSV file
+[2026-02-16 09:53:20] [INFO] Parsed 5 raw rows
+[2026-02-16 09:53:20] [INFO] Detected format: Shape B - Exchange format with trading pair and both amounts
+[2026-02-16 09:53:20] [INFO] Validating transactions for Shape B
+[2026-02-16 09:53:20] [INFO] Validation successful
+[2026-02-16 09:53:20] [INFO] Normalizing transactions
+[2026-02-16 09:53:20] [INFO] Normalized 5 transactions
+[2026-02-16 09:53:20] [INFO] Sorting transactions chronologically
+[2026-02-16 09:53:20] [INFO] Sorting complete
+[2026-02-16 09:53:20] [INFO] Running suspicious transaction detection
+[2026-02-16 09:53:20] [INFO] Detection complete - Found 3 red flags (Risk Score: 75/100)
+[2026-02-16 09:53:20] [INFO] Analyzing tax status of transactions
+[2026-02-16 09:53:20] [INFO] Processing complete
+[2026-02-16 09:53:28] [INFO] Processing file: test-million-gain.csv
+[2026-02-16 09:53:28] [INFO] Parsing CSV file
+[2026-02-16 09:53:28] [INFO] Parsed 10 raw rows
+[2026-02-16 09:53:28] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-16 09:53:28] [INFO] Validating transactions for Shape A
+[2026-02-16 09:53:28] [INFO] Validation successful
+[2026-02-16 09:53:28] [INFO] Normalizing transactions
+[2026-02-16 09:53:28] [INFO] Normalized 10 transactions
+[2026-02-16 09:53:28] [INFO] Sorting transactions chronologically
+[2026-02-16 09:53:28] [INFO] Sorting complete
+[2026-02-16 09:53:28] [INFO] Running suspicious transaction detection
+[2026-02-16 09:53:28] [INFO] Detection complete - Found 2 red flags (Risk Score: 30/100)
+[2026-02-16 09:53:28] [INFO] Analyzing tax status of transactions
+[2026-02-16 09:53:28] [INFO] Processing complete
+[2026-02-16 10:03:40] [INFO] Processing file: test-with-exclusion.csv
+[2026-02-16 10:03:40] [INFO] Parsing CSV file
+[2026-02-16 10:03:40] [INFO] Parsed 6 raw rows
+[2026-02-16 10:03:40] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-16 10:03:40] [INFO] Validating transactions for Shape A
+[2026-02-16 10:03:40] [INFO] Validation successful
+[2026-02-16 10:03:40] [INFO] Normalizing transactions
+[2026-02-16 10:03:40] [INFO] Normalized 6 transactions
+[2026-02-16 10:03:40] [INFO] Sorting transactions chronologically
+[2026-02-16 10:03:40] [INFO] Sorting complete
+[2026-02-16 10:03:40] [INFO] Running suspicious transaction detection
+[2026-02-16 10:03:40] [INFO] Detection complete - Found 0 red flags (Risk Score: 0/100)
+[2026-02-16 10:03:40] [INFO] Analyzing tax status of transactions
+[2026-02-16 10:03:40] [INFO] Processing complete
+[2026-02-16 10:03:53] [INFO] Processing file: test-transactions.csv
+[2026-02-16 10:03:53] [INFO] Parsing CSV file
+[2026-02-16 10:03:53] [INFO] Parsed 20 raw rows
+[2026-02-16 10:03:53] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-16 10:03:53] [INFO] Validating transactions for Shape A
+[2026-02-16 10:03:53] [INFO] Validation successful
+[2026-02-16 10:03:53] [INFO] Normalizing transactions
+[2026-02-16 10:03:53] [INFO] Normalized 20 transactions
+[2026-02-16 10:03:53] [INFO] Sorting transactions chronologically
+[2026-02-16 10:03:53] [INFO] Sorting complete
+[2026-02-16 10:03:53] [INFO] Running suspicious transaction detection
+[2026-02-16 10:03:53] [INFO] Detection complete - Found 0 red flags (Risk Score: 0/100)
+[2026-02-16 10:03:53] [INFO] Analyzing tax status of transactions
+[2026-02-16 10:03:53] [INFO] Processing complete
+[2026-02-16 10:04:02] [INFO] Processing file: test-suspicious-transactions.csv
+[2026-02-16 10:04:02] [INFO] Parsing CSV file
+[2026-02-16 10:04:02] [INFO] Parsed 11 raw rows
+[2026-02-16 10:04:02] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-16 10:04:02] [INFO] Validating transactions for Shape A
+[2026-02-16 10:04:02] [INFO] Validation successful
+[2026-02-16 10:04:02] [INFO] Normalizing transactions
+[2026-02-16 10:04:02] [INFO] Normalized 11 transactions
+[2026-02-16 10:04:02] [INFO] Sorting transactions chronologically
+[2026-02-16 10:04:02] [INFO] Sorting complete
+[2026-02-16 10:04:02] [INFO] Running suspicious transaction detection
+[2026-02-16 10:04:02] [INFO] Detection complete - Found 10 red flags (Risk Score: 100/100)
+[2026-02-16 10:04:02] [INFO] Analyzing tax status of transactions
+[2026-02-16 10:04:02] [INFO] Processing complete
+[2026-02-16 10:10:27] [INFO] Processing file: test-suspicious-transactions.csv
+[2026-02-16 10:10:27] [INFO] Parsing CSV file
+[2026-02-16 10:10:27] [INFO] Parsed 11 raw rows
+[2026-02-16 10:10:27] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-16 10:10:27] [INFO] Validating transactions for Shape A
+[2026-02-16 10:10:27] [INFO] Validation successful
+[2026-02-16 10:10:27] [INFO] Normalizing transactions
+[2026-02-16 10:10:27] [INFO] Normalized 11 transactions
+[2026-02-16 10:10:27] [INFO] Sorting transactions chronologically
+[2026-02-16 10:10:27] [INFO] Sorting complete
+[2026-02-16 10:10:27] [INFO] Running suspicious transaction detection
+[2026-02-16 10:10:27] [INFO] Detection complete - Found 10 red flags (Risk Score: 100/100)
+[2026-02-16 10:10:27] [INFO] Analyzing tax status of transactions
+[2026-02-16 10:10:27] [INFO] Processing complete
+[2026-02-16 10:43:12] [INFO] Processing file: test-suspicious-transactions.csv
+[2026-02-16 10:43:12] [INFO] Parsing CSV file
+[2026-02-16 10:43:12] [INFO] Parsed 11 raw rows
+[2026-02-16 10:43:12] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-16 10:43:12] [INFO] Validating transactions for Shape A
+[2026-02-16 10:43:12] [INFO] Validation successful
+[2026-02-16 10:43:12] [INFO] Normalizing transactions
+[2026-02-16 10:43:12] [INFO] Normalized 11 transactions
+[2026-02-16 10:43:12] [INFO] Sorting transactions chronologically
+[2026-02-16 10:43:12] [INFO] Sorting complete
+[2026-02-16 10:43:12] [INFO] Running suspicious transaction detection
+[2026-02-16 10:43:12] [INFO] Detection complete - Found 10 red flags (Risk Score: 100/100)
+[2026-02-16 10:43:12] [INFO] Analyzing tax status of transactions
+[2026-02-16 10:43:12] [INFO] Processing complete
+[2026-02-16 10:49:29] [INFO] Processing file: test-suspicious-transactions.csv
+[2026-02-16 10:49:29] [INFO] Parsing CSV file
+[2026-02-16 10:49:29] [INFO] Parsed 11 raw rows
+[2026-02-16 10:49:29] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-16 10:49:29] [INFO] Validating transactions for Shape A
+[2026-02-16 10:49:29] [INFO] Validation successful
+[2026-02-16 10:49:29] [INFO] Normalizing transactions
+[2026-02-16 10:49:29] [INFO] Normalized 11 transactions
+[2026-02-16 10:49:29] [INFO] Sorting transactions chronologically
+[2026-02-16 10:49:29] [INFO] Sorting complete
+[2026-02-16 10:49:29] [INFO] Running suspicious transaction detection
+[2026-02-16 10:49:29] [INFO] Detection complete - Found 10 red flags (Risk Score: 100/100)
+[2026-02-16 10:49:29] [INFO] Analyzing tax status of transactions
+[2026-02-16 10:49:29] [INFO] Processing complete
+[2026-02-16 10:51:35] [INFO] Processing file: test-suspicious-transactions.csv
+[2026-02-16 10:51:35] [INFO] Parsing CSV file
+[2026-02-16 10:51:35] [INFO] Parsed 25 raw rows
+[2026-02-16 10:51:35] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-16 10:51:35] [INFO] Validating transactions for Shape A
+[2026-02-16 10:51:35] [INFO] Validation successful
+[2026-02-16 10:51:35] [INFO] Normalizing transactions
+[2026-02-16 10:51:35] [INFO] Normalized 25 transactions
+[2026-02-16 10:51:35] [INFO] Sorting transactions chronologically
+[2026-02-16 10:51:35] [INFO] Sorting complete
+[2026-02-16 10:51:35] [INFO] Running suspicious transaction detection
+[2026-02-16 10:51:35] [INFO] Detection complete - Found 13 red flags (Risk Score: 100/100)
+[2026-02-16 10:51:35] [INFO] Analyzing tax status of transactions
+[2026-02-16 10:51:35] [INFO] Processing complete
+[2026-02-16 10:52:59] [INFO] Processing file: test-suspicious-transactions.csv
+[2026-02-16 10:52:59] [INFO] Parsing CSV file
+[2026-02-16 10:52:59] [INFO] Parsed 26 raw rows
+[2026-02-16 10:52:59] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-16 10:52:59] [INFO] Validating transactions for Shape A
+[2026-02-16 10:52:59] [INFO] Validation successful
+[2026-02-16 10:52:59] [INFO] Normalizing transactions
+[2026-02-16 10:52:59] [INFO] Normalized 26 transactions
+[2026-02-16 10:52:59] [INFO] Sorting transactions chronologically
+[2026-02-16 10:52:59] [INFO] Sorting complete
+[2026-02-16 10:52:59] [INFO] Running suspicious transaction detection
+[2026-02-16 10:52:59] [INFO] Detection complete - Found 12 red flags (Risk Score: 100/100)
+[2026-02-16 10:52:59] [INFO] Analyzing tax status of transactions
+[2026-02-16 10:52:59] [INFO] Processing complete
+[2026-02-16 11:05:22] [INFO] Processing file: test-suspicious-transactions.csv
+[2026-02-16 11:05:22] [INFO] Parsing CSV file
+[2026-02-16 11:05:22] [INFO] Parsed 26 raw rows
+[2026-02-16 11:05:22] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-16 11:05:22] [INFO] Validating transactions for Shape A
+[2026-02-16 11:05:22] [INFO] Validation successful
+[2026-02-16 11:05:22] [INFO] Normalizing transactions
+[2026-02-16 11:05:22] [INFO] Normalized 26 transactions
+[2026-02-16 11:05:22] [INFO] Sorting transactions chronologically
+[2026-02-16 11:05:22] [INFO] Sorting complete
+[2026-02-16 11:05:22] [INFO] Running suspicious transaction detection
+[2026-02-16 11:05:22] [INFO] Detection complete - Found 12 red flags (Risk Score: 100/100)
+[2026-02-16 11:05:22] [INFO] Analyzing tax status of transactions
+[2026-02-16 11:05:22] [INFO] Processing complete
+[2026-02-16 11:12:04] [INFO] Processing file: test-million-gain.csv
+[2026-02-16 11:12:04] [INFO] Parsing CSV file
+[2026-02-16 11:12:04] [INFO] Parsed 10 raw rows
+[2026-02-16 11:12:04] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-16 11:12:04] [INFO] Validating transactions for Shape A
+[2026-02-16 11:12:04] [INFO] Validation successful
+[2026-02-16 11:12:04] [INFO] Normalizing transactions
+[2026-02-16 11:12:04] [INFO] Normalized 10 transactions
+[2026-02-16 11:12:04] [INFO] Sorting transactions chronologically
+[2026-02-16 11:12:04] [INFO] Sorting complete
+[2026-02-16 11:12:04] [INFO] Running suspicious transaction detection
+[2026-02-16 11:12:04] [INFO] Detection complete - Found 2 red flags (Risk Score: 30/100)
+[2026-02-16 11:12:04] [INFO] Analyzing tax status of transactions
+[2026-02-16 11:12:04] [INFO] Processing complete
+[2026-02-16 11:12:18] [INFO] Processing file: test-with-exclusion.csv
+[2026-02-16 11:12:18] [INFO] Parsing CSV file
+[2026-02-16 11:12:18] [INFO] Parsed 6 raw rows
+[2026-02-16 11:12:18] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-16 11:12:18] [INFO] Validating transactions for Shape A
+[2026-02-16 11:12:18] [INFO] Validation successful
+[2026-02-16 11:12:18] [INFO] Normalizing transactions
+[2026-02-16 11:12:18] [INFO] Normalized 6 transactions
+[2026-02-16 11:12:18] [INFO] Sorting transactions chronologically
+[2026-02-16 11:12:18] [INFO] Sorting complete
+[2026-02-16 11:12:18] [INFO] Running suspicious transaction detection
+[2026-02-16 11:12:18] [INFO] Detection complete - Found 0 red flags (Risk Score: 0/100)
+[2026-02-16 11:12:18] [INFO] Analyzing tax status of transactions
+[2026-02-16 11:12:18] [INFO] Processing complete
+[2026-02-16 11:12:29] [INFO] Processing file: sample-transactions.csv
+[2026-02-16 11:12:29] [INFO] Parsing CSV file
+[2026-02-16 11:12:29] [INFO] Parsed 10 raw rows
+[2026-02-16 11:12:29] [INFO] Detected format: Shape A - Standard format (from/to currencies and amounts)
+[2026-02-16 11:12:29] [INFO] Validating transactions for Shape A
+[2026-02-16 11:12:29] [INFO] Validation successful
+[2026-02-16 11:12:29] [INFO] Normalizing transactions
+[2026-02-16 11:12:29] [INFO] Normalized 10 transactions
+[2026-02-16 11:12:29] [INFO] Sorting transactions chronologically
+[2026-02-16 11:12:29] [INFO] Sorting complete
+[2026-02-16 11:12:29] [INFO] Running suspicious transaction detection
+[2026-02-16 11:12:29] [INFO] Detection complete - Found 0 red flags (Risk Score: 0/100)
+[2026-02-16 11:12:29] [INFO] Analyzing tax status of transactions
+[2026-02-16 11:12:29] [INFO] Processing complete
+[2026-02-16 11:12:46] [INFO] Processing file: test-exchange-format.csv
+[2026-02-16 11:12:46] [INFO] Parsing CSV file
+[2026-02-16 11:12:46] [INFO] Parsed 5 raw rows
+[2026-02-16 11:12:46] [INFO] Detected format: Shape B - Exchange format with trading pair and both amounts
+[2026-02-16 11:12:46] [INFO] Validating transactions for Shape B
+[2026-02-16 11:12:46] [INFO] Validation successful
+[2026-02-16 11:12:46] [INFO] Normalizing transactions
+[2026-02-16 11:12:46] [INFO] Normalized 5 transactions
+[2026-02-16 11:12:46] [INFO] Sorting transactions chronologically
+[2026-02-16 11:12:46] [INFO] Sorting complete
+[2026-02-16 11:12:46] [INFO] Running suspicious transaction detection
+[2026-02-16 11:12:46] [INFO] Detection complete - Found 3 red flags (Risk Score: 75/100)
+[2026-02-16 11:12:46] [INFO] Analyzing tax status of transactions
+[2026-02-16 11:12:46] [INFO] Processing complete

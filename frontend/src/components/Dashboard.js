@@ -7,6 +7,8 @@ import FIFOExplorer from './FIFOExplorer';
 import Charts from './Charts';
 import FilterPanel from './FilterPanel';
 import ExportButtons from './ExportButtons';
+import SuspiciousTransactionSummary from './SuspiciousTransactionSummary';
+import TaxStatusSummary from './TaxStatusSummary';
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -34,9 +36,28 @@ function Dashboard() {
         if (result.data.transactions && result.data.analytics && result.data.analytics.fifo_breakdowns) {
           const enrichedTransactions = result.data.transactions.map((tx, index) => {
             const breakdown = result.data.analytics.fifo_breakdowns[index];
+            
+            // Determine the primary currency based on transaction type
+            let primaryCurrency;
+            const txType = (tx.type || '').toUpperCase();
+            if (txType === 'BUY') {
+              // For BUY: primary currency is what you're buying (toCurrency)
+              primaryCurrency = breakdown?.currency || tx.toCurrency;
+            } else if (txType === 'SELL') {
+              // For SELL: primary currency is what you're selling (fromCurrency)
+              primaryCurrency = breakdown?.currency || tx.fromCurrency;
+            } else if (txType === 'TRADE') {
+              // For TRADE: primary currency is what you're trading away (fromCurrency)
+              // This is the asset with the capital gain/loss event
+              primaryCurrency = breakdown?.fromCurrency || tx.fromCurrency;
+            } else {
+              // Fallback
+              primaryCurrency = breakdown?.currency || tx.toCurrency || tx.fromCurrency;
+            }
+            
             return {
               ...tx,
-              currency: breakdown?.currency || tx.toCurrency || tx.fromCurrency,
+              currency: primaryCurrency,
               capitalGain: breakdown?.capitalGain || 0,
               proceeds: breakdown?.proceeds || 0,
               costBase: breakdown?.costBase || 0,
@@ -64,18 +85,23 @@ function Dashboard() {
     if (!data || !data.transactions) return [];
 
     return data.transactions.filter(tx => {
-      // Filter by asset
+      // Filter by asset - use the enriched currency field which represents the primary asset
       if (filters.asset !== 'all') {
-        const currencies = [tx.currency, tx.fromCurrency, tx.toCurrency].filter(Boolean);
-        if (!currencies.includes(filters.asset)) return false;
+        // The tx.currency field has been enriched to represent the primary asset
+        // based on transaction type (see enrichment logic above)
+        if (tx.currency !== filters.asset) {
+          return false;
+        }
       }
 
-      // Filter by type
-      if (filters.type !== 'all' && tx.type !== filters.type) {
-        return false;
+      // Filter by type - only apply if a specific type is selected (not 'all')
+      if (filters.type !== 'all') {
+        const txType = (tx.type || '').toUpperCase();
+        const filterType = (filters.type || '').toUpperCase();
+        if (txType !== filterType) return false;
       }
 
-      // Filter by tax year
+      // Filter by tax year - only apply if a specific year is selected (not 'all')
       if (filters.taxYear !== 'all' && tx.taxYear !== filters.taxYear) {
         return false;
       }
@@ -84,17 +110,43 @@ function Dashboard() {
     });
   }, [data, filters]);
 
+  // Helper function to calculate taxable gain with annual exclusion
+  const calculateTaxableGain = (netGain) => {
+    if (netGain <= 0) return { taxable: 0, exclusionApplied: 0, exclusionUsed: false };
+    
+    const ANNUAL_EXCLUSION = 40000;
+    const INCLUSION_RATE = 0.4;
+    
+    if (netGain > ANNUAL_EXCLUSION) {
+      const afterExclusion = netGain - ANNUAL_EXCLUSION;
+      return {
+        taxable: afterExclusion * INCLUSION_RATE,
+        exclusionApplied: ANNUAL_EXCLUSION,
+        exclusionUsed: true
+      };
+    } else {
+      return {
+        taxable: 0,
+        exclusionApplied: netGain,
+        exclusionUsed: true
+      };
+    }
+  };
+
   // Calculate filtered summary
   const filteredSummary = useMemo(() => {
     // Use analytics data from backend if available
     if (data && data.analytics) {
+      const taxCalc = calculateTaxableGain(data.analytics.capital_gain || 0);
       return {
         totalProceeds: data.analytics.total_proceeds || 0,
         totalCostBase: data.analytics.total_cost_base || 0,
         totalCapitalGain: data.analytics.total_capital_gain || 0,
         totalCapitalLoss: data.analytics.total_capital_loss || 0,
         netCapitalGain: data.analytics.capital_gain || 0,
-        taxableCapitalGain: (data.analytics.capital_gain || 0) > 0 ? (data.analytics.capital_gain || 0) * 0.4 : 0,
+        taxableCapitalGain: taxCalc.taxable,
+        annualExclusionApplied: taxCalc.exclusionApplied,
+        annualExclusionUsed: taxCalc.exclusionUsed,
         transactionsProcessed: data.analytics.transactions_processed || 0
       };
     }
@@ -107,6 +159,8 @@ function Dashboard() {
         totalCapitalLoss: 0,
         netCapitalGain: 0,
         taxableCapitalGain: 0,
+        annualExclusionApplied: 0,
+        annualExclusionUsed: false,
         transactionsProcessed: 0
       };
     }
@@ -135,8 +189,11 @@ function Dashboard() {
       transactionsProcessed: 0
     });
 
-    // Calculate taxable capital gain (40% inclusion rate for individuals in SA)
-    summary.taxableCapitalGain = summary.netCapitalGain > 0 ? summary.netCapitalGain * 0.4 : 0;
+    // Calculate taxable capital gain with annual exclusion
+    const taxCalc = calculateTaxableGain(summary.netCapitalGain);
+    summary.taxableCapitalGain = taxCalc.taxable;
+    summary.annualExclusionApplied = taxCalc.exclusionApplied;
+    summary.annualExclusionUsed = taxCalc.exclusionUsed;
 
     return summary;
   }, [data, filteredTransactions]);
@@ -209,6 +266,39 @@ function Dashboard() {
       </header>
 
       <div className="dashboard-container">
+        {/* Red Flags / Suspicious Transaction Summary - Always show */}
+        <SuspiciousTransactionSummary
+          redFlags={data.red_flags || []}
+          summary={data.red_flag_summary || { 
+            total_flags: 0, 
+            critical_count: 0, 
+            high_count: 0, 
+            medium_count: 0, 
+            low_count: 0, 
+            audit_risk_score: 0 
+          }}
+          auditRiskLevel={data.audit_risk_level || 'MINIMAL - No significant issues detected'}
+          hasCriticalIssues={data.has_critical_issues || false}
+        />
+
+        {/* Tax Status Summary - Always show */}
+        <TaxStatusSummary
+          taxStatus={data.tax_status || {
+            non_taxable_events: [],
+            taxable_events: [],
+            summary: {
+              total_events: 0,
+              non_taxable_count: 0,
+              taxable_count: 0,
+              buy_count: 0,
+              transfer_count: 0,
+              sell_count: 0,
+              trade_count: 0
+            },
+            tax_obligation_exists: false
+          }}
+        />
+
         {/* Summary Cards */}
         <SummaryCards 
           summary={filteredSummary} 
@@ -242,15 +332,6 @@ function Dashboard() {
           summary={filteredSummary}
           filters={filters}
         />
-
-        {/* Sprint 4 Note */}
-        <div className="sprint-note">
-          <h4>✅ Sprint 4 Complete - Audit Ready</h4>
-          <p>
-            Full FIFO traceability, tax calculations, and SARS-ready exports are now available.
-            All capital gains calculations follow South African tax law (40% inclusion rate).
-          </p>
-        </div>
       </div>
     </div>
   );

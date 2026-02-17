@@ -28,3 +28,18 @@
 [2026-02-04 14:16:48] [INFO] Sorting transactions chronologically
 [2026-02-04 14:16:48] [INFO] Sorting complete
 [2026-02-04 14:16:48] [INFO] Processing complete
+[2026-02-04 14:34:06] [INFO] Processing file: error-test-transactions.csv
+[2026-02-04 14:34:06] [INFO] Parsing CSV file
+[2026-02-04 14:34:06] [INFO] Parsed 18 raw rows
+[2026-02-04 14:34:06] [INFO] Validating transactions
+[2026-02-04 14:34:06] [ERROR] Processing failed: Validation failed
+[2026-02-04 14:34:17] [INFO] Processing file: test-transactions.csv
+[2026-02-04 14:34:17] [INFO] Parsing CSV file
+[2026-02-04 14:34:17] [INFO] Parsed 20 raw rows
+[2026-02-04 14:34:17] [INFO] Validating transactions
+[2026-02-04 14:34:17] [INFO] Validation successful
+[2026-02-04 14:34:17] [INFO] Normalizing transactions
+[2026-02-04 14:34:17] [INFO] Normalized 20 transactions
+[2026-02-04 14:34:17] [INFO] Sorting transactions chronologically
+[2026-02-04 14:34:17] [INFO] Sorting complete
+[2026-02-04 14:34:17] [INFO] Processing complete

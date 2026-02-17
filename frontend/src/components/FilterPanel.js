@@ -22,7 +22,7 @@ const FilterPanel = ({ filters, onFilterChange, assets, taxYears }) => {
   return (
     <div className="filter-panel">
       <div className="filter-header">
-        <h3>🔍 Filter Transactions</h3>
+        <h3>Filter Transactions</h3>
         {hasActiveFilters && (
           <button className="btn btn-clear" onClick={clearFilters}>
             Clear All Filters
@@ -34,7 +34,6 @@ const FilterPanel = ({ filters, onFilterChange, assets, taxYears }) => {
         {/* Asset Filter */}
         <div className="filter-group">
           <label htmlFor="asset-filter">
-            <span className="filter-icon">🪙</span>
             Asset/Currency
           </label>
           <select
@@ -53,7 +52,6 @@ const FilterPanel = ({ filters, onFilterChange, assets, taxYears }) => {
         {/* Type Filter */}
         <div className="filter-group">
           <label htmlFor="type-filter">
-            <span className="filter-icon">🔄</span>
             Transaction Type
           </label>
           <select
@@ -66,15 +64,12 @@ const FilterPanel = ({ filters, onFilterChange, assets, taxYears }) => {
             <option value="BUY">BUY</option>
             <option value="SELL">SELL</option>
             <option value="TRADE">TRADE</option>
-            <option value="TRADE_SELL">TRADE (SELL)</option>
-            <option value="TRADE_BUY">TRADE (BUY)</option>
           </select>
         </div>
 
         {/* Tax Year Filter */}
         <div className="filter-group">
           <label htmlFor="tax-year-filter">
-            <span className="filter-icon">📅</span>
             Tax Year
           </label>
           <select

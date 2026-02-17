@@ -6,6 +6,8 @@ error_reporting(E_ALL);
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use CryptoTax\Services\FIFOEngine;
+use CryptoTax\Services\SuspiciousTransactionDetector;
+use CryptoTax\Services\NonTaxableEventDetector;
 use CryptoTax\Models\Transaction;
 
 header('Content-Type: application/json');
@@ -113,6 +115,17 @@ try {
     $fifoEngine = new FIFOEngine();
     $fifoResults = $fifoEngine->processTransactions($transactionObjects);
 
+    // Run suspicious transaction detection with FIFO balance data
+    $suspiciousDetector = new SuspiciousTransactionDetector();
+    $detectionResults = $suspiciousDetector->analyzeTransactions(
+        $transactionObjects, 
+        $fifoResults['balances']
+    );
+
+    // Run Tax Status detection
+    $nonTaxableDetector = new NonTaxableEventDetector();
+    $taxStatusResults = $nonTaxableDetector->analyzeTransactions($transactionObjects);
+
     // Prepare analytics using FIFO results
     $analytics = [
         'total_proceeds' => $fifoResults['summary']['totalProceeds'],
@@ -135,7 +148,17 @@ try {
         'data' => [
             'transactions' => $transactions,
             'summary' => $summary,
-            'analytics' => $analytics
+            'analytics' => $analytics,
+            'red_flags' => $detectionResults['red_flags'],
+            'red_flag_summary' => $detectionResults['summary'],
+            'has_critical_issues' => $detectionResults['has_critical_issues'],
+            'audit_risk_level' => $detectionResults['audit_risk_level'],
+            'tax_status' => [
+                'non_taxable_events' => $taxStatusResults['non_taxable_events'],
+                'taxable_events' => $taxStatusResults['taxable_events'],
+                'summary' => $taxStatusResults['summary'],
+                'tax_obligation_exists' => $taxStatusResults['tax_obligation_exists']
+            ]
         ]
     ]);
 

@@ -5,6 +5,8 @@ import FileUpload from './FileUpload';
 import ErrorDisplay from './ErrorDisplay';
 import TransactionSummary from './TransactionSummary';
 import TransactionTable from './TransactionTable';
+import SuspiciousTransactionSummary from './SuspiciousTransactionSummary';
+import TaxStatusSummary from './TaxStatusSummary';
 import { uploadTransactionFile } from '../services/api';
 
 function ProcessingPage() {
@@ -45,11 +47,11 @@ function ProcessingPage() {
   };
 
   const handleBackToHome = () => {
-    navigate('/');
+    navigate('/', { state: { fromProcessing: true } });
   };
 
   const handleViewDashboard = () => {
-    navigate('/dashboard');
+    navigate('/', { state: { fromProcessing: true } });
   };
 
   return (
@@ -81,6 +83,21 @@ function ProcessingPage() {
                   <p>Your transactions have been parsed, validated, and sorted chronologically.</p>
                 </div>
               </div>
+
+              {/* Red Flags / Suspicious Transaction Summary */}
+              {result.red_flags && result.red_flags.length > 0 && (
+                <SuspiciousTransactionSummary
+                  redFlags={result.red_flags}
+                  summary={result.red_flag_summary}
+                  auditRiskLevel={result.audit_risk_level}
+                  hasCriticalIssues={result.has_critical_issues}
+                />
+              )}
+
+              {/* Tax Status Summary */}
+              {result.tax_status && (
+                <TaxStatusSummary taxStatus={result.tax_status} />
+              )}
 
               <TransactionSummary summary={result.summary} />
               <TransactionTable transactions={result.transactions} />

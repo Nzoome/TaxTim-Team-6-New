@@ -34,7 +34,7 @@ const ExportButtons = ({ transactions, summary, filters }) => {
   return (
     <div className="export-buttons-section">
       <div className="export-header">
-        <h3>📥 Export Reports</h3>
+        <h3>Export Reports</h3>
         <p className="export-description">
           Generate SARS-ready audit reports for your tax submissions
         </p>
@@ -43,7 +43,7 @@ const ExportButtons = ({ transactions, summary, filters }) => {
       <div className="export-buttons-grid">
         {/* PDF Export */}
         <div className="export-card">
-          <div className="export-card-icon">📄</div>
+          <div className="export-card-icon"></div>
           <div className="export-card-content">
             <h4>PDF Audit Report</h4>
             <p>
@@ -67,7 +67,7 @@ const ExportButtons = ({ transactions, summary, filters }) => {
                   Generating PDF...
                 </>
               ) : (
-                <>📄 Download PDF Report</>
+                <>Download PDF Report</>
               )}
             </button>
           </div>
@@ -75,7 +75,7 @@ const ExportButtons = ({ transactions, summary, filters }) => {
 
         {/* Excel Export */}
         <div className="export-card">
-          <div className="export-card-icon">📊</div>
+          <div className="export-card-icon"></div>
           <div className="export-card-content">
             <h4>Excel Spreadsheet</h4>
             <p>
@@ -99,7 +99,7 @@ const ExportButtons = ({ transactions, summary, filters }) => {
                   Generating Excel...
                 </>
               ) : (
-                <>📊 Download Excel File</>
+                <>Download Excel File</>
               )}
             </button>
           </div>

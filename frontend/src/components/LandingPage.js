@@ -1,32 +1,95 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
-import { getTransactionData } from '../services/api';
+import { getTransactionData, uploadTransactionFile } from '../services/api';
+import { generatePDF } from '../services/pdfGenerator';
+import { generateExcel } from '../services/excelGenerator';
 import './LandingPage.css';
+import './Dashboard.css';
+import SummaryCards from './SummaryCards';
+import TransactionTableEnhanced from './TransactionTableEnhanced';
+import Charts from './Charts';
+import FilterPanel from './FilterPanel';
+import ExportButtons from './ExportButtons';
+import SuspiciousTransactionSummary from './SuspiciousTransactionSummary';
+import TaxStatusSummary from './TaxStatusSummary';
 
 const LandingPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const fileInputRef = useRef(null);
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedAsset, setSelectedAsset] = useState('All Assets');
-  const [transactionFilters, setTransactionFilters] = useState({
-    buy: true,
-    sell: true,
-    transfer: true
-  });
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState(null);
+  const [filters, setFilters] = useState({
+    asset: 'all',
+    type: 'all',
+    taxYear: 'all'
+  });
+  const [uploadState, setUploadState] = useState({
+    isUploading: false,
+    error: null,
+    errors: {},
+    success: false
+  });
+  const [isGeneratingPDF, setIsGeneratingPDF] = useState(false);
+  const [isGeneratingExcel, setIsGeneratingExcel] = useState(false);
 
   useEffect(() => {
-    fetchData();
+    // Clear cache on initial page load (not on navigation)
+    const clearCacheAndFetch = async () => {
+      if (!location.state?.fromProcessing) {
+        try {
+          await fetch('http://localhost:8000/clear_cache.php', { method: 'POST' });
+        } catch (err) {
+          console.error('Error clearing cache:', err);
+        }
+      }
+      fetchData();
+    };
+    
+    clearCacheAndFetch();
   }, [location]); // Refetch when location changes (e.g., navigating back)
 
   const fetchData = async () => {
     try {
       setLoading(true);
-      const response = await getTransactionData();
-      if (response.success) {
-        setData(response.data);
+      const response = await fetch('http://localhost:8000/transactions.php');
+      const result = await response.json();
+      
+      if (result.success) {
+        // Enrich transactions with FIFO breakdown data
+        if (result.data.transactions && result.data.analytics && result.data.analytics.fifo_breakdowns) {
+          const enrichedTransactions = result.data.transactions.map((tx, index) => {
+            const breakdown = result.data.analytics.fifo_breakdowns[index];
+            
+            // Determine the primary currency based on transaction type
+            let primaryCurrency;
+            const txType = (tx.type || '').toUpperCase();
+            if (txType === 'BUY') {
+              primaryCurrency = breakdown?.currency || tx.toCurrency;
+            } else if (txType === 'SELL') {
+              primaryCurrency = breakdown?.currency || tx.fromCurrency;
+            } else if (txType === 'TRADE') {
+              primaryCurrency = breakdown?.fromCurrency || tx.fromCurrency;
+            } else {
+              primaryCurrency = breakdown?.currency || tx.toCurrency || tx.fromCurrency;
+            }
+            
+            return {
+              ...tx,
+              currency: primaryCurrency,
+              capitalGain: breakdown?.capitalGain || 0,
+              proceeds: breakdown?.proceeds || 0,
+              costBase: breakdown?.costBase || 0,
+              taxYear: breakdown?.taxYear || null,
+              lotsConsumed: breakdown?.lotsConsumed || null
+            };
+          });
+          result.data.transactions = enrichedTransactions;
+        }
+        
+        setData(result.data);
       }
     } catch (err) {
       console.error('Error fetching data:', err);
@@ -35,87 +98,357 @@ const LandingPage = () => {
     }
   };
 
-  // Use real data or fallback to sample data
-  const analytics = data?.analytics || {
-    total_proceeds: 0,
-    total_cost_base: 0,
-    capital_gain: 0,
-    transaction_history: [],
-    transaction_breakdown: []
-  };
-
   const transactions = data?.transactions || [];
   
-  // Filter transactions based on selected filters
-  const getFilteredTransactions = () => {
-    return transactions.filter(transaction => {
-      const type = transaction.type.toUpperCase();
-      if (type === 'BUY' && !transactionFilters.buy) return false;
-      if (type === 'SELL' && !transactionFilters.sell) return false;
-      if (type === 'TRADE' && !transactionFilters.transfer) return false;
-      
-      if (selectedAsset !== 'All Assets') {
-        const matchesAsset = transaction.from_currency === selectedAsset || 
-                            transaction.to_currency === selectedAsset;
-        if (!matchesAsset) return false;
+  // Filter transactions based on dashboard filters
+  const filteredTransactions = useMemo(() => {
+    if (!data || !data.transactions) return [];
+
+    return data.transactions.filter(tx => {
+      // Search filter
+      if (searchTerm) {
+        const search = searchTerm.toLowerCase();
+        const txString = JSON.stringify(tx).toLowerCase();
+        if (!txString.includes(search)) return false;
       }
-      
+
+      // Filter by asset
+      if (filters.asset !== 'all') {
+        if (tx.currency !== filters.asset) {
+          return false;
+        }
+      }
+
+      // Filter by type
+      if (filters.type !== 'all') {
+        const txType = (tx.type || '').toUpperCase();
+        const filterType = (filters.type || '').toUpperCase();
+        if (txType !== filterType) return false;
+      }
+
+      // Filter by tax year
+      if (filters.taxYear !== 'all' && tx.taxYear !== filters.taxYear) {
+        return false;
+      }
+
       return true;
     });
+  }, [data, filters, searchTerm]);
+
+  // Helper function to calculate taxable gain with annual exclusion
+  const calculateTaxableGain = (netGain) => {
+    if (netGain <= 0) return { taxable: 0, exclusionApplied: 0, exclusionUsed: false };
+    
+    const ANNUAL_EXCLUSION = 40000;
+    const INCLUSION_RATE = 0.4;
+    
+    if (netGain > ANNUAL_EXCLUSION) {
+      const afterExclusion = netGain - ANNUAL_EXCLUSION;
+      return {
+        taxable: afterExclusion * INCLUSION_RATE,
+        exclusionApplied: ANNUAL_EXCLUSION,
+        exclusionUsed: true
+      };
+    } else {
+      return {
+        taxable: 0,
+        exclusionApplied: netGain,
+        exclusionUsed: true
+      };
+    }
   };
 
-  const filteredTransactions = getFilteredTransactions();
-  
-  // Get unique currencies for filter dropdown
-  const currencies = data?.summary?.currencies || [];
+  // Calculate filtered summary
+  const filteredSummary = useMemo(() => {
+    // Use analytics data from backend if available
+    if (data && data.analytics) {
+      const taxCalc = calculateTaxableGain(data.analytics.capital_gain || 0);
+      return {
+        totalProceeds: data.analytics.total_proceeds || 0,
+        totalCostBase: data.analytics.total_cost_base || 0,
+        totalCapitalGain: data.analytics.total_capital_gain || 0,
+        totalCapitalLoss: data.analytics.total_capital_loss || 0,
+        netCapitalGain: data.analytics.capital_gain || 0,
+        taxableCapitalGain: taxCalc.taxable,
+        annualExclusionApplied: taxCalc.exclusionApplied,
+        annualExclusionUsed: taxCalc.exclusionUsed,
+        transactionsProcessed: data.analytics.transactions_processed || 0
+      };
+    }
 
-  // Prepare display data
-  const displayTransactions = filteredTransactions.slice(0, 5).map(transaction => {
-    const type = transaction.type.toUpperCase();
-    const isSell = type === 'SELL';
-    const isBuy = type === 'BUY';
-    const asset = isSell ? transaction.from_currency : transaction.to_currency;
+    if (!filteredTransactions.length) {
+      return {
+        totalProceeds: 0,
+        totalCostBase: 0,
+        totalCapitalGain: 0,
+        totalCapitalLoss: 0,
+        netCapitalGain: 0,
+        taxableCapitalGain: 0,
+        annualExclusionApplied: 0,
+        annualExclusionUsed: false,
+        transactionsProcessed: 0
+      };
+    }
+
+    const summary = filteredTransactions.reduce((acc, tx) => {
+      if (tx.type === 'SELL' || tx.type === 'TRADE_SELL') {
+        acc.totalProceeds += tx.proceeds || 0;
+        acc.totalCostBase += tx.costBase || 0;
+        
+        const gain = tx.capitalGain || 0;
+        if (gain >= 0) {
+          acc.totalCapitalGain += gain;
+        } else {
+          acc.totalCapitalLoss += Math.abs(gain);
+        }
+        acc.netCapitalGain += gain;
+      }
+      acc.transactionsProcessed++;
+      return acc;
+    }, {
+      totalProceeds: 0,
+      totalCostBase: 0,
+      totalCapitalGain: 0,
+      totalCapitalLoss: 0,
+      netCapitalGain: 0,
+      transactionsProcessed: 0
+    });
+
+    const taxCalc = calculateTaxableGain(summary.netCapitalGain);
+    summary.taxableCapitalGain = taxCalc.taxable;
+    summary.annualExclusionApplied = taxCalc.exclusionApplied;
+    summary.annualExclusionUsed = taxCalc.exclusionUsed;
+
+    return summary;
+  }, [data, filteredTransactions]);
+
+  // Calculate unfiltered summary for charts (all assets, all transactions)
+  const unfilteredSummary = useMemo(() => {
+    // Use analytics data from backend if available
+    if (data && data.analytics) {
+      const taxCalc = calculateTaxableGain(data.analytics.capital_gain || 0);
+      return {
+        totalProceeds: data.analytics.total_proceeds || 0,
+        totalCostBase: data.analytics.total_cost_base || 0,
+        totalCapitalGain: data.analytics.total_capital_gain || 0,
+        totalCapitalLoss: data.analytics.total_capital_loss || 0,
+        netCapitalGain: data.analytics.capital_gain || 0,
+        taxableCapitalGain: taxCalc.taxable,
+        annualExclusionApplied: taxCalc.exclusionApplied,
+        annualExclusionUsed: taxCalc.exclusionUsed,
+        transactionsProcessed: data.analytics.transactions_processed || 0
+      };
+    }
+
+    if (!transactions.length) {
+      return {
+        totalProceeds: 0,
+        totalCostBase: 0,
+        totalCapitalGain: 0,
+        totalCapitalLoss: 0,
+        netCapitalGain: 0,
+        taxableCapitalGain: 0,
+        annualExclusionApplied: 0,
+        annualExclusionUsed: false,
+        transactionsProcessed: 0
+      };
+    }
+
+    const summary = transactions.reduce((acc, tx) => {
+      if (tx.type === 'SELL' || tx.type === 'TRADE_SELL') {
+        acc.totalProceeds += tx.proceeds || 0;
+        acc.totalCostBase += tx.costBase || 0;
+        
+        const gain = tx.capitalGain || 0;
+        if (gain >= 0) {
+          acc.totalCapitalGain += gain;
+        } else {
+          acc.totalCapitalLoss += Math.abs(gain);
+        }
+        acc.netCapitalGain += gain;
+      }
+      acc.transactionsProcessed++;
+      return acc;
+    }, {
+      totalProceeds: 0,
+      totalCostBase: 0,
+      totalCapitalGain: 0,
+      totalCapitalLoss: 0,
+      netCapitalGain: 0,
+      transactionsProcessed: 0
+    });
+
+    const taxCalc = calculateTaxableGain(summary.netCapitalGain);
+    summary.taxableCapitalGain = taxCalc.taxable;
+    summary.annualExclusionApplied = taxCalc.exclusionApplied;
+    summary.annualExclusionUsed = taxCalc.exclusionUsed;
+
+    return summary;
+  }, [data, transactions]);
+
+  // Extract unique tax years from data
+  const taxYears = useMemo(() => {
+    if (!data || !data.transactions) return [];
     
-    return {
-      date: new Date(transaction.date).toLocaleDateString('en-US', { 
-        year: 'numeric', 
-        month: '2-digit', 
-        day: '2-digit' 
-      }),
-      asset: asset,
-      type: type === 'TRADE' ? 'Transfer' : (isSell ? 'Sell' : 'Buy'),
-      proceeds: isSell ? `R ${parseFloat(transaction.to_amount).toLocaleString('en-ZA')}` : '-',
-      costBasis: isBuy ? `R ${parseFloat(transaction.from_amount).toLocaleString('en-ZA')}` : '-',
-      gain: '-',
-      color: isSell ? '#ef4444' : (isBuy ? '#8b5cf6' : '#06b6d4')
-    };
-  });
+    const years = new Set();
+    data.transactions.forEach(tx => {
+      if (tx.taxYear) years.add(tx.taxYear);
+    });
+    
+    return Array.from(years).sort();
+  }, [data]);
+
+  // Extract unique assets
+  const assets = useMemo(() => {
+    if (!data || !data.transactions) return [];
+    
+    const assetSet = new Set();
+    data.transactions.forEach(tx => {
+      if (tx.currency) assetSet.add(tx.currency);
+      if (tx.fromCurrency) assetSet.add(tx.fromCurrency);
+      if (tx.toCurrency) assetSet.add(tx.toCurrency);
+    });
+    
+    return Array.from(assetSet).sort();
+  }, [data]);
+  
+  const handleFilterChange = (newFilters) => {
+    setFilters(newFilters);
+  };
+  
+  // Get unique currencies for filter dropdown (for sidebar)
+  const currencies = assets;
+
+  // Check if we have any transactions
+  const hasTransactions = data && data.transactions && data.transactions.length > 0;
 
   const handleUploadClick = () => {
-    navigate('/process');
+    // Trigger file input click instead of navigating
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
   };
 
-  const handleFilterChange = (filterType) => {
-    setTransactionFilters(prev => ({
-      ...prev,
-      [filterType]: !prev[filterType]
-    }));
+  const handleFileChange = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // Validate file type
+    const validTypes = [
+      'text/csv',
+      'application/vnd.ms-excel',
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    ];
+    
+    if (!validTypes.includes(file.type) && 
+        !file.name.endsWith('.csv') && 
+        !file.name.endsWith('.xlsx') && 
+        !file.name.endsWith('.xls')) {
+      setUploadState({
+        isUploading: false,
+        error: 'Please upload a CSV or XLSX file',
+        errors: {},
+        success: false
+      });
+      return;
+    }
+
+    // Start upload
+    setUploadState({
+      isUploading: true,
+      error: null,
+      errors: {},
+      success: false
+    });
+
+    try {
+      const response = await uploadTransactionFile(file);
+      
+      if (response.success) {
+        // Keep showing the processing message for 1.5 seconds before showing success
+        setTimeout(async () => {
+          setUploadState({
+            isUploading: false,
+            error: null,
+            errors: {},
+            success: true
+          });
+          // Refresh data after successful upload
+          await fetchData();
+          // Clear success message after 3 seconds
+          setTimeout(() => {
+            setUploadState(prev => ({ ...prev, success: false }));
+          }, 3000);
+        }, 1500);
+      } else {
+        setUploadState({
+          isUploading: false,
+          error: response.error || 'An error occurred during upload',
+          errors: response.errors || {},
+          success: false
+        });
+      }
+    } catch (err) {
+      setUploadState({
+        isUploading: false,
+        error: err.error || 'Failed to process file',
+        errors: err.errors || {},
+        success: false
+      });
+    }
+
+    // Reset file input
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
   };
 
   const handleResetFilters = () => {
-    setSelectedAsset('All Assets');
-    setTransactionFilters({
-      buy: true,
-      sell: true,
-      transfer: true
+    setFilters({
+      asset: 'all',
+      type: 'all',
+      taxYear: 'all'
     });
+    setSearchTerm('');
   };
 
-  const formatCurrency = (amount) => {
-    return `R ${parseFloat(amount).toLocaleString('en-ZA', { 
-      minimumFractionDigits: 0, 
-      maximumFractionDigits: 0 
-    })}`;
+  const handlePDFDownload = async () => {
+    setIsGeneratingPDF(true);
+    try {
+      await generatePDF(filteredTransactions, filteredSummary, filters);
+    } catch (error) {
+      console.error('Error generating PDF:', error);
+      alert('Failed to generate PDF. Please try again.');
+    } finally {
+      setIsGeneratingPDF(false);
+    }
+  };
+
+  const handleExcelDownload = async () => {
+    setIsGeneratingExcel(true);
+    try {
+      await generateExcel(filteredTransactions, filteredSummary, filters);
+    } catch (error) {
+      console.error('Error generating Excel:', error);
+      alert('Failed to generate Excel file. Please try again.');
+    } finally {
+      setIsGeneratingExcel(false);
+    }
+  };
+
+  const handleRestart = async () => {
+    try {
+      // Clear the cache
+      await fetch('http://localhost:8000/clear_cache.php', { method: 'POST' });
+      // Clear session storage
+      sessionStorage.removeItem('justProcessedFile');
+      // Reload the page
+      window.location.reload();
+    } catch (err) {
+      console.error('Error restarting:', err);
+      // Reload anyway
+      window.location.reload();
+    }
   };
 
   if (loading) {
@@ -131,6 +464,95 @@ const LandingPage = () => {
 
   return (
     <div className="landing-page">
+      {/* Hidden file input */}
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept=".csv,.xlsx,.xls"
+        onChange={handleFileChange}
+        style={{ display: 'none' }}
+      />
+
+      {/* Upload Modal/Overlay */}
+      {(uploadState.isUploading || uploadState.error || uploadState.success) && (
+        <div className="upload-overlay">
+          <div className="upload-modal">
+            {uploadState.isUploading && (
+              <>
+                <div className="spinner"></div>
+                <h3>Processing File...</h3>
+                <p>Please wait while we process your transaction file.</p>
+              </>
+            )}
+            {uploadState.error && (
+              <>
+                <div className="error-icon">❌</div>
+                <h3>Upload Error</h3>
+                <p className="error-message">{uploadState.error}</p>
+                {uploadState.errors && Object.keys(uploadState.errors).length > 0 && (() => {
+                  // Aggregate all errors across rows and deduplicate
+                  const allErrors = new Set();
+                  const structuralErrors = [];
+                  
+                  Object.entries(uploadState.errors).forEach(([key, messages]) => {
+                    const messageArray = Array.isArray(messages) ? messages : [messages];
+                    
+                    // Separate structural errors (like missing columns) from row errors
+                    if (key === 'structure' || key === 'general') {
+                      structuralErrors.push(...messageArray);
+                    } else {
+                      // Add row-specific errors to the set (automatically deduplicates)
+                      messageArray.forEach(msg => allErrors.add(msg));
+                    }
+                  });
+                  
+                  const uniqueErrors = [...allErrors];
+                  
+                  return (
+                    <div className="error-details">
+                      <h4>Validation Errors:</h4>
+                      {structuralErrors.length > 0 && (
+                        <div className="structural-errors">
+                          <strong>File Structure Issues:</strong>
+                          <ul className="error-list">
+                            {structuralErrors.map((error, idx) => (
+                              <li key={idx}>{error}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                      {uniqueErrors.length > 0 && (
+                        <div className="data-errors">
+                          <strong>Data Validation Issues:</strong>
+                          <ul className="error-list">
+                            {uniqueErrors.map((error, idx) => (
+                              <li key={idx}>{error}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })()}
+                <button 
+                  className="btn-primary" 
+                  onClick={() => setUploadState({ isUploading: false, error: null, errors: {}, success: false })}
+                >
+                  Close
+                </button>
+              </>
+            )}
+            {uploadState.success && (
+              <>
+                <div className="success-icon">✅</div>
+                <h3>File Processed Successfully!</h3>
+                <p>Your transactions have been imported and calculated.</p>
+              </>
+            )}
+          </div>
+        </div>
+      )}
+
       {/* Sidebar */}
       <aside className="sidebar">
         <div className="logo">
@@ -180,10 +602,10 @@ const LandingPage = () => {
             <h4>Asset</h4>
             <select 
               className="filter-select"
-              value={selectedAsset}
-              onChange={(e) => setSelectedAsset(e.target.value)}
+              value={filters.asset}
+              onChange={(e) => setFilters({...filters, asset: e.target.value})}
             >
-              <option>All Assets</option>
+              <option value="all">All Assets</option>
               {currencies.map(currency => (
                 <option key={currency} value={currency}>{currency}</option>
               ))}
@@ -195,36 +617,86 @@ const LandingPage = () => {
             <label className="filter-checkbox">
               <input 
                 type="checkbox" 
-                checked={transactionFilters.buy}
-                onChange={() => handleFilterChange('buy')}
+                checked={filters.type === 'all' || filters.type === 'BUY'}
+                onChange={() => setFilters({...filters, type: filters.type === 'BUY' ? 'all' : 'BUY'})}
               />
               <span>Buy</span>
             </label>
             <label className="filter-checkbox">
               <input 
                 type="checkbox" 
-                checked={transactionFilters.sell}
-                onChange={() => handleFilterChange('sell')}
+                checked={filters.type === 'all' || filters.type === 'SELL'}
+                onChange={() => setFilters({...filters, type: filters.type === 'SELL' ? 'all' : 'SELL'})}
               />
               <span>Sell</span>
             </label>
             <label className="filter-checkbox">
               <input 
                 type="checkbox" 
-                checked={transactionFilters.transfer}
-                onChange={() => handleFilterChange('transfer')}
+                checked={filters.type === 'all' || filters.type === 'TRADE'}
+                onChange={() => setFilters({...filters, type: filters.type === 'TRADE' ? 'all' : 'TRADE'})}
               />
-              <span>Transfer</span>
+              <span>Trade</span>
             </label>
           </div>
 
           <button className="reset-filters-btn" onClick={handleResetFilters}>
             Reset Filters
           </button>
+
+          {/* Download Buttons - Show only when data is loaded */}
+          {data && data.transactions && data.transactions.length > 0 && (
+            <div className="sidebar-downloads">
+              <button 
+                className="sidebar-download-btn sidebar-download-pdf" 
+                onClick={handlePDFDownload}
+                disabled={isGeneratingPDF}
+              >
+                {isGeneratingPDF ? (
+                  <>
+                    <span className="spinner-small"></span>
+                    Generating...
+                  </>
+                ) : (
+                  <>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M7 18H17V16H7V18Z" fill="currentColor"/>
+                      <path d="M17 14H7V12H17V14Z" fill="currentColor"/>
+                      <path d="M7 10H11V8H7V10Z" fill="currentColor"/>
+                      <path fillRule="evenodd" clipRule="evenodd" d="M6 2C4.34315 2 3 3.34315 3 5V19C3 20.6569 4.34315 22 6 22H18C19.6569 22 21 20.6569 21 19V9C21 5.13401 17.866 2 14 2H6ZM6 4H13V9H19V19C19 19.5523 18.5523 20 18 20H6C5.44772 20 5 19.5523 5 19V5C5 4.44772 5.44772 4 6 4ZM15 4.10002C16.6113 4.4271 17.9413 5.52906 18.584 7H15V4.10002Z" fill="currentColor"/>
+                    </svg>
+                    Download PDF
+                  </>
+                )}
+              </button>
+              
+              <button 
+                className="sidebar-download-btn sidebar-download-excel" 
+                onClick={handleExcelDownload}
+                disabled={isGeneratingExcel}
+              >
+                {isGeneratingExcel ? (
+                  <>
+                    <span className="spinner-small"></span>
+                    Generating...
+                  </>
+                ) : (
+                  <>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14 2ZM18 20H6V4H13V9H18V20Z" fill="currentColor"/>
+                      <path d="M8 15.5L10 18L12 15.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                      <path d="M12 12L14 14.5L16 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                    </svg>
+                    Download Excel
+                  </>
+                )}
+              </button>
+            </div>
+          )}
         </div>
 
         <div className="add-file-section">
-          <button className="add-file-btn">
+          <button className="add-file-btn" onClick={handleUploadClick}>
             <span>+</span> Add new file
           </button>
         </div>
@@ -233,176 +705,97 @@ const LandingPage = () => {
       {/* Main Content */}
       <main className="main-content">
         <div className="dashboard-header">
-          <div>
-            <h1>Tax Year 2026</h1>
-            <p className="date-range">January 1, 2026 - December 31, 2026</p>
+          <div className="dashboard-title">
+            <h1>Crypto Tax Dashboard</h1>
+            <p className="date-range">SARS-Ready Capital Gains Report</p>
           </div>
-          <button className="download-btn">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5m0 0l5-5m-5 5V3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-            Download audit report
+          <button className="restart-btn" onClick={handleRestart} title="Clear data and restart">
+            Restart
           </button>
         </div>
 
-        {/* Summary Cards */}
-        <div className="summary-cards">
-          <div className="summary-card">
-            <h3>Total Proceeds</h3>
-            <p className="amount proceeds">{formatCurrency(analytics.total_proceeds)}</p>
-          </div>
-          <div className="summary-card">
-            <h3>Total Cost Base</h3>
-            <p className="amount cost-base">{formatCurrency(analytics.total_cost_base)}</p>
-          </div>
-          <div className="summary-card">
-            <h3>Capital Gain</h3>
-            <p className="amount capital-gain">{formatCurrency(analytics.capital_gain)}</p>
-          </div>
-        </div>
+        {/* Red Flag Summary - Always shown when we have transaction data */}
+        {hasTransactions && (
+          <SuspiciousTransactionSummary 
+            redFlags={data?.red_flags || []}
+            summary={data?.red_flag_summary || {
+              total_flags: 0,
+              critical_count: 0,
+              high_count: 0,
+              medium_count: 0,
+              low_count: 0,
+              audit_risk_score: 0,
+              audit_risk_level: 'MINIMAL'
+            }}
+          />
+        )}
 
-        {/* Charts Section */}
-        <div className="charts-section">
-          <div className="chart-card">
-            <h3>Transaction History</h3>
-            {analytics.transaction_history.length > 0 ? (
-              <ResponsiveContainer width="100%" height={250}>
-                <BarChart data={analytics.transaction_history}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#2a3142" />
-                  <XAxis dataKey="name" stroke="#64748b" />
-                  <YAxis stroke="#64748b" />
-                  <Tooltip 
-                    contentStyle={{ backgroundColor: '#1e293b', border: 'none', borderRadius: '8px' }}
-                    labelStyle={{ color: '#e2e8f0' }}
-                  />
-                  <Bar dataKey="value" fill="#8b5cf6" radius={[8, 8, 0, 0]} />
-                </BarChart>
-              </ResponsiveContainer>
-            ) : (
-              <div className="no-data">No transaction data available</div>
-            )}
+        {/* Tax Status Summary - Always shown when we have transaction data */}
+        {hasTransactions && (
+          <TaxStatusSummary 
+            taxStatus={data?.tax_status || {
+              non_taxable_events: [],
+              taxable_events: [],
+              summary: {
+                total_events: 0,
+                non_taxable_count: 0,
+                taxable_count: 0,
+                buy_count: 0,
+                transfer_count: 0,
+                sell_count: 0,
+                trade_count: 0
+              },
+              tax_obligation_exists: false
+            }}
+          />
+        )}
+
+        {/* Summary Cards or Empty State */}
+        {!hasTransactions ? (
+          <div className="empty-dashboard-state">
+            <div className="empty-state-icon"></div>
+            <h2>No Transaction Data</h2>
+            <p>Upload and process a transaction file to view your tax summary and analytics.</p>
+            <button className="upload-cta-btn" onClick={handleUploadClick}>
+              Upload Transaction File
+            </button>
           </div>
+        ) : (
+          <>
+            <SummaryCards 
+              summary={filteredSummary} 
+              taxYears={taxYears}
+              selectedTaxYear={filters.taxYear}
+              onTaxYearChange={(year) => setFilters({...filters, taxYear: year})}
+            />
 
-          <div className="chart-card">
-            <h3>Transaction Breakdown</h3>
-            {analytics.transaction_breakdown.length > 0 ? (
-              <>
-                <div className="pie-chart-container">
-                  <ResponsiveContainer width="100%" height={250}>
-                    <PieChart>
-                      <Pie
-                        data={analytics.transaction_breakdown}
-                        cx="50%"
-                        cy="50%"
-                        innerRadius={60}
-                        outerRadius={90}
-                        fill="#8884d8"
-                        dataKey="value"
-                        label={false}
-                      >
-                        {analytics.transaction_breakdown.map((entry, index) => (
-                          <Cell key={`cell-${index}`} fill={entry.color} />
-                        ))}
-                      </Pie>
-                    </PieChart>
-                  </ResponsiveContainer>
-                  {analytics.transaction_breakdown.length > 0 && (
-                    <div className="pie-center-label">
-                      <div className="pie-percentage">{analytics.transaction_breakdown[0].value}%</div>
-                      <div className="pie-label">Primary transactions</div>
-                    </div>
-                  )}
-                </div>
-                <div className="chart-legend">
-                  {analytics.transaction_breakdown.map((item, index) => (
-                    <div className="legend-item" key={index}>
-                      <div className="legend-dot" style={{ backgroundColor: item.color }}></div>
-                      <span>{item.name}</span>
-                    </div>
-                  ))}
-                </div>
-              </>
-            ) : (
-              <div className="no-data">No transaction data available</div>
-            )}
-          </div>
-        </div>
+            {/* Charts Section */}
+            <Charts 
+              transactions={transactions}
+              summary={unfilteredSummary}
+            />
 
-        {/* Transaction Table */}
-        <div className="transaction-table-section">
-          <div className="table-header">
-            <h3>Transaction History</h3>
-            <div className="table-controls">
-              <span>Filter at</span>
-              <select className="table-filter-select" value={selectedAsset} onChange={(e) => setSelectedAsset(e.target.value)}>
-                <option>All Assets</option>
-                {currencies.map(currency => (
-                  <option key={currency} value={currency}>{currency}</option>
-                ))}
-              </select>
-              <button className="filter-icon-btn">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M3 4h18M6 8h12M9 12h6M11 16h2" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                </svg>
-              </button>
-            </div>
-          </div>
+            {/* Filter Panel */}
+            <FilterPanel
+              filters={filters}
+              onFilterChange={handleFilterChange}
+              assets={assets}
+              taxYears={taxYears}
+            />
 
-          {displayTransactions.length > 0 ? (
-            <>
-              <table className="transaction-table">
-                <thead>
-                  <tr>
-                    <th>Date</th>
-                    <th>Asset</th>
-                    <th>Type</th>
-                    <th>Proceeds</th>
-                    <th>Cost Basis</th>
-                    <th>Gain / Loss</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {displayTransactions.map((transaction, index) => (
-                    <tr key={index}>
-                      <td>{transaction.date}</td>
-                      <td>
-                        <span className="asset-badge" style={{ color: transaction.color }}>
-                          ● {transaction.asset}
-                        </span>
-                      </td>
-                      <td>
-                        <span className={`type-badge ${transaction.type.toLowerCase()}`}>
-                          ● {transaction.type}
-                        </span>
-                      </td>
-                      <td>{transaction.proceeds}</td>
-                      <td>{transaction.costBasis}</td>
-                      <td className={transaction.gain !== '-' ? 'gain-positive' : ''}>
-                        {transaction.gain}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+            {/* Enhanced Transaction Table with FIFO Details */}
+            <TransactionTableEnhanced 
+              transactions={filteredTransactions}
+            />
 
-              <div className="pagination">
-                <button className="pagination-btn">{'<'}</button>
-                <button className="pagination-btn active">1</button>
-                <button className="pagination-btn">2</button>
-                <button className="pagination-btn">3</button>
-                <button className="pagination-btn">...</button>
-                <button className="pagination-btn">{'>'}</button>
-              </div>
-            </>
-          ) : (
-            <div className="no-data">
-              <p>No transactions match your current filters</p>
-              <button className="btn-upload-first" onClick={handleUploadClick}>
-                Upload your first transaction file
-              </button>
-            </div>
-          )}
-        </div>
+            {/* Export Buttons */}
+            <ExportButtons 
+              transactions={filteredTransactions}
+              summary={filteredSummary}
+              filters={filters}
+            />
+          </>
+        )}
       </main>
     </div>
   );
