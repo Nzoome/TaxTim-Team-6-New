@@ -96,20 +96,25 @@ const generateCSVContent = (transactions, summary, filters) => {
     // Add FIFO lots consumed if available
     if (tx.lotsConsumed && tx.lotsConsumed.length > 0) {
       csv.push('');
-      csv.push('  FIFO Lots Consumed:');
-      csv.push('  Acquired Date,Amount Consumed,Cost Per Unit (ZAR),Cost Base (ZAR),Age (Days),Wallet');
+      csv.push(`  FIFO Lots Consumed (${tx.lotsConsumed.length} lot${tx.lotsConsumed.length !== 1 ? 's' : ''}):`);
+      csv.push('  Purchase Date,Amount Consumed,Cost Per Unit (ZAR),Cost Base (ZAR),Held (Days),Term');
       
       tx.lotsConsumed.forEach(lot => {
+        const term = lot.ageInDays >= 365 ? 'Long-term' : 'Short-term';
         const lotRow = [
           '  ' + escapeCSV(lot.purchaseDate),
           formatCrypto(lot.amountConsumed),
           formatCurrency(lot.costPerUnit),
           formatCurrency(lot.costBase),
           escapeCSV(lot.ageInDays),
-          escapeCSV(lot.wallet)
+          term
         ];
         csv.push(lotRow.join(','));
       });
+      
+      // Add total row
+      const totalCostBase = tx.lotsConsumed.reduce((sum, lot) => sum + lot.costBase, 0);
+      csv.push(`  ,,,Total: ${formatCurrency(totalCostBase)},,`);
       csv.push('');
     }
   });

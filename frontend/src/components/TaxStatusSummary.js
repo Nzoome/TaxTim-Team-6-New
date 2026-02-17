@@ -32,7 +32,6 @@ function TaxStatusSummary({ taxStatus }) {
     <div className={`tax-status-summary ${hasTaxObligation ? 'has-obligation' : 'no-obligation'}`}>
       {/* Header */}
       <div className="tax-status-header">
-        <span className="icon">{hasTaxObligation ? '⚠️' : '✅'}</span>
         <div className="header-content">
           <h3>
             {hasTaxObligation ? 'Tax Obligation Detected' : 'No Tax Obligation'}
@@ -74,26 +73,26 @@ function TaxStatusSummary({ taxStatus }) {
         <div className="tax-status-details">
           {/* Event Type Breakdown */}
           <div className="breakdown-section">
-            <h4>📊 Event Breakdown</h4>
+            <h4>Event Breakdown</h4>
             <div className="breakdown-grid">
               <div className="breakdown-item non-taxable">
-                <span className="breakdown-label">✅ Buying with ZAR:</span>
+                <span className="breakdown-label">Buying with ZAR:</span>
                 <span className="breakdown-value">{summary.buy_with_zar}</span>
               </div>
               <div className="breakdown-item non-taxable">
-                <span className="breakdown-label">✅ Internal Transfers:</span>
+                <span className="breakdown-label">Internal Transfers:</span>
                 <span className="breakdown-value">{summary.internal_transfers}</span>
               </div>
               <div className="breakdown-item taxable">
-                <span className="breakdown-label">⚠️ Sells (to ZAR):</span>
+                <span className="breakdown-label">Sells (to ZAR):</span>
                 <span className="breakdown-value">{summary.sells}</span>
               </div>
               <div className="breakdown-item taxable">
-                <span className="breakdown-label">⚠️ Trades (crypto-to-crypto):</span>
+                <span className="breakdown-label">Trades (crypto-to-crypto):</span>
                 <span className="breakdown-value">{summary.trades}</span>
               </div>
               <div className="breakdown-item taxable">
-                <span className="breakdown-label">⚠️ Other Taxable:</span>
+                <span className="breakdown-label">Other Taxable:</span>
                 <span className="breakdown-value">{summary.other_taxable}</span>
               </div>
             </div>
@@ -113,13 +112,13 @@ function TaxStatusSummary({ taxStatus }) {
                 className={`non-taxable-btn ${eventFilter === 'non-taxable' ? 'active' : ''}`}
                 onClick={() => setEventFilter('non-taxable')}
               >
-                ✅ Non-Taxable ({summary.non_taxable_count})
+                Non-Taxable ({summary.non_taxable_count})
               </button>
               <button 
                 className={`taxable-btn ${eventFilter === 'taxable' ? 'active' : ''}`}
                 onClick={() => setEventFilter('taxable')}
               >
-                ⚠️ Taxable ({summary.taxable_count})
+                Taxable ({summary.taxable_count})
               </button>
             </div>
           </div>
@@ -134,9 +133,6 @@ function TaxStatusSummary({ taxStatus }) {
                   className={`event-item ${event.is_taxable ? 'taxable' : 'non-taxable'}`}
                 >
                   <div className="event-header">
-                    <span className="event-icon">
-                      {event.is_taxable ? '⚠️' : '✅'}
-                    </span>
                     <span className="event-status">
                       {event.is_taxable ? 'TAXABLE' : 'NON-TAXABLE'}
                     </span>
@@ -158,12 +154,12 @@ function TaxStatusSummary({ taxStatus }) {
                   </div>
                   {event.note && (
                     <div className="event-note">
-                      💡 <em>{event.note}</em>
+                      <em>{event.note}</em>
                     </div>
                   )}
                   {event.sars_requirement && (
                     <div className="sars-requirement">
-                      📋 <strong>SARS:</strong> {event.sars_requirement}
+                      <strong>SARS:</strong> {event.sars_requirement}
                     </div>
                   )}
                   <div className="event-date">{event.date}</div>
@@ -174,10 +170,10 @@ function TaxStatusSummary({ taxStatus }) {
 
           {/* Tax Guidance */}
           <div className="tax-guidance">
-            <h4>📋 Tax Guidance</h4>
+            <h4>Tax Guidance</h4>
             {hasTaxObligation ? (
               <div className="guidance-content taxable">
-                <p><strong>⚠️ You have taxable events that must be reported to SARS:</strong></p>
+                <p><strong>You have taxable events that must be reported to SARS:</strong></p>
                 <ul>
                   <li>Capital Gains Tax (CGT) applies to crypto disposals</li>
                   <li>R40,000 annual CGT exclusion available</li>
@@ -186,12 +182,12 @@ function TaxStatusSummary({ taxStatus }) {
                   <li>Keep all transaction records and exchange statements</li>
                 </ul>
                 <p className="professional-advice">
-                  💼 <strong>Recommendation:</strong> Consult with a tax professional familiar with cryptocurrency taxation in South Africa.
+                  <strong>Recommendation:</strong> Consult with a tax professional familiar with cryptocurrency taxation in South Africa.
                 </p>
               </div>
             ) : (
               <div className="guidance-content non-taxable">
-                <p><strong>✅ No immediate tax obligation:</strong></p>
+                <p><strong>No immediate tax obligation:</strong></p>
                 <ul>
                   <li>Buying and holding crypto is not taxable</li>
                   <li>Internal transfers between your wallets are not taxable</li>
@@ -199,7 +195,7 @@ function TaxStatusSummary({ taxStatus }) {
                   <li>Tax obligation arises when you sell, trade, or spend crypto</li>
                 </ul>
                 <p className="record-keeping">
-                  📁 <strong>Important:</strong> Maintain accurate records of all purchases for future cost-basis calculations.
+                  <strong>Important:</strong> Maintain accurate records of all purchases for future cost-basis calculations.
                 </p>
               </div>
             )}
@@ -207,10 +203,10 @@ function TaxStatusSummary({ taxStatus }) {
 
           {/* What's Taxable Reference */}
           <div className="taxable-reference">
-            <h4>📖 Quick Reference: What's Taxable in South Africa</h4>
+            <h4>Quick Reference: What's Taxable in South Africa</h4>
             <div className="reference-grid">
               <div className="reference-column">
-                <h5>✅ Non-Taxable Events</h5>
+                <h5>Non-Taxable Events</h5>
                 <ul>
                   <li>Buying with ZAR</li>
                   <li>Holding crypto</li>
@@ -218,7 +214,7 @@ function TaxStatusSummary({ taxStatus }) {
                 </ul>
               </div>
               <div className="reference-column">
-                <h5>⚠️ Taxable Events</h5>
+                <h5>Taxable Events</h5>
                 <ul>
                   <li>Selling for ZAR</li>
                   <li>Crypto-to-crypto trades</li>

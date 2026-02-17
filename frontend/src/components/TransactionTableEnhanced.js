@@ -156,22 +156,34 @@ const TransactionTableEnhanced = ({ transactions }) => {
                   <td className="currency-cell">{tx.currency}</td>
                   <td className="amount-cell">{formatCrypto(tx.amount)}</td>
                   <td className="proceeds-cell">
-                    {tx.proceeds !== null && tx.proceeds !== undefined 
-                      ? formatCurrency(tx.proceeds) 
-                      : '-'}
+                    {(() => {
+                      const txType = (tx.type || '').toUpperCase();
+                      if (txType === 'BUY' && tx.totalCost > 0) {
+                        return formatCurrency(tx.totalCost);
+                      }
+                      return tx.proceeds > 0 ? formatCurrency(tx.proceeds) : '-';
+                    })()}
                   </td>
                   <td className="cost-cell">
-                    {tx.costBase !== null && tx.costBase !== undefined 
-                      ? formatCurrency(tx.costBase) 
-                      : '-'}
+                    {(() => {
+                      const txType = (tx.type || '').toUpperCase();
+                      if (txType === 'BUY' && tx.costPerUnit > 0) {
+                        return formatCurrency(tx.costPerUnit);
+                      }
+                      return tx.costBase > 0 ? formatCurrency(tx.costBase) : '-';
+                    })()}
                   </td>
                   <td className={`gain-cell ${
                     tx.capitalGain > 0 ? 'positive' : 
                     tx.capitalGain < 0 ? 'negative' : ''
                   }`}>
-                    {tx.capitalGain !== null && tx.capitalGain !== undefined 
-                      ? formatCurrency(tx.capitalGain) 
-                      : '-'}
+                    {(() => {
+                      const txType = (tx.type || '').toUpperCase();
+                      if (txType === 'BUY') {
+                        return '-';
+                      }
+                      return tx.capitalGain !== 0 ? formatCurrency(tx.capitalGain) : '-';
+                    })()}
                   </td>
                   <td className="tax-year-cell">{tx.taxYear || '-'}</td>
                 </tr>
@@ -215,51 +227,58 @@ const TransactionTableEnhanced = ({ transactions }) => {
                           {/* FIFO Lots Consumed (for SELL/TRADE) */}
                           {tx.lotsConsumed && tx.lotsConsumed.length > 0 && (
                             <div className="detail-section fifo-section">
-                              <h4>FIFO Lots Consumed</h4>
+                              <h4>📦 FIFO Lots Consumed</h4>
+                              <p className="fifo-intro">
+                                This sale consumed {tx.lotsConsumed.length} lot{tx.lotsConsumed.length !== 1 ? 's' : ''} 
+                                from your purchase history (oldest first):
+                              </p>
                               <div className="fifo-table-wrapper">
                                 <table className="fifo-table">
                                   <thead>
                                     <tr>
-                                      <th>Acquired Date</th>
-                                      <th>Amount Used</th>
-                                      <th>Cost Per Unit</th>
+                                      <th>Purchase Date</th>
+                                      <th>Amount</th>
+                                      <th>Cost/Unit</th>
                                       <th>Cost Base</th>
-                                      <th>Age (Days)</th>
-                                      <th>Wallet</th>
+                                      <th>Held (Days)</th>
                                     </tr>
                                   </thead>
                                   <tbody>
                                     {tx.lotsConsumed.map((lot, idx) => (
                                       <tr key={idx} className="fifo-row">
-                                        <td>{formatDate(lot.purchaseDate)}</td>
-                                        <td>{formatCrypto(lot.amountConsumed)}</td>
+                                        <td className="date-cell">{formatDate(lot.purchaseDate)}</td>
+                                        <td className="amount-cell">{formatCrypto(lot.amountConsumed)}</td>
                                         <td>{formatCurrency(lot.costPerUnit)}</td>
-                                        <td>{formatCurrency(lot.costBase)}</td>
-                                        <td>{lot.ageInDays || '-'}</td>
-                                        <td>{lot.wallet || '-'}</td>
+                                        <td className="cost-cell">{formatCurrency(lot.costBase)}</td>
+                                        <td className="age-cell">
+                                          {lot.ageInDays !== null && lot.ageInDays !== undefined ? (
+                                            <span className={lot.ageInDays >= 365 ? 'long-term' : 'short-term'}>
+                                              {lot.ageInDays} 
+                                              {lot.ageInDays >= 365 && <span className="term-badge">LT</span>}
+                                            </span>
+                                          ) : '-'}
+                                        </td>
                                       </tr>
                                     ))}
                                   </tbody>
                                   <tfoot>
                                     <tr className="fifo-total">
-                                      <td colSpan="3"><strong>Total:</strong></td>
-                                      <td>
+                                      <td colSpan="3"><strong>Total Cost Base:</strong></td>
+                                      <td className="cost-cell">
                                         <strong>
                                           {formatCurrency(
                                             tx.lotsConsumed.reduce((sum, lot) => sum + lot.costBase, 0)
                                           )}
                                         </strong>
                                       </td>
-                                      <td colSpan="2"></td>
+                                      <td></td>
                                     </tr>
                                   </tfoot>
                                 </table>
                               </div>
-                              <div className="fifo-explanation">
-                                <p>
-                                  <strong>FIFO Method:</strong> The oldest lots (First In) are consumed first (First Out) 
-                                  to calculate the cost base for this disposal.
-                                </p>
+                              <div className="fifo-note">
+                                <strong>FIFO Method:</strong> First-In-First-Out means the oldest coins you purchased 
+                                are considered sold first, which affects your holding period and cost basis calculations.
                               </div>
                             </div>
                           )}

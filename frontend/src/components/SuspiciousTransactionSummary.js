@@ -9,7 +9,6 @@ function SuspiciousTransactionSummary({ redFlags, summary, auditRiskLevel, hasCr
     return (
       <div className="suspicious-summary no-issues">
         <div className="summary-header success">
-          <span className="icon">✅</span>
           <h3>No Red Flags Detected</h3>
           <span className="risk-badge minimal">MINIMAL RISK</span>
         </div>
@@ -34,11 +33,11 @@ function SuspiciousTransactionSummary({ redFlags, summary, auditRiskLevel, hasCr
   // Get severity icon
   const getSeverityIcon = (severity) => {
     switch(severity) {
-      case 'CRITICAL': return '🚨';
-      case 'HIGH': return '⚠️';
-      case 'MEDIUM': return '⚡';
-      case 'LOW': return 'ℹ️';
-      default: return '🔔';
+      case 'CRITICAL': return '';
+      case 'HIGH': return '';
+      case 'MEDIUM': return '';
+      case 'LOW': return '';
+      default: return '';
     }
   };
 
@@ -51,7 +50,6 @@ function SuspiciousTransactionSummary({ redFlags, summary, auditRiskLevel, hasCr
     <div className={`suspicious-summary ${getRiskLevelClass()}`}>
       {/* Header */}
       <div className="summary-header">
-        <span className="icon">🚩</span>
         <div className="header-content">
           <h3>
             Transaction Red Flags Detected
@@ -115,7 +113,7 @@ function SuspiciousTransactionSummary({ redFlags, summary, auditRiskLevel, hasCr
                   className={`severity-critical ${severityFilter === 'CRITICAL' ? 'active' : ''}`}
                   onClick={() => setSeverityFilter('CRITICAL')}
                 >
-                  🚨 Critical ({summary.critical_count})
+                  Critical ({summary.critical_count})
                 </button>
               )}
               {summary.high_count > 0 && (
@@ -123,7 +121,7 @@ function SuspiciousTransactionSummary({ redFlags, summary, auditRiskLevel, hasCr
                   className={`severity-high ${severityFilter === 'HIGH' ? 'active' : ''}`}
                   onClick={() => setSeverityFilter('HIGH')}
                 >
-                  ⚠️ High ({summary.high_count})
+                  High ({summary.high_count})
                 </button>
               )}
               {summary.medium_count > 0 && (
@@ -131,7 +129,7 @@ function SuspiciousTransactionSummary({ redFlags, summary, auditRiskLevel, hasCr
                   className={`severity-medium ${severityFilter === 'MEDIUM' ? 'active' : ''}`}
                   onClick={() => setSeverityFilter('MEDIUM')}
                 >
-                  ⚡ Medium ({summary.medium_count})
+                  Medium ({summary.medium_count})
                 </button>
               )}
               {summary.low_count > 0 && (
@@ -139,7 +137,7 @@ function SuspiciousTransactionSummary({ redFlags, summary, auditRiskLevel, hasCr
                   className={`severity-low ${severityFilter === 'LOW' ? 'active' : ''}`}
                   onClick={() => setSeverityFilter('LOW')}
                 >
-                  ℹ️ Low ({summary.low_count})
+                  Low ({summary.low_count})
                 </button>
               )}
             </div>
@@ -176,7 +174,7 @@ function SuspiciousTransactionSummary({ redFlags, summary, auditRiskLevel, hasCr
                     </div>
                   </div>
                   <div className="currency-note">
-                    💰 <em>Note: All amounts are in Rands (ZAR). Price shows ZAR value per unit.</em>
+                    <em>Note: All amounts are in Rands (ZAR). Price shows ZAR value per unit.</em>
                   </div>
                   {flag.metadata && Object.keys(flag.metadata).length > 0 && (
                     <div className="flag-metadata">
@@ -195,7 +193,7 @@ function SuspiciousTransactionSummary({ redFlags, summary, auditRiskLevel, hasCr
 
           {/* Recommendations */}
           <div className="recommendations">
-            <h4>📋 Recommendations</h4>
+            <h4>Recommendations</h4>
             <ul>
               {hasCriticalIssues && (
                 <li className="critical">

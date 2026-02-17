@@ -179,15 +179,15 @@ const generateReportHTML = (transactions, summary, filters) => {
                 <tr class="fifo-detail">
                   <td colspan="8">
                     <div class="fifo-breakdown">
-                      <strong>FIFO Lots Consumed:</strong>
+                      <strong>📦 FIFO Lots Consumed (${tx.lotsConsumed.length} lot${tx.lotsConsumed.length !== 1 ? 's' : ''}):</strong>
                       <table class="fifo-table">
                         <thead>
                           <tr>
-                            <th>Acquired</th>
+                            <th>Purchase Date</th>
                             <th>Amount</th>
                             <th>Cost/Unit</th>
                             <th>Cost Base</th>
-                            <th>Age (Days)</th>
+                            <th>Held (Days)</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -197,11 +197,21 @@ const generateReportHTML = (transactions, summary, filters) => {
                               <td>${formatCrypto(lot.amountConsumed)}</td>
                               <td>${formatCurrency(lot.costPerUnit)}</td>
                               <td>${formatCurrency(lot.costBase)}</td>
-                              <td>${lot.ageInDays || '-'}</td>
+                              <td>${lot.ageInDays !== null && lot.ageInDays !== undefined ? 
+                                `${lot.ageInDays}${lot.ageInDays >= 365 ? ' <span class="lt-badge">LT</span>' : ''}` : 
+                                '-'}</td>
                             </tr>
                           `).join('')}
                         </tbody>
+                        <tfoot>
+                          <tr>
+                            <td colspan="3"><strong>Total Cost Base:</strong></td>
+                            <td><strong>${formatCurrency(tx.lotsConsumed.reduce((sum, lot) => sum + lot.costBase, 0))}</strong></td>
+                            <td></td>
+                          </tr>
+                        </tfoot>
                       </table>
+                      <p class="fifo-note"><strong>FIFO Method:</strong> First-In-First-Out means the oldest coins purchased are sold first.</p>
                     </div>
                   </td>
                 </tr>
@@ -412,31 +422,79 @@ const getPrintStyles = () => {
     }
 
     .fifo-detail td {
-      padding: 10px !important;
-      background-color: #fffaf0;
+      padding: 12px !important;
+      background-color: #fafbfc;
+      border: 1px solid #e5e7eb;
     }
 
     .fifo-breakdown {
       font-size: 10px;
     }
 
+    .fifo-breakdown > strong {
+      color: #374151;
+      font-size: 11px;
+    }
+
     .fifo-table {
       width: 100%;
       margin-top: 10px;
       font-size: 10px;
+      border-collapse: collapse;
+      background: white;
+      border: 1px solid #d1d5db;
     }
 
     .fifo-table thead {
-      background: #4a5568;
+      background: #374151;
     }
 
     .fifo-table th {
-      padding: 6px 8px;
+      padding: 7px 10px;
       font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .fifo-table tbody tr {
+      border-bottom: 1px solid #e5e7eb;
     }
 
     .fifo-table td {
-      padding: 5px 8px;
+      padding: 6px 10px;
+      color: #374151;
+    }
+
+    .fifo-table tfoot {
+      background-color: #f3f4f6;
+      border-top: 2px solid #d1d5db;
+      font-weight: 600;
+    }
+
+    .fifo-table tfoot td {
+      padding: 7px 10px;
+      color: #1f2937;
+    }
+
+    .lt-badge {
+      display: inline-block;
+      margin-left: 4px;
+      padding: 1px 4px;
+      background-color: #d1fae5;
+      color: #065f46;
+      border-radius: 3px;
+      font-size: 7px;
+      font-weight: 700;
+    }
+
+    .fifo-note {
+      margin-top: 8px;
+      padding: 6px 8px;
+      background-color: #f9fafb;
+      border-left: 3px solid #6b7280;
+      font-size: 9px;
+      color: #6b7280;
+      line-height: 1.4;
     }
 
     .report-footer {

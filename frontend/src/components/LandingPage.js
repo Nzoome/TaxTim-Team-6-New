@@ -79,9 +79,12 @@ const LandingPage = () => {
             return {
               ...tx,
               currency: primaryCurrency,
+              amount: breakdown?.amount || tx.toAmount || tx.fromAmount || 0,
               capitalGain: breakdown?.capitalGain || 0,
               proceeds: breakdown?.proceeds || 0,
               costBase: breakdown?.costBase || 0,
+              totalCost: breakdown?.totalCost || 0,
+              costPerUnit: breakdown?.costPerUnit || 0,
               taxYear: breakdown?.taxYear || null,
               lotsConsumed: breakdown?.lotsConsumed || null
             };

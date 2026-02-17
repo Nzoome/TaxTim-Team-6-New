@@ -169,7 +169,13 @@ class FIFOEngine
         $currency = $transaction->getToCurrency();
         $amount = $transaction->getToAmount();
         $totalCost = $transaction->getPrice() * $amount + $transaction->getFee();
-        $costPerUnit = $totalCost / $amount;
+        
+        // Prevent division by zero for invalid/incomplete data
+        if ($amount <= 0) {
+            $costPerUnit = 0;
+        } else {
+            $costPerUnit = $totalCost / $amount;
+        }
 
         // Get or create coin balance
         $balance = $this->getOrCreateBalance($currency, $transaction->getWallet());
@@ -187,6 +193,9 @@ class FIFOEngine
         // Add lot to FIFO queue
         $balance->addLot($lot);
 
+        // Get acquisition tax year
+        $acquisitionTaxYear = $this->taxYearResolver->resolveTaxYearLabel($transaction->getDate());
+
         // Record breakdown
         $this->transactionBreakdowns[] = [
             'date' => $transaction->getDate()->format('Y-m-d H:i:s'),
@@ -201,7 +210,8 @@ class FIFOEngine
             'proceeds' => null,
             'costBase' => null,
             'capitalGain' => null,
-            'lotsConsumed' => null
+            'lotsConsumed' => null,
+            'taxYear' => $acquisitionTaxYear
         ];
     }
 
@@ -335,7 +345,13 @@ class FIFOEngine
         
         // Cost for BUY = proceeds from SELL + fees
         $totalCost = $proceeds + $transaction->getFee();
-        $costPerUnit = $totalCost / $toAmount;
+        
+        // Prevent division by zero for invalid/incomplete data
+        if ($toAmount <= 0) {
+            $costPerUnit = 0;
+        } else {
+            $costPerUnit = $totalCost / $toAmount;
+        }
 
         // Get or create balance for "to" currency
         $toBalance = $this->getOrCreateBalance($toCurrency, $transaction->getWallet());
@@ -447,13 +463,24 @@ class FIFOEngine
                 continue;
             }
             
+            $purchaseDate = $record['acquisitionDate']->format('Y-m-d H:i:s');
+            
+            // Calculate age in days if disposal date is available
+            $ageInDays = null;
+            if ($disposalDate) {
+                $ageInDays = $disposalDate->diff($record['acquisitionDate'])->days;
+            }
+            
             $formatted[] = [
                 'amountConsumed' => $record['amountConsumed'],
                 'costBase' => $record['costBase'],
                 'costPerUnit' => $record['lot']->getCostPerUnit(),
-                'acquisitionDate' => $record['acquisitionDate']->format('Y-m-d H:i:s'),
+                'acquisitionDate' => $purchaseDate,
+                'purchaseDate' => $purchaseDate,  // Add purchaseDate alias for frontend compatibility
                 'originalTransaction' => $record['transactionLineNumber'],
-                'taxYear' => $disposalDate ? $this->taxYearResolver->resolveTaxYearLabel($disposalDate) : null
+                'ageInDays' => $ageInDays,
+                'taxYear' => $disposalDate ? $this->taxYearResolver->resolveTaxYearLabel($disposalDate) : null,
+                'wallet' => $record['lot']->getWallet() ?? 'DEFAULT'
             ];
         }
         return $formatted;
